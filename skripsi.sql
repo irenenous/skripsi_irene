@@ -1,3 +1,11 @@
+-- phpMyAdmin SQL Dump
+-- version 4.5.1
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Oct 27, 2018 at 06:59 PM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -25,6 +33,8 @@ CREATE TABLE `eo` (
   `foto_eo` text NOT NULL,
   `nama_eo` varchar(100) NOT NULL,
   `ket_eo` varchar(1000) NOT NULL,
+  `id_provinsi` int(11) NOT NULL,
+  `id_kota` int(11) NOT NULL,
   `alamat_eo` varchar(500) NOT NULL,
   `nohp_eo` varchar(15) NOT NULL,
   `foto_ktp` text NOT NULL,
@@ -40,9 +50,13 @@ CREATE TABLE `eo` (
 -- Dumping data for table `eo`
 --
 
-INSERT INTO `eo` (`id_eo`, `email_eo`, `password_eo`, `foto_eo`, `nama_eo`, `ket_eo`, `alamat_eo`, `nohp_eo`, `foto_ktp`, `fotodiri_ktp`, `foto_alamat`, `foto_siup`, `tahun_diri`, `link_web`, `status`) VALUES
-(1, 'excellenteo@gmail.com', '123456', '', '', '', '', '', '', '', '', '', 0, '', ''),
-(2, 'groovyeo@gmail.com', '', '', '', '', '', '', '', '', '', '', 0, '', '');
+INSERT INTO `eo` (`id_eo`, `email_eo`, `password_eo`, `foto_eo`, `nama_eo`, `ket_eo`, `id_provinsi`, `id_kota`, `alamat_eo`, `nohp_eo`, `foto_ktp`, `fotodiri_ktp`, `foto_alamat`, `foto_siup`, `tahun_diri`, `link_web`, `status`) VALUES
+(1, 'excellenteo@gmail.com', '123456', '', '', '', 0, 0, '', '', '', '', '', '', 0, '', ''),
+(2, 'groovyeo@gmail.com', '', '', '', '', 0, 0, '', '', '', '', '', '', 0, '', ''),
+(3, 'sasa@yahoo.com', 'sa', 'Array', 'sa', 'sa', 0, 0, 'sa', '2212', 'image-eo/IRENE - friendship-quotes-hd-wallpaper_052819784.jpg', 'image-eo/IRENE - desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/IRENE - Summer-hd-quote-wallpaper.png', 'image-eo/IRENE - P_20150905_163642_BF_p.jpg', 2018, 'sa', 'PENDING'),
+(10, 'asdf@asdf.asdf', 'asdf', 'Array', 'asdf', 'asdf', 3, 0, 'dfasdf', '8125-0381-345', 'image-eo/IRENE - hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'image-eo/IRENE - 151014-102414.png', 'image-eo/IRENE - IMG_9268.JPG', 'image-eo/IRENE - 151014-102414.png', 2017, 'asdf', 'PENDING'),
+(13, 'ireneandriani1998@rocketmail.com', 'saa', 'image-eo/IRENE - hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'sa', 'sa', 3, 0, 'sa', '8125-0381-345', 'image-eo/IRENE - hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'image-eo/IRENE - IMG_9268.JPG', 'image-eo/IRENE - 151014-101849.png', 'image-eo/IRENE - 151014-102414.png', 2018, 'ww', 'PENDING'),
+(24, 'lala123@yahoo.com', '12345', 'image-eo/IRENE - Summer-hd-quote-wallpaper.png', 'LaLa', 'sa', 8, 6, 'sa', '1212-1212-1212', 'image-eo/IRENE - friendship-quotes-hd-wallpaper_052819784.jpg', 'image-eo/IRENE - desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/IRENE - Nice-good-morning-quote-hd-high-resolution-images.jpg', 'image-eo/IRENE - 151014-101849.png', 2018, 'sa', 'PENDING');
 
 -- --------------------------------------------------------
 
@@ -79,6 +93,13 @@ CREATE TABLE `kategori_eo` (
   `id_kategori` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `kategori_eo`
+--
+
+INSERT INTO `kategori_eo` (`id_eo`, `id_kategori`) VALUES
+(24, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -87,229 +108,114 @@ CREATE TABLE `kategori_eo` (
 
 CREATE TABLE `kota` (
   `id_kota` int(11) NOT NULL,
-  `nama_kota` varchar(50) NOT NULL
+  `nama_kota` varchar(50) NOT NULL,
+  `id_provinsi` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `kota`
 --
 
-INSERT INTO `kota` (`id_kota`, `nama_kota`) VALUES
-(1, 'Ambon'),
-(2, 'Balikpapan'),
-(3, 'Banda Aceh'),
-(4, 'Bandar Lampung'),
-(5, 'Bandung'),
-(6, 'Banjar'),
-(7, 'Banjarbaru'),
-(8, 'Banjarmasin'),
-(9, 'Batam'),
-(10, 'Batu'),
-(11, 'Bau-Bau'),
-(12, 'Bekasi'),
-(13, 'Bengkulu'),
-(14, 'Bima'),
-(15, 'Binjai'),
-(16, 'Bitung'),
-(17, 'Blitar'),
-(18, 'Bogor'),
-(19, 'Bontang'),
-(20, 'Bukittinggi'),
-(21, 'Cilegon'),
-(22, 'Cimahi'),
-(23, 'Cirebon'),
-(24, 'Denpasar'),
-(25, 'Depok'),
-(26, 'Dumai'),
-(27, 'Gorontalo'),
-(28, 'Jambi'),
-(29, 'Jayapura'),
-(30, 'Kediri'),
-(31, 'Kendari'),
-(32, 'Jakarta Barat'),
-(33, 'Jakarta Pusat'),
-(34, 'Jakarta Selatan'),
-(35, 'Jakarta Timur'),
-(36, 'Jakarta Utara'),
-(37, 'Kotamobagu'),
-(38, 'Kupang'),
-(39, 'Langsa'),
-(40, 'Lhokseumawe'),
-(41, 'Lubuklinggau'),
-(42, 'Madiun'),
-(43, 'Magelang'),
-(44, 'Makassar'),
-(45, 'Malang'),
-(46, 'Manado'),
-(47, 'Mataram'),
-(48, 'Medan'),
-(49, 'Metro'),
-(50, 'Meulaboh'),
-(51, 'Mojokerto'),
-(52, 'Padang'),
-(53, 'Padang Sidempuan'),
-(54, 'Padangpanjang'),
-(55, 'Pagaralam'),
-(56, 'Palangkaraya'),
-(57, 'Palembang'),
-(58, 'Palu'),
-(59, 'Pangkalpinang'),
-(60, 'Parepare'),
-(61, 'Pariaman'),
-(62, 'Pasuruan'),
-(63, 'Payakumbuh'),
-(64, 'Pekalongan'),
-(65, 'Pekanbaru'),
-(66, 'Pematangsiantar'),
-(67, 'Pontianak'),
-(68, 'Prabumulih'),
-(69, 'Probolinggo'),
-(70, 'Purwokerto'),
-(71, 'Sabang'),
-(72, 'Salatiga'),
-(73, 'Samarinda'),
-(74, 'Sawahlunto'),
-(75, 'Semarang'),
-(76, 'Serang'),
-(77, 'Sibolga'),
-(78, 'Singkawang'),
-(79, 'Solok'),
-(80, 'Sorong'),
-(81, 'Subulussalam'),
-(82, 'Sukabumi'),
-(83, 'Sungai Penuh'),
-(84, 'Surabaya'),
-(85, 'Surakarta'),
-(86, 'Tangerang'),
-(87, 'Tangerang Selatan'),
-(88, 'Tanjungbalai'),
-(89, 'Tanjungpinang'),
-(90, 'Tarakan'),
-(91, 'Tasikmalaya'),
-(92, 'Tebingtinggi'),
-(93, 'Tegal'),
-(94, 'Ternate'),
-(95, 'Tidore Kepulauan'),
-(96, 'Tomohon'),
-(97, 'Tual'),
-(98, 'Yogyakarta'),
-(99, 'Palopo');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `lokasi`
---
-
-CREATE TABLE `lokasi` (
-  `id_provinsi` int(11) NOT NULL,
-  `id_kota` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `lokasi`
---
-
-INSERT INTO `lokasi` (`id_provinsi`, `id_kota`) VALUES
-(19, 1),
-(14, 2),
-(1, 3),
-(18, 4),
-(8, 5),
-(8, 6),
-(12, 7),
-(12, 8),
-(25, 9),
-(10, 10),
-(29, 11),
-(8, 12),
-(4, 13),
-(21, 14),
-(33, 15),
-(30, 16),
-(8, 17),
-(10, 18),
-(14, 19),
-(31, 20),
-(3, 21),
-(8, 22),
-(8, 23),
-(2, 24),
-(8, 25),
-(25, 26),
-(5, 27),
-(7, 28),
-(23, 29),
-(10, 30),
-(29, 31),
-(6, 32),
-(6, 33),
-(6, 34),
-(6, 35),
-(6, 36),
-(30, 37),
-(22, 38),
-(1, 39),
-(1, 40),
-(32, 41),
-(10, 42),
-(9, 43),
-(27, 44),
-(10, 45),
-(30, 46),
-(21, 47),
-(33, 48),
-(18, 49),
-(1, 50),
-(10, 51),
-(31, 52),
-(33, 53),
-(31, 54),
-(32, 55),
-(13, 56),
-(32, 57),
-(28, 58),
-(16, 59),
-(27, 60),
-(31, 61),
-(10, 62),
-(31, 63),
-(9, 64),
-(25, 65),
-(33, 66),
-(11, 67),
-(32, 68),
-(10, 69),
-(9, 70),
-(1, 71),
-(9, 72),
-(14, 73),
-(31, 74),
-(9, 75),
-(3, 76),
-(33, 77),
-(11, 78),
-(31, 79),
-(24, 80),
-(1, 81),
-(8, 82),
-(7, 83),
-(10, 84),
-(9, 85),
-(3, 86),
-(3, 87),
-(33, 88),
-(17, 89),
-(15, 90),
-(8, 91),
-(33, 92),
-(9, 93),
-(20, 94),
-(20, 95),
-(30, 96),
-(19, 97),
-(34, 98),
-(27, 99);
+INSERT INTO `kota` (`id_kota`, `nama_kota`, `id_provinsi`) VALUES
+(1, 'Ambon', 19),
+(2, 'Balikpapan', 14),
+(3, 'Banda Aceh', 1),
+(4, 'Bandar Lampung', 18),
+(5, 'Bandung', 8),
+(6, 'Banjar', 8),
+(7, 'Banjarbaru', 12),
+(8, 'Banjarmasin', 12),
+(9, 'Batam', 25),
+(10, 'Batu', 10),
+(11, 'Bau-Bau', 0),
+(12, 'Bekasi', 0),
+(13, 'Bengkulu', 0),
+(14, 'Bima', 0),
+(15, 'Binjai', 0),
+(16, 'Bitung', 0),
+(17, 'Blitar', 0),
+(18, 'Bogor', 0),
+(19, 'Bontang', 0),
+(20, 'Bukittinggi', 0),
+(21, 'Cilegon', 0),
+(22, 'Cimahi', 0),
+(23, 'Cirebon', 0),
+(24, 'Denpasar', 0),
+(25, 'Depok', 0),
+(26, 'Dumai', 0),
+(27, 'Gorontalo', 0),
+(28, 'Jambi', 0),
+(29, 'Jayapura', 0),
+(30, 'Kediri', 0),
+(31, 'Kendari', 0),
+(32, 'Jakarta Barat', 0),
+(33, 'Jakarta Pusat', 0),
+(34, 'Jakarta Selatan', 0),
+(35, 'Jakarta Timur', 0),
+(36, 'Jakarta Utara', 0),
+(37, 'Kotamobagu', 0),
+(38, 'Kupang', 0),
+(39, 'Langsa', 0),
+(40, 'Lhokseumawe', 0),
+(41, 'Lubuklinggau', 0),
+(42, 'Madiun', 0),
+(43, 'Magelang', 0),
+(44, 'Makassar', 0),
+(45, 'Malang', 0),
+(46, 'Manado', 0),
+(47, 'Mataram', 0),
+(48, 'Medan', 0),
+(49, 'Metro', 0),
+(50, 'Meulaboh', 0),
+(51, 'Mojokerto', 0),
+(52, 'Padang', 0),
+(53, 'Padang Sidempuan', 0),
+(54, 'Padangpanjang', 0),
+(55, 'Pagaralam', 0),
+(56, 'Palangkaraya', 0),
+(57, 'Palembang', 0),
+(58, 'Palu', 0),
+(59, 'Pangkalpinang', 0),
+(60, 'Parepare', 0),
+(61, 'Pariaman', 0),
+(62, 'Pasuruan', 0),
+(63, 'Payakumbuh', 0),
+(64, 'Pekalongan', 0),
+(65, 'Pekanbaru', 0),
+(66, 'Pematangsiantar', 0),
+(67, 'Pontianak', 0),
+(68, 'Prabumulih', 0),
+(69, 'Probolinggo', 0),
+(70, 'Purwokerto', 0),
+(71, 'Sabang', 0),
+(72, 'Salatiga', 0),
+(73, 'Samarinda', 0),
+(74, 'Sawahlunto', 0),
+(75, 'Semarang', 0),
+(76, 'Serang', 0),
+(77, 'Sibolga', 0),
+(78, 'Singkawang', 0),
+(79, 'Solok', 0),
+(80, 'Sorong', 0),
+(81, 'Subulussalam', 0),
+(82, 'Sukabumi', 0),
+(83, 'Sungai Penuh', 0),
+(84, 'Surabaya', 0),
+(85, 'Surakarta', 0),
+(86, 'Tangerang', 0),
+(87, 'Tangerang Selatan', 0),
+(88, 'Tanjungbalai', 0),
+(89, 'Tanjungpinang', 0),
+(90, 'Tarakan', 0),
+(91, 'Tasikmalaya', 0),
+(92, 'Tebingtinggi', 0),
+(93, 'Tegal', 0),
+(94, 'Ternate', 0),
+(95, 'Tidore Kepulauan', 0),
+(96, 'Tomohon', 0),
+(97, 'Tual', 0),
+(98, 'Yogyakarta', 0),
+(99, 'Palopo', 0);
 
 -- --------------------------------------------------------
 
@@ -352,7 +258,8 @@ INSERT INTO `portfolio` (`id_portfolio`, `foto`, `ket_foto`) VALUES
 (1, 'b2.jpg', '17th'),
 (5, '13792.jpg', '34'),
 (6, 'o4.png', '234'),
-(7, 'IRENE - hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'hehehe');
+(7, 'IRENE - hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'hehehe'),
+(8, 'IRENE - Summer-hd-quote-wallpaper.png', 'lala');
 
 -- --------------------------------------------------------
 
@@ -440,7 +347,9 @@ ALTER TABLE `eo`
   ADD PRIMARY KEY (`id_eo`),
   ADD UNIQUE KEY `email` (`email_eo`),
   ADD UNIQUE KEY `username_eo` (`id_eo`),
-  ADD UNIQUE KEY `id_eo` (`id_eo`);
+  ADD UNIQUE KEY `id_eo` (`id_eo`),
+  ADD KEY `id_provinsi` (`id_provinsi`),
+  ADD KEY `id_kota` (`id_kota`);
 
 --
 -- Indexes for table `kategori`
@@ -459,13 +368,7 @@ ALTER TABLE `kategori_eo`
 -- Indexes for table `kota`
 --
 ALTER TABLE `kota`
-  ADD PRIMARY KEY (`id_kota`);
-
---
--- Indexes for table `lokasi`
---
-ALTER TABLE `lokasi`
-  ADD KEY `id_kota` (`id_kota`),
+  ADD PRIMARY KEY (`id_kota`),
   ADD KEY `id_provinsi` (`id_provinsi`);
 
 --
@@ -500,7 +403,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `eo`
 --
 ALTER TABLE `eo`
-  MODIFY `id_eo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_eo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `kategori`
 --
@@ -520,7 +423,7 @@ ALTER TABLE `paket`
 -- AUTO_INCREMENT for table `portfolio`
 --
 ALTER TABLE `portfolio`
-  MODIFY `id_portfolio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_portfolio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `provinsi`
 --
@@ -531,6 +434,17 @@ ALTER TABLE `provinsi`
 --
 ALTER TABLE `user`
   MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `kategori_eo`
+--
+ALTER TABLE `kategori_eo`
+  ADD CONSTRAINT `id_eo_constraint` FOREIGN KEY (`id_eo`) REFERENCES `eo` (`id_eo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `id_kategori_constraint` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
