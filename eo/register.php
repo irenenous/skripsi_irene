@@ -63,25 +63,23 @@
             //UPLOAD FOTO END  
     } 
 
-
-
-        
         $query = mysqli_query($koneksi , "insert into eo values ('','$tangkapEmail', '$tangkapPassword', '$target_fileFoto0',
         '$tangkapCName', '$tangkapCDesc', '$tangkapProvinsi', '$tangkapKota', '$tangkapAddress', '$tangkapNoHp', '$target_fileFotoId', '$target_fileFoto[0]', '$target_fileFoto[1]', '$target_fileFoto[2]', '$tangkapYear', '$tangkapWeb', '$tangkapStatus')");
         
         if (!$query) { 
-            echo '<script> alert("Registrasi gagal. Email sudah pernah terdaftar"); window.history.back(); </script>';
+            echo '<script> alert("Registration failed. Email already exist"); window.history.back(); </script>';
             
         } else {
+        
          $eo_id = mysqli_insert_id($koneksi);
         for ($ix = 0 ; $ix < count($tangkapCategory) ; $ix++) {
             $query = mysqli_query($koneksi , "insert into kategori_eo values ('$eo_id', '$tangkapCategory[$ix]')");
-        }  
-        header('Location: index-fiyeo.php'); 
+        } 
+        header('Location: ../FRONTEND-WEB/index-fiyeo.php'); 
         } 
         
 
-        
+//            echo '<script> alert("Registration successful. Your business profile will be processed in 1-2 days. An email will be sent to you after the validation process. Thankyou!");</script>';
         
 
 ?>

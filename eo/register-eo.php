@@ -20,16 +20,15 @@
 			<!--
 			CSS
 			============================================= -->
-			<link rel="stylesheet" href="css/linearicons.css">
-			<link rel="stylesheet" href="css/font-awesome.min.css">
-			<link rel="stylesheet" href="css/bootstrap.css">
-			<link rel="stylesheet" href="css/magnific-popup.css">
-			<link rel="stylesheet" href="css/nice-select.css">	
-			<link rel="stylesheet" href="css/animate.min.css">
-			<link rel="stylesheet" href="css/owl.carousel.css">
-			<link rel="stylesheet" href="css/main.css">
-            
-            <link rel="stylesheet" href="wizard/assets/css/wizard.css">
+			<link rel="stylesheet" href="../temp-fiyeo/css/linearicons.css">
+			<link rel="stylesheet" href="../temp-fiyeo/css/font-awesome.min.css">
+			<link rel="stylesheet" href="../temp-fiyeo/css/bootstrap.css">
+			<link rel="stylesheet" href="../temp-fiyeo/css/magnific-popup.css">
+			<link rel="stylesheet" href="../temp-fiyeo/css/nice-select.css">	
+			<link rel="stylesheet" href="../temp-fiyeo/css/animate.min.css">
+			<link rel="stylesheet" href="../temp-fiyeo/css/owl.carousel.css">
+			<link rel="stylesheet" href="../temp-fiyeo/css/main.css">
+            <link rel="stylesheet" href="../temp-fiyeo/wizard/assets/css/wizard.css">
             
 <style>
 .nice-select .list { max-height: 300px; overflow: scroll; }
@@ -37,52 +36,31 @@
 		</head>
 		<body>
 
-			    <header id="header" id="home" style="background-color: black">
-			    <div class="container">
-			    	<div class="row align-items-center justify-content-between d-flex">
-				      <div id="logo">
-				        <a href="index-fiyeo.php"><img src="img/irene/fiyeo2.png" alt="" title="" /></a>
-				      </div>
-				      <nav id="nav-menu-container">
-				        <ul class="nav-menu">
-				          <li class="menu-active"><a href="index-fiyeo.php">Home</a></li>
-				          <li class="menu-has-children"><a href="category.html">Category</a>
-                            <ul>
-                                <li><a href="elements.html">Wedding</a></li>
-								<li><a href="search.html">Birthday</a></li>
-								<li><a href="single.html">Private Party</a></li>
-                                <li><a href="elements.html">Music & Entertainment</a></li>
-								<li><a href="search.html">MICE</a></li>
-								<li><a href="single.html">Brand Activation</a></li>
-                                <li><a href="elements.html">Prom & Reunion</a></li>
-                              </ul>
-                            </li>
-				          <li><a href="contact.html">Contact</a></li>
-				          <li class="menu-has-children"><a href="">Pages</a>
-				            <ul>
-								<li><a href="elements.html">elements</a></li>
-								<li><a href="search.html">search</a></li>
-								<li><a href="single.html">single</a></li>
-				            </ul>
-				          </li>
-                        <li><a class="ticker-btn" href="register-eo.php">Register as EO</a></li>
-				          <li><a class="ticker-btn" href="signup-fiyeo.php">Sign Up</a></li>
-				          <li><a class="ticker-btn" href="login-fiyeo.php">Log In</a></li>				          				          
-				        </ul>
-				      </nav><!-- #nav-menu-container -->		    		
-			    	</div>
-			    </div>
-			  </header><!-- #header -->
-<section class="post-area section-gap" style="padding:80px;">
-  <div class="container" style="text-align: center">
+			   <?php include '../FRONTEND-WEB/header-fiyeo.php' ?>
+            <!-- #header -->
+            
+            		<section class="banner-area relative" id="home">	
+				<div class="overlay overlay-bg"></div>
+				<div class="container">
+					<div class="row d-flex align-items-center justify-content-center">
+						<div class="about-content col-lg-12" style="padding-top: 150px; padding-bottom: 50px">
+							<h1 class="text-white">
+								Register As EO				
+                            </h1>
+                            <p class="text-white mt-3">Fill in the form to get instant access</p>
+                        </div>	
+
+            
+				</div>	
+                </div>        
+			</section>
+  <div class="container" style="text-align: center; margin-bottom:50px;">
                 
                 <div class="row">
                     <div class="col-md-8 offset-md-2 form-box">
                     	<form role="form" action="register.php" method="post" class="f1" enctype="multipart/form-data">
 
-                            <h3><b style="color:black">Register As EO</b></h3>
-                    		<p>Fill in the form to get instant access</p>
-                    		<div class="f1-steps" style="text-align: center; margin-top: 40px;">
+                    		<div class="f1-steps" style="text-align: center; margin-top: 1px;">
                     			<div class="f1-progress" style="text-align: center">
                     			    <div class="f1-progress-line" data-now-value="12.5" data-number-of-steps="4" style="width: 12.5%;"></div>
                     			</div>
@@ -146,20 +124,31 @@
                                 <label for="companydesc"><b style="color:black">Company Description</b></label>
                                 <textarea class="single-textarea" placeholder="Describe more information about your company" id="companydesc" name="companydesc" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Describe more information about your company'" required></textarea>
                                 </div>
-                                <div class="form-group">
-                                <div class="form-select" id="default-select">
-                                <label for="category"><b style="color:black">Company Category</b></label>
-                        <select id="category" required multiple='multiple' name='nama_kategori[]'>
-                        <?php 
+                        <div style="margin-bottom: 1rem;">
+                        <div id ="nice-select-group">
+					<div class="form-group">
+						
+						<label for="category"><b style="color:black">Company Category</b></label>
+                        <div class="d-flex">
+                        <div id="div-of-category" class="col-lg-6" style="padding-left:0px;">
+                        <div class="form-select" id="default-select">
+						<select id="category" required multiple='multiple' name='nama_kategori[]'>
+                        <option value='belum milih' selected>- Choose Category -</option>
+						<?php 
                         include 'config.php';
                         $tampil=mysqli_query($koneksi, "SELECT id_kategori, nama_kategori FROM kategori");
-                       echo "<option value='belum milih' selected>- Choose Category -</option>";    while($id_kategori=mysqli_fetch_array($tampil)) {
+                    while($id_kategori=mysqli_fetch_array($tampil)) {
                         echo "<option value='".$id_kategori[id_kategori]."' required> ".$id_kategori[nama_kategori]."</option>";}
                         ?>
-                        </select>
+						</select>
                         </div>
+						</div>
+                        <button type="button" onclick="$('#nice-select-group').append($('#div-of-category').clone().attr('id', 'div-of-category'+ clone_count++));" class="genric-btn success-border radius" style="width:"><i class="fa fa-plus fa-lg"></i> </button>
+					   </div>
                         </div>
-                        <div class="form-row col-lg-12" style="padding-left: 0px; margin-top:45px;">
+                        </div> 
+                        </div>
+                        <div class="form-row col-lg-12" style="padding-left: 0px;">
                         <div class="form-group col-lg-6">
                         <div class="form-select" id="default-select">
                         <label for="province"><b style="color:black">Province</b></label>
@@ -257,7 +246,6 @@
                 </div>
                     
             </div>   
-</section>
             
 	<!-- start footer Area -->		
 			<footer class="footer-area section-gap" style="padding:50px 0; height:345px;">
@@ -297,32 +285,32 @@
 					<div class="row footer-bottom d-flex justify-content-center" style="padding: 40px;">
 						<p class="footer-text m-0 text-white">
 							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-<img src="img/irene/fiyeo2.png" alt=""> Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | PT. XYZ
+<img src="../temp-fiyeo/img/irene/fiyeo2.png" alt=""> Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | PT. XYZ
 						</p>
 					</div>
 				</div>
 			</footer>
 			<!-- End footer Area -->	
-			<script src="js/vendor/jquery-2.2.4.min.js"></script>
+			<script src="../temp-fiyeo/js/vendor/jquery-2.2.4.min.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-			<script src="js/vendor/bootstrap.min.js"></script>
+			<script src="../temp-fiyeo/js/vendor/bootstrap.min.js"></script>
 			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-  			<script src="js/easing.min.js"></script>			
-			<script src="js/hoverIntent.js"></script>
-			<script src="js/superfish.min.js"></script>	
-			<script src="js/jquery.ajaxchimp.min.js"></script>
-			<script src="js/jquery.magnific-popup.min.js"></script>	
-			<script src="js/owl.carousel.min.js"></script>		
-			<script src="js/jquery.sticky.js"></script>
-            <script src="js/jquery.nice-select.min.js"></script>
-			<script src="js/parallax.min.js"></script>		
-			<script src="js/mail-script.js"></script>	
-			<script src="js/main.js"></script>
-            <script src="js/jQuery-Mask-Plugin-master/dist/jquery.mask.js"></script>
-            <script src="wizard/assets/js/jquery.backstretch.min.js"></script>
-            <script src="wizard/assets/js/retina-1.1.0.min.js"></script>
-            <script src="wizard/assets/js/scripts.js"></script>
+  			<script src="../temp-fiyeo/js/easing.min.js"></script>			
+			<script src="../temp-fiyeo/js/hoverIntent.js"></script>
+			<script src="../temp-fiyeo/js/superfish.min.js"></script>	
+			<script src="../temp-fiyeo/js/jquery.ajaxchimp.min.js"></script>
+			<script src="../temp-fiyeo/js/jquery.magnific-popup.min.js"></script>	
+			<script src="../temp-fiyeo/js/owl.carousel.min.js"></script>		
+			<script src="../temp-fiyeo/js/jquery.sticky.js"></script>
+            <script src="../temp-fiyeo/js/jquery.nice-select.min.js"></script>
+			<script src="../temp-fiyeo/js/parallax.min.js"></script>		
+			<script src="../temp-fiyeo/js/mail-script.js"></script>	
+			<script src="../temp-fiyeo/js/main.js"></script>
+            <script src="../temp-fiyeo/js/jQuery-Mask-Plugin-master/dist/jquery.mask.js"></script>
+            <script src="../temp-fiyeo/wizard/assets/js/jquery.backstretch.min.js"></script>
+            <script src="../temp-fiyeo/wizard/assets/js/retina-1.1.0.min.js"></script>
+            <script src="../temp-fiyeo/wizard/assets/js/scripts.js"></script>
             
             
 <script type="text/javascript">
@@ -422,6 +410,10 @@ $("#foto").change(function() {
   readURL(this);
 }); 
     
+</script>
+          
+<script type="text/javascript">
+var clone_count = 0;
 </script>
             
     </body>
