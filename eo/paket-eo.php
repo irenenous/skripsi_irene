@@ -27,6 +27,9 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
   </head>
+<style>
+   
+</style>
  <body>
     <div class="page" style="background-color: white;">
        
@@ -77,51 +80,6 @@
                 <div class="pull-right">
                <button class="btn btn-primary" style="color: white;" data-toggle="modal" data-target="#modalForm"><i class="fa fa-plus-circle"></i> Add Service Package</button></div> </div>
                     
-            <!-- Modal -->
-    <div class="modal fade" id="modalForm" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Add Service Package</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            
-            <!-- Modal Body -->
-            <form role="form" method="POST" action="addpaket.php">
-            <div class="modal-body">
-                <!-- <p class="statusMsg"></p> -->
-                    <div class="form-group">
-                        <label for="inputName">Package Name</label>
-                        <input type="text" class="form-control" name="namapaket" id="namapaket" placeholder="Enter package name" required/>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputType">Type (Event)</label>
-                        <input type="text" class="form-control" name="jenispaket" id="jenispaket" placeholder="Example: Wedding/Birthday/Prom" required/>
-                    </div>
-                     <div class="form-group">
-                    <label for="inputPrice">Price (Start From) </label>
-                    <div class="input-group">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">IDR</span>
-                    </div>
-                    <input type="text" class="form-control" name="hargapaket" id="hargapaket" placeholder="Enter package price" required/>
-                    </div> 
-                    </div>
-                    <div class="form-group">
-                        <label for="inputDescription">Description</label>
-                        <textarea class="form-control" name="ketpaket" id="ketpaket" placeholder="Describe all the services included in the package" required></textarea>
-                    </div>
-                    </div>
-            <!-- Modal Footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary submitBtn" id="tambah" name="tambah">Add</button>
-            </div>
-        </form>
-        </div>
-        </div>
-        </div> 
     <?php
 	include("config.php");
 	$query1="SELECT * FROM paket";
@@ -156,7 +114,7 @@
 			
 			<td><?php echo $pname ?></td>
 			<td><?php echo $type ?></td>
-			<td><?php echo $price ?></td>
+			<td><?php echo 'IDR '.$price ?></td>
 			<td><?php echo $description ?></td>
 			<td> 
                 <div class="btn-group btn-group-xs">
@@ -233,6 +191,52 @@
 		$('#datatable').DataTable().ajax.reload();
 	}
     </script>
+     
+              <!-- Modal -->
+    <div class="modal fade" id="modalForm" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Add Service Package</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+
+            <!-- Modal Body -->
+            <form role="form" method="POST" action="addpaket.php">
+            <div class="modal-body">
+                <!-- <p class="statusMsg"></p> -->
+                    <div class="form-group">
+                        <label for="inputName">Package Name</label>
+                        <input type="text" class="form-control" name="namapaket" id="namapaket" placeholder="Enter package name" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputType">Type (Event)</label>
+                        <input type="text" class="form-control" name="jenispaket" id="jenispaket" placeholder="Example: Wedding/Birthday/Prom" required/>
+                    </div>
+                     <div class="form-group">
+                    <label for="inputPrice">Price (Start From) </label>
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">IDR</span>
+                    </div>
+                    <input type="text" class="form-control" name="hargapaket" id="hargapaket" placeholder="Enter package price" required/>
+                    </div> 
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDescription">Description</label>
+                        <textarea class="form-control" name="ketpaket" id="ketpaket" placeholder="Describe all the services included in the package" required></textarea>
+                    </div>
+                    </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary submitBtn" id="tambah" name="tambah">Add</button>
+            </div>
+        </form>
+        </div>
+        </div>
+        </div> 
      
      
   </body>

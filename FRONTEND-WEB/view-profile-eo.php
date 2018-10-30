@@ -28,6 +28,76 @@
 			<link rel="stylesheet" href="../temp-fiyeo/css/animate.min.css">
 			<link rel="stylesheet" href="../temp-fiyeo/css/owl.carousel.css">
 			<link rel="stylesheet" href="../temp-fiyeo/css/main.css">
+        
+<style>
+.rating {
+  display: inline-block;
+  position: relative;
+  height: 30px;
+  line-height: 30px;
+  font-size: 30px;
+}
+
+.rating label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  cursor: pointer;
+}
+
+.rating label:last-child {
+  position: static;
+}
+
+.rating label:nth-child(1) {
+  z-index: 5;
+}
+
+.rating label:nth-child(2) {
+  z-index: 4;
+}
+
+.rating label:nth-child(3) {
+  z-index: 3;
+}
+
+.rating label:nth-child(4) {
+  z-index: 2;
+}
+
+.rating label:nth-child(5) {
+  z-index: 1;
+}
+
+.rating label input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.rating label .icon {
+  float: left;
+  color: transparent;
+}
+
+.rating label:last-child .icon {
+  color: #000;
+}
+
+.rating:not(:hover) label input:checked ~ .icon,
+.rating:hover label:hover input ~ .icon {
+  color: #09f;
+}
+
+.rating label input:focus:not(:checked) ~ .icon:last-child {
+  color: #000;
+  text-shadow: 0 0 5px #09f;
+}    
+</style>
+        
+        
 		</head>
 		<body>
 
@@ -180,29 +250,10 @@
             <div class="single-post job-experience">
             <h3 class="single-title">Reviews
             <div class="pull-right">
-            <button class="genric-btn success circle" style="font-size:60%;" data-toggle="modal" data-target="#myModal">Give Review</button>
+            <button class="genric-btn success circle" style="font-size:60%;" data-toggle="modal" data-target="#myModal">Add Review</button>
             </div>
             <hr style="margin-top:30px;"> </h3>  
-            <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
+           
             <ul><li>
             <div class="details justify-content-center align-items-center" style="margin-top:40px;">
             <table style="color:black; padding:20px;">
@@ -258,9 +309,8 @@
             <div class="row justify-content-center align-items-right col-lg-12">
             <a href="#" class="genric-btn success-border e-large mt-20 mb-20" style="width:1000px; height:50px;">Load More</a></div>
             </div>    
-            </div>
-                
-            </div>   
+            </div>  
+            </div>  
             </div></div></div>	
 			</section>
 			<!-- End post Area -->
@@ -326,8 +376,81 @@
 			<script src="../temp-fiyeo/js/mail-script.js"></script>	
 			<script src="../temp-fiyeo/js/main.js"></script>	     
             <script src="../temp-fiyeo/js/modal-img.js"></script>
-		</body>
-	</html>
+	
+        
+    <div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Write a Review</h4>
+      </div>
+    <form role="form" method="POST" action="addreview.php">
+      <div class="modal-body">
+        <div class="form-group">
+        
+        <label for="rating"><b style="color:black">Rating</b></label>
+        <br>
+        <div class="rating" style="margin-left:3px;">
+  <label>
+    <input type="radio" name="stars" value="1" />
+    <span class="icon">★</span>
+  </label>
+  <label>
+    <input type="radio" name="stars" value="2" />
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+  </label>
+  <label>
+    <input type="radio" name="stars" value="3" />
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>   
+  </label>
+  <label>
+    <input type="radio" name="stars" value="4" />
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+  </label>
+  <label>
+    <input type="radio" name="stars" value="5" />
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+  </label>
+        </div>
+        
+        </div>
+        <div class="form-group">
+       <label for="review"><b style="color:black">* Review</b></label>
+        <textarea class="form-control" name="review" id="review" placeholder="Please write an honest review" required></textarea>
+        </div>
+        <p><strong>* Wajib Diisi</strong></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary submitBtn" id="tambah" name="tambah">Add</button>
+      </div>
+    </form>
+    </div>
+
+  </div>
+</div>
+        
+<script type="text/javascript">
+$(':radio').change(function() {
+  console.log('New star rating: ' + this.value);
+});
+</script>
+
+</body>
+</html>
 
 
 

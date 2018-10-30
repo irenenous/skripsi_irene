@@ -1,4 +1,8 @@
-	<!DOCTYPE html>
+<?php 
+session_start();
+include 'config.php';
+?>	
+<!DOCTYPE html>
 	<html lang="zxx" class="no-js">
 	<head>
 		<!-- Mobile Specific Meta -->
@@ -31,7 +35,16 @@
 		</head>
 		<body>
 
-			<?php include 'header-fiyeo.php' ?>
+<?php
+if (isset ($_SESSION['email'])!="") {
+    $iduser = $_SESSION['id'];
+    $namauser = $_SESSION['nama'];
+   include ("header-loggedin.php");
+}
+else {
+include("header-fiyeo.php");
+}
+?>
             <!-- #header -->
 
 
@@ -42,7 +55,7 @@
 					<div class="row fullscreen d-flex align-items-center justify-content-center">
 						<div class="banner-content col-lg-12">
 							<h1 class="text-white">
-								Find Your <span> Event Organizer </span>				
+								Find Your <span> Event Organizer</span>				
 							</h1>	
 							<form action="search.html" class="serach-form-area">
 								<div class="row justify-content-center form-wrap">

@@ -1,4 +1,5 @@
-	<!DOCTYPE html>
+<?php SESSION_START(); ?>	
+<!DOCTYPE html>
 	<html lang="zxx" class="no-js">
 	<head>
 		<!-- Mobile Specific Meta -->

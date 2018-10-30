@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2018 at 06:59 PM
+-- Generation Time: Oct 30, 2018 at 02:47 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -51,12 +51,8 @@ CREATE TABLE `eo` (
 --
 
 INSERT INTO `eo` (`id_eo`, `email_eo`, `password_eo`, `foto_eo`, `nama_eo`, `ket_eo`, `id_provinsi`, `id_kota`, `alamat_eo`, `nohp_eo`, `foto_ktp`, `fotodiri_ktp`, `foto_alamat`, `foto_siup`, `tahun_diri`, `link_web`, `status`) VALUES
-(1, 'excellenteo@gmail.com', '123456', '', '', '', 0, 0, '', '', '', '', '', '', 0, '', ''),
-(2, 'groovyeo@gmail.com', '', '', '', '', 0, 0, '', '', '', '', '', '', 0, '', ''),
-(3, 'sasa@yahoo.com', 'sa', 'Array', 'sa', 'sa', 0, 0, 'sa', '2212', 'image-eo/IRENE - friendship-quotes-hd-wallpaper_052819784.jpg', 'image-eo/IRENE - desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/IRENE - Summer-hd-quote-wallpaper.png', 'image-eo/IRENE - P_20150905_163642_BF_p.jpg', 2018, 'sa', 'PENDING'),
-(10, 'asdf@asdf.asdf', 'asdf', 'Array', 'asdf', 'asdf', 3, 0, 'dfasdf', '8125-0381-345', 'image-eo/IRENE - hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'image-eo/IRENE - 151014-102414.png', 'image-eo/IRENE - IMG_9268.JPG', 'image-eo/IRENE - 151014-102414.png', 2017, 'asdf', 'PENDING'),
-(13, 'ireneandriani1998@rocketmail.com', 'saa', 'image-eo/IRENE - hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'sa', 'sa', 3, 0, 'sa', '8125-0381-345', 'image-eo/IRENE - hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'image-eo/IRENE - IMG_9268.JPG', 'image-eo/IRENE - 151014-101849.png', 'image-eo/IRENE - 151014-102414.png', 2018, 'ww', 'PENDING'),
-(24, 'lala123@yahoo.com', '12345', 'image-eo/IRENE - Summer-hd-quote-wallpaper.png', 'LaLa', 'sa', 8, 6, 'sa', '1212-1212-1212', 'image-eo/IRENE - friendship-quotes-hd-wallpaper_052819784.jpg', 'image-eo/IRENE - desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/IRENE - Nice-good-morning-quote-hd-high-resolution-images.jpg', 'image-eo/IRENE - 151014-101849.png', 2018, 'sa', 'PENDING');
+(27, 'groovyeo@gmail.com', '123456', 'image-eo/groovy.png', 'Groovy EO', 'best event organizer in jakarta', 3, 86, 'Jl. Permata', '0821-5789-0876', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'image-eo/Nice-good-morning-quote-hd-high-resolution-images.jpg', 'image-eo/20150521_175610.jpg', 'image-eo/friendship-quotes-hd-wallpaper_052819784.jpg', 2011, 'www.groovyeo.com', 'VERIFIED'),
+(28, 'excellenteo@gmail.com', '123456', 'image-eo/Summer-hd-quote-wallpaper.png', 'Excellent Event Organizer', 'excellent', 7, 83, 'jl. cengkareng', '2313-2321-1313', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'image-eo/friendship-quotes-hd-wallpaper_052819784.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/scenery-wallpaper-hd-beach-HD.jpg', 2014, 'www.excellentevent.com', 'VERIFIED');
 
 -- --------------------------------------------------------
 
@@ -98,7 +94,11 @@ CREATE TABLE `kategori_eo` (
 --
 
 INSERT INTO `kategori_eo` (`id_eo`, `id_kategori`) VALUES
-(24, 3);
+(27, 1),
+(27, 2),
+(27, 3),
+(28, 7),
+(28, 5);
 
 -- --------------------------------------------------------
 
@@ -127,95 +127,95 @@ INSERT INTO `kota` (`id_kota`, `nama_kota`, `id_provinsi`) VALUES
 (8, 'Banjarmasin', 12),
 (9, 'Batam', 25),
 (10, 'Batu', 10),
-(11, 'Bau-Bau', 0),
-(12, 'Bekasi', 0),
-(13, 'Bengkulu', 0),
-(14, 'Bima', 0),
-(15, 'Binjai', 0),
-(16, 'Bitung', 0),
-(17, 'Blitar', 0),
-(18, 'Bogor', 0),
-(19, 'Bontang', 0),
-(20, 'Bukittinggi', 0),
-(21, 'Cilegon', 0),
-(22, 'Cimahi', 0),
-(23, 'Cirebon', 0),
-(24, 'Denpasar', 0),
-(25, 'Depok', 0),
-(26, 'Dumai', 0),
-(27, 'Gorontalo', 0),
-(28, 'Jambi', 0),
-(29, 'Jayapura', 0),
-(30, 'Kediri', 0),
-(31, 'Kendari', 0),
-(32, 'Jakarta Barat', 0),
-(33, 'Jakarta Pusat', 0),
-(34, 'Jakarta Selatan', 0),
-(35, 'Jakarta Timur', 0),
-(36, 'Jakarta Utara', 0),
-(37, 'Kotamobagu', 0),
-(38, 'Kupang', 0),
-(39, 'Langsa', 0),
-(40, 'Lhokseumawe', 0),
-(41, 'Lubuklinggau', 0),
-(42, 'Madiun', 0),
-(43, 'Magelang', 0),
-(44, 'Makassar', 0),
-(45, 'Malang', 0),
-(46, 'Manado', 0),
-(47, 'Mataram', 0),
-(48, 'Medan', 0),
-(49, 'Metro', 0),
-(50, 'Meulaboh', 0),
-(51, 'Mojokerto', 0),
-(52, 'Padang', 0),
-(53, 'Padang Sidempuan', 0),
-(54, 'Padangpanjang', 0),
-(55, 'Pagaralam', 0),
-(56, 'Palangkaraya', 0),
-(57, 'Palembang', 0),
-(58, 'Palu', 0),
-(59, 'Pangkalpinang', 0),
-(60, 'Parepare', 0),
-(61, 'Pariaman', 0),
-(62, 'Pasuruan', 0),
-(63, 'Payakumbuh', 0),
-(64, 'Pekalongan', 0),
-(65, 'Pekanbaru', 0),
-(66, 'Pematangsiantar', 0),
-(67, 'Pontianak', 0),
-(68, 'Prabumulih', 0),
-(69, 'Probolinggo', 0),
-(70, 'Purwokerto', 0),
-(71, 'Sabang', 0),
-(72, 'Salatiga', 0),
-(73, 'Samarinda', 0),
-(74, 'Sawahlunto', 0),
-(75, 'Semarang', 0),
-(76, 'Serang', 0),
-(77, 'Sibolga', 0),
-(78, 'Singkawang', 0),
-(79, 'Solok', 0),
-(80, 'Sorong', 0),
-(81, 'Subulussalam', 0),
-(82, 'Sukabumi', 0),
-(83, 'Sungai Penuh', 0),
-(84, 'Surabaya', 0),
-(85, 'Surakarta', 0),
-(86, 'Tangerang', 0),
-(87, 'Tangerang Selatan', 0),
-(88, 'Tanjungbalai', 0),
-(89, 'Tanjungpinang', 0),
-(90, 'Tarakan', 0),
-(91, 'Tasikmalaya', 0),
-(92, 'Tebingtinggi', 0),
-(93, 'Tegal', 0),
-(94, 'Ternate', 0),
-(95, 'Tidore Kepulauan', 0),
-(96, 'Tomohon', 0),
-(97, 'Tual', 0),
-(98, 'Yogyakarta', 0),
-(99, 'Palopo', 0);
+(11, 'Bau-Bau', 29),
+(12, 'Bekasi', 8),
+(13, 'Bengkulu', 4),
+(14, 'Bima', 21),
+(15, 'Binjai', 33),
+(16, 'Bitung', 30),
+(17, 'Blitar', 8),
+(18, 'Bogor', 10),
+(19, 'Bontang', 14),
+(20, 'Bukittinggi', 31),
+(21, 'Cilegon', 3),
+(22, 'Cimahi', 8),
+(23, 'Cirebon', 8),
+(24, 'Denpasar', 2),
+(25, 'Depok', 8),
+(26, 'Dumai', 25),
+(27, 'Gorontalo', 5),
+(28, 'Jambi', 7),
+(29, 'Jayapura', 23),
+(30, 'Kediri', 10),
+(31, 'Kendari', 29),
+(32, 'Jakarta Barat', 6),
+(33, 'Jakarta Pusat', 6),
+(34, 'Jakarta Selatan', 6),
+(35, 'Jakarta Timur', 6),
+(36, 'Jakarta Utara', 6),
+(37, 'Kotamobagu', 30),
+(38, 'Kupang', 22),
+(39, 'Langsa', 1),
+(40, 'Lhokseumawe', 1),
+(41, 'Lubuklinggau', 32),
+(42, 'Madiun', 10),
+(43, 'Magelang', 9),
+(44, 'Makassar', 27),
+(45, 'Malang', 10),
+(46, 'Manado', 30),
+(47, 'Mataram', 21),
+(48, 'Medan', 33),
+(49, 'Metro', 18),
+(50, 'Meulaboh', 1),
+(51, 'Mojokerto', 10),
+(52, 'Padang', 31),
+(53, 'Padang Sidempuan', 33),
+(54, 'Padangpanjang', 31),
+(55, 'Pagaralam', 32),
+(56, 'Palangkaraya', 13),
+(57, 'Palembang', 32),
+(58, 'Palu', 28),
+(59, 'Pangkalpinang', 16),
+(60, 'Parepare', 27),
+(61, 'Pariaman', 31),
+(62, 'Pasuruan', 10),
+(63, 'Payakumbuh', 31),
+(64, 'Pekalongan', 9),
+(65, 'Pekanbaru', 25),
+(66, 'Pematangsiantar', 33),
+(67, 'Pontianak', 11),
+(68, 'Prabumulih', 32),
+(69, 'Probolinggo', 10),
+(70, 'Purwokerto', 9),
+(71, 'Sabang', 1),
+(72, 'Salatiga', 9),
+(73, 'Samarinda', 14),
+(74, 'Sawahlunto', 31),
+(75, 'Semarang', 9),
+(76, 'Serang', 3),
+(77, 'Sibolga', 33),
+(78, 'Singkawang', 11),
+(79, 'Solok', 31),
+(80, 'Sorong', 24),
+(81, 'Subulussalam', 1),
+(82, 'Sukabumi', 8),
+(83, 'Sungai Penuh', 7),
+(84, 'Surabaya', 10),
+(85, 'Surakarta', 9),
+(86, 'Tangerang', 3),
+(87, 'Tangerang Selatan', 3),
+(88, 'Tanjungbalai', 33),
+(89, 'Tanjungpinang', 17),
+(90, 'Tarakan', 15),
+(91, 'Tasikmalaya', 8),
+(92, 'Tebingtinggi', 33),
+(93, 'Tegal', 9),
+(94, 'Ternate', 20),
+(95, 'Tidore Kepulauan', 20),
+(96, 'Tomohon', 30),
+(97, 'Tual', 19),
+(98, 'Yogyakarta', 34),
+(99, 'Palopo', 27);
 
 -- --------------------------------------------------------
 
@@ -236,7 +236,8 @@ CREATE TABLE `paket` (
 --
 
 INSERT INTO `paket` (`id_paket`, `nama_paket`, `jenis_paket`, `harga_paket`, `ket_paket`) VALUES
-(2, 'Emerald Blue', 'Wedding', '3.000.000', 'Include MC');
+(3, 'Emerald Blue', 'Wedding', '3.000.000', 'include mc'),
+(4, 'Fun Surprise', 'Birthday', '1.000.000', 'Worth the price');
 
 -- --------------------------------------------------------
 
@@ -255,11 +256,7 @@ CREATE TABLE `portfolio` (
 --
 
 INSERT INTO `portfolio` (`id_portfolio`, `foto`, `ket_foto`) VALUES
-(1, 'b2.jpg', '17th'),
-(5, '13792.jpg', '34'),
-(6, 'o4.png', '234'),
-(7, 'IRENE - hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'hehehe'),
-(8, 'IRENE - Summer-hd-quote-wallpaper.png', 'lala');
+(15, 'portfolio/friendship-quotes-hd-wallpaper_052819784.jpg', 'sa');
 
 -- --------------------------------------------------------
 
@@ -403,7 +400,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `eo`
 --
 ALTER TABLE `eo`
-  MODIFY `id_eo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_eo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `kategori`
 --
@@ -418,12 +415,12 @@ ALTER TABLE `kota`
 -- AUTO_INCREMENT for table `paket`
 --
 ALTER TABLE `paket`
-  MODIFY `id_paket` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_paket` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `portfolio`
 --
 ALTER TABLE `portfolio`
-  MODIFY `id_portfolio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_portfolio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `provinsi`
 --

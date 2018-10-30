@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<?php SESSION_START(); ?>
+<?php SESSION_START();
+?>
 	<html lang="zxx" class="no-js">
 	<head>
 		<!-- Mobile Specific Meta -->
@@ -31,7 +32,13 @@
 			<link rel="stylesheet" href="../temp-fiyeo/css/main.css">
 		</head>
 		<body>
-<?php include '../FRONTEND-WEB/header-fiyeo.php' ?>
+            
+            
+<?php 
+
+include '../FRONTEND-WEB/header-fiyeo.php'
+
+?>
             <!-- #header -->
 
 

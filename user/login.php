@@ -1,45 +1,47 @@
 <?php
+session_start();
     if (isset($_POST['login'])) {
         include 'config.php';
         
-        $email_eo=$_POST['email'];
-        $password_eo= $_POST['password'];
+        $email=$_POST['email'];
+        $password= $_POST['password'];
         
-        $sql = "SELECT * FROM eo where email_eo='$email_eo' and password_eo='$password_eo' ";
+        $sql = "SELECT * FROM eo where email_eo='$email' and password_eo='$password' and status='VERIFIED'";
         $result = mysqli_query($koneksi, $sql);
-
-        if (mysqli_num_rows($result) > 0) 
+        $row =mysqli_num_rows($result);
+        if ($row > 0) 
         {
-            while($row = mysqli_fetch_assoc($result))
-            {
-
-          echo("<script>location.href='../eo/dashboard-eo.php?msg=$msg';</script>");        
-    }
+            $keluar = mysqli_fetch_assoc($result);
+            $_SESSION['id'] = $keluar['id_eo'];
+            $_SESSION['nama'] = $keluar['nama_eo'];
+            $_SESSION['email'] = $keluar['email_eo'];
+             header('location:../eo/dashboard-eo.php');           
         }
-    
-        if(isset($_POST['login'])) {
-        //------------
-        $email_user=$_POST['email'];
-        $password_user=$_POST['password'];
+        else if($row == 0) {
         
-        $sql = "SELECT * FROM user where email_user='$email_user' and password_klien='$password_user' and status='ACTIVE' ";
-        $result = mysqli_query($koneksi, $sql);
-
-        if (mysqli_num_rows($result) > 0) 
-        {
-            while($row = mysqli_fetch_assoc($result))
-            {             
-            
-            echo("<script>location.href='finish-login.php?msg=$msg';</script>");  
-            }
-        }
-       else 
+       $sql2 = "SELECT * FROM user where email_user='$email' and password_user='$password' and status='ACTIVE' ";
+        $result2 = mysqli_query($koneksi, $sql2);
+        $row2 = mysqli_num_rows($result2);
+        if ($row2> 0) {
+            $keluar2 = mysqli_fetch_assoc($result2);
+            $_SESSION['id'] = $keluar2['id_user'];
+            $_SESSION['nama'] = $keluar2['nama_user'];
+            $_SESSION['email'] = $keluar2['email_user'];
+            header('location:../FRONTEND-WEB/index-fiyeo.php');
+         }
+            else 
        {
             echo " <center> <Br><Br><Br><Br><Br><Br><Br><Br><Br><Br><Br><Br><Br><br>";
            echo "Wrong Email or Password </center>"  ;
-       }
-        mysqli_close($koneksi);
+       }   
         }
+            
         
-        }
+   
+        //------------
+
+    mysqli_close($koneksi);
+    }
+        
+
 ?>
