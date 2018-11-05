@@ -137,12 +137,14 @@ $select = mysqli_fetch_array($tampil);
 			<td><?php echo 'IDR '.$price ?></td>
 			<td><?php echo $description ?></td>
 			<td> 
-                <div class="btn-group btn-group-xs">
-                <a class="btn btn-default btn-sm" href="editpaket.php?id_paket=<?php echo $id?>">Edit</a>
+                <div class="btn-group-xs">
+                <a class="btn btn-sm btn-primary" href="editpaket.php?id_paket=<?php echo $id?>"><i class="fa fa-edit"></i></a>
                 <script>
                     function deleteFunction(id){
                         swal({
-                          title: 'Ya sure bro want to delete ?',
+                          title: 'Are you sure?',
+                          text: "Deleted records can not be recovered!",
+                          type: 'warning',
                           showCancelButton: true,
                           confirmButtonText: 'Yes',
                           showLoaderOnConfirm: true,
@@ -154,9 +156,10 @@ $select = mysqli_fetch_array($tampil);
                             if (status.value.ok){
                                 swal({
                                   type: 'success',
-                                  title: 'Kedelete bro',
+                                  title: 'Deleted!',
+                                    text: "Your package record has been deleted",
                                   showConfirmButton: false,
-                                  timer: 1000
+                                  timer: 1500
                                 }).then( () => {
                                     location.reload();
                                 }
@@ -165,15 +168,16 @@ $select = mysqli_fetch_array($tampil);
                             } else {
                                 swal({
                                   type: 'error',
-                                  title: 'Ga kedelete gan',
+                                  title: 'Failed!',
+                                  text: "Your package record can not be deleted",
                                   showConfirmButton: false,
-                                  timer: 1000
+                                  timer: 1500
                                 })   
                             }       
                         })    
                       }    
                 </script>
-                <button onclick="deleteFunction(<?php echo $id ?>)" class="btn btn-default btn-sm danger"><i class="fa fa-trash" ></i></button>
+                <button onclick="deleteFunction(<?php echo $id ?>)" class="btn btn-sm btn-primary"><i class="fa fa-trash" ></i></button>
                 </div>
           </td>
 			</tr>

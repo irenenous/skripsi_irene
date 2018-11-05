@@ -181,12 +181,12 @@ include ("header-fiyeo.php");
                             </div>
                             <div style="margin-top:40px;">
                             <?php if ($statusbook != 'BOOKMARKED') {?>
-                            <a href="../user/addbookmark.php?id_eo=<?php echo $ideo ?>" class="genric-btn success circle" style="width:210px;"><i class="fa fa-bookmark fa-lg"></i>&nbsp;&nbsp;&nbsp;Add To Bookmark</a>
+                            <a href="../user/addbookmark.php?id_eo=<?php echo $ideo ?>" class="genric-btn success circle" style="width:210px; font-size: 100%"><i class="fa fa-bookmark fa-lg"></i>&nbsp;&nbsp;&nbsp;Add To Bookmark</a>
                             <?php }
                             else { ?>
-                            <a href="#" class="genric-btn circle disable" style="width:210px; color: #4cd3e3;"><i class="fa fa-bookmark fa-lg"></i>&nbsp;&nbsp;&nbsp;Bookmarked</a>
+                            <a href="#" class="genric-btn circle disable" style="width:210px; color: #4cd3e3; font-size: 100%;"><i class="fa fa-bookmark fa-lg"></i>&nbsp;&nbsp;&nbsp;Bookmarked</a>
                             <?php } ?>
-                            &nbsp;&nbsp;&nbsp; <a href="#" class="genric-btn success circle" style="width:210px;"><i class="fa fa-weixin fa-lg"></i>&nbsp;&nbsp;&nbsp;Send Message</a>
+                            &nbsp;&nbsp;&nbsp; <button class="genric-btn success circle" style="width:210px; font-size: 100%; font-weight:300;" data-toggle="modal" data-target="#modalForm"><i class="fa fa-weixin fa-lg"></i>&nbsp;&nbsp;&nbsp;Send Message</button>
                             </div>
 						</div>
 					</div>
@@ -543,64 +543,33 @@ include ("header-fiyeo.php");
     });
 </script>    
 
-    <div id="myModal" class="modal fade" role="dialog">
+<div id="modalForm" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
-    <div class="modal-content">
+    <div class="modal-content" style="width:500px">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Write a Review</h4>
+        <h4 class="modal-title">Send Message</h4>
       </div>
-    <form role="form" method="POST" action="addreview.php">
+    <form role="form" method="POST" action="../user/addmessage.php?id_eo=<?php echo $ideo ?>">
       <div class="modal-body">
         <div class="form-group">
-        
-        <label for="rating"><b style="color:black">Rating</b></label>
-        <br>
-        <div class="rating" style="margin-left:3px;">
-  <label>
-    <input type="radio" name="stars" value="1" />
-    <span class="icon">★</span>
-  </label>
-  <label>
-    <input type="radio" name="stars" value="2" />
-    <span class="icon">★</span>
-    <span class="icon">★</span>
-  </label>
-  <label>
-    <input type="radio" name="stars" value="3" />
-    <span class="icon">★</span>
-    <span class="icon">★</span>
-    <span class="icon">★</span>   
-  </label>
-  <label>
-    <input type="radio" name="stars" value="4" />
-    <span class="icon">★</span>
-    <span class="icon">★</span>
-    <span class="icon">★</span>
-    <span class="icon">★</span>
-  </label>
-  <label>
-    <input type="radio" name="stars" value="5" />
-    <span class="icon">★</span>
-    <span class="icon">★</span>
-    <span class="icon">★</span>
-    <span class="icon">★</span>
-    <span class="icon">★</span>
-  </label>
-        </div>
-        
+       <label for="eo"><b style="color:black">To</b></label>
+         <input type="text" class="form-control" name="eo" id="eo" value="<?php echo $namaeo ?>" disabled/>
         </div>
         <div class="form-group">
-       <label for="review"><b style="color:black">* Review</b></label>
-        <textarea class="form-control" name="review" id="review" placeholder="Please write an honest review" required></textarea>
+       <label for="eo"><b style="color:black">Subject</b></label>
+         <input type="text" class="form-control" name="subject" id="subject" placeholder="Enter the subject" required/>
         </div>
-        <p><strong>* Required Field</strong></p>
+        <div class="form-group">
+       <label for="review"><b style="color:black">Message</b></label>
+        <textarea class="form-control" name="message" id="message" placeholder="Enter the message" required style="height:100px;"></textarea>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary submitBtn" id="tambah" name="tambah">Add</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary submitBtn" id="tambah" name="tambah">Send &nbsp;<i class="fa fa-paper-plane"></i></button>
       </div>
     </form>
     </div>

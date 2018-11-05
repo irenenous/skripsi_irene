@@ -15,7 +15,7 @@ $ideo = $_GET['id_eo'];
 
 <?php
 date_default_timezone_set("Asia/Bangkok");
-$date = date('m/d/Y h:i:s a');
+$date = date('m/d/Y h:i:s A');
 ?>
 
 <?php

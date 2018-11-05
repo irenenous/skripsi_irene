@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 30, 2018 at 02:47 PM
+-- Generation Time: Nov 05, 2018 at 01:44 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -19,6 +19,34 @@ SET time_zone = "+00:00";
 --
 -- Database: `skripsi`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `app_reminder`
+--
+
+CREATE TABLE `app_reminder` (
+  `id_reminder` int(11) NOT NULL,
+  `id_eo` int(11) NOT NULL,
+  `tgl_reminder` varchar(50) NOT NULL,
+  `wkt_reminder` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `ket_reminder` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bookmark`
+--
+
+CREATE TABLE `bookmark` (
+  `id_bookmark` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_eo` int(11) NOT NULL,
+  `status` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -51,8 +79,7 @@ CREATE TABLE `eo` (
 --
 
 INSERT INTO `eo` (`id_eo`, `email_eo`, `password_eo`, `foto_eo`, `nama_eo`, `ket_eo`, `id_provinsi`, `id_kota`, `alamat_eo`, `nohp_eo`, `foto_ktp`, `fotodiri_ktp`, `foto_alamat`, `foto_siup`, `tahun_diri`, `link_web`, `status`) VALUES
-(27, 'groovyeo@gmail.com', '123456', 'image-eo/groovy.png', 'Groovy EO', 'best event organizer in jakarta', 3, 86, 'Jl. Permata', '0821-5789-0876', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'image-eo/Nice-good-morning-quote-hd-high-resolution-images.jpg', 'image-eo/20150521_175610.jpg', 'image-eo/friendship-quotes-hd-wallpaper_052819784.jpg', 2011, 'www.groovyeo.com', 'VERIFIED'),
-(28, 'excellenteo@gmail.com', '123456', 'image-eo/Summer-hd-quote-wallpaper.png', 'Excellent Event Organizer', 'excellent', 7, 83, 'jl. cengkareng', '2313-2321-1313', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'image-eo/friendship-quotes-hd-wallpaper_052819784.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/scenery-wallpaper-hd-beach-HD.jpg', 2014, 'www.excellentevent.com', 'VERIFIED');
+(118, 'groovyeo@gmail.com', '123456', 'image-eo/groovy.png', 'Groovy EO', 'Best EO in JKT', 3, 86, 'Jl. Permata', '0812-5038-1345', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/friendship-quotes-hd-wallpaper_052819784.jpg', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'image-eo/scenery-wallpaper-hd-beach-HD.jpg', 2018, 'www.groovyeo.com', 'VERIFIED');
 
 -- --------------------------------------------------------
 
@@ -94,11 +121,9 @@ CREATE TABLE `kategori_eo` (
 --
 
 INSERT INTO `kategori_eo` (`id_eo`, `id_kategori`) VALUES
-(27, 1),
-(27, 2),
-(27, 3),
-(28, 7),
-(28, 5);
+(118, 1),
+(118, 2),
+(118, 4);
 
 -- --------------------------------------------------------
 
@@ -225,6 +250,7 @@ INSERT INTO `kota` (`id_kota`, `nama_kota`, `id_provinsi`) VALUES
 
 CREATE TABLE `paket` (
   `id_paket` int(10) NOT NULL,
+  `id_eo` int(11) NOT NULL,
   `nama_paket` varchar(100) NOT NULL,
   `jenis_paket` varchar(100) NOT NULL,
   `harga_paket` varchar(1000) NOT NULL,
@@ -235,9 +261,31 @@ CREATE TABLE `paket` (
 -- Dumping data for table `paket`
 --
 
-INSERT INTO `paket` (`id_paket`, `nama_paket`, `jenis_paket`, `harga_paket`, `ket_paket`) VALUES
-(3, 'Emerald Blue', 'Wedding', '3.000.000', 'include mc'),
-(4, 'Fun Surprise', 'Birthday', '1.000.000', 'Worth the price');
+INSERT INTO `paket` (`id_paket`, `id_eo`, `nama_paket`, `jenis_paket`, `harga_paket`, `ket_paket`) VALUES
+(28, 118, 'Fun Surprise', 'Birthday', '2.000.000', 'sasasa');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pesan`
+--
+
+CREATE TABLE `pesan` (
+  `id_pesan` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_eo` int(11) NOT NULL,
+  `tgl_pesan` varchar(50) NOT NULL,
+  `subjek` varchar(100) NOT NULL,
+  `pesan` varchar(1000) NOT NULL,
+  `status` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pesan`
+--
+
+INSERT INTO `pesan` (`id_pesan`, `id_user`, `id_eo`, `tgl_pesan`, `subjek`, `pesan`, `status`) VALUES
+(1, 1, 118, '11/05/2018 06:14:26 PM', 'hai', 'helo', 'SENT');
 
 -- --------------------------------------------------------
 
@@ -247,6 +295,7 @@ INSERT INTO `paket` (`id_paket`, `nama_paket`, `jenis_paket`, `harga_paket`, `ke
 
 CREATE TABLE `portfolio` (
   `id_portfolio` int(11) NOT NULL,
+  `id_eo` int(11) NOT NULL,
   `foto` text NOT NULL,
   `ket_foto` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -255,8 +304,8 @@ CREATE TABLE `portfolio` (
 -- Dumping data for table `portfolio`
 --
 
-INSERT INTO `portfolio` (`id_portfolio`, `foto`, `ket_foto`) VALUES
-(15, 'portfolio/friendship-quotes-hd-wallpaper_052819784.jpg', 'sa');
+INSERT INTO `portfolio` (`id_portfolio`, `id_eo`, `foto`, `ket_foto`) VALUES
+(4, 118, 'portfolio/hamtaro-most-inspirational-quotes-resolution_519728.jpg', '123');
 
 -- --------------------------------------------------------
 
@@ -312,6 +361,30 @@ INSERT INTO `provinsi` (`id_provinsi`, `nama_provinsi`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `request_layanan`
+--
+
+CREATE TABLE `request_layanan` (
+  `id_request` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_eo` int(11) NOT NULL,
+  `tgl_request` varchar(50) NOT NULL,
+  `tgl_acara` varchar(50) NOT NULL,
+  `tipe_acara` varchar(100) NOT NULL,
+  `lokasi_acara` varchar(200) NOT NULL,
+  `jml_peserta` int(11) NOT NULL,
+  `durasi_acara` varchar(100) NOT NULL,
+  `ket_acara` varchar(1000) NOT NULL,
+  `id_paket` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `nohp` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `status` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -322,6 +395,7 @@ CREATE TABLE `user` (
   `email_user` varchar(100) NOT NULL,
   `password_user` varchar(100) NOT NULL,
   `foto_user` text NOT NULL,
+  `role` varchar(20) NOT NULL,
   `status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -329,13 +403,29 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id_user`, `nama_user`, `nohp_user`, `email_user`, `password_user`, `foto_user`, `status`) VALUES
-(1, 'Irene', '081250381345', 'irenenous@yahoo.com', '123456', '', 'ACTIVE'),
-(2, 'Ivennia', '081250381346', 'aivennia@yahoo.com', '12345', '', 'ACTIVE');
+INSERT INTO `user` (`id_user`, `nama_user`, `nohp_user`, `email_user`, `password_user`, `foto_user`, `role`, `status`) VALUES
+(1, 'Irene Andriani', '0812-5038-1345', 'irenenous@yahoo.com', '123456', 'image-user/151014-101849.png', 'KLIEN', 'ACTIVE'),
+(2, 'Ivennia', '081250381346', 'aivennia@yahoo.com', '123456', '', 'ADMIN', 'ACTIVE'),
+(6, 'Andre ', '0812-5038-1350', 'andreadianto@yahoo.com', '123456', '', 'KLIEN', 'ACTIVE');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `app_reminder`
+--
+ALTER TABLE `app_reminder`
+  ADD PRIMARY KEY (`id_reminder`),
+  ADD KEY `id_eo` (`id_eo`);
+
+--
+-- Indexes for table `bookmark`
+--
+ALTER TABLE `bookmark`
+  ADD PRIMARY KEY (`id_bookmark`),
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_eo` (`id_eo`);
 
 --
 -- Indexes for table `eo`
@@ -372,7 +462,16 @@ ALTER TABLE `kota`
 -- Indexes for table `paket`
 --
 ALTER TABLE `paket`
-  ADD PRIMARY KEY (`id_paket`);
+  ADD PRIMARY KEY (`id_paket`),
+  ADD KEY `id_eo` (`id_eo`);
+
+--
+-- Indexes for table `pesan`
+--
+ALTER TABLE `pesan`
+  ADD PRIMARY KEY (`id_pesan`),
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_eo` (`id_eo`);
 
 --
 -- Indexes for table `portfolio`
@@ -387,20 +486,40 @@ ALTER TABLE `provinsi`
   ADD PRIMARY KEY (`id_provinsi`);
 
 --
+-- Indexes for table `request_layanan`
+--
+ALTER TABLE `request_layanan`
+  ADD PRIMARY KEY (`id_request`),
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_eo` (`id_eo`),
+  ADD KEY `id_paket` (`id_paket`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id_user`);
+  ADD PRIMARY KEY (`id_user`),
+  ADD UNIQUE KEY `email_user` (`email_user`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
+-- AUTO_INCREMENT for table `app_reminder`
+--
+ALTER TABLE `app_reminder`
+  MODIFY `id_reminder` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `bookmark`
+--
+ALTER TABLE `bookmark`
+  MODIFY `id_bookmark` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT for table `eo`
 --
 ALTER TABLE `eo`
-  MODIFY `id_eo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_eo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
 --
 -- AUTO_INCREMENT for table `kategori`
 --
@@ -415,22 +534,32 @@ ALTER TABLE `kota`
 -- AUTO_INCREMENT for table `paket`
 --
 ALTER TABLE `paket`
-  MODIFY `id_paket` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_paket` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+--
+-- AUTO_INCREMENT for table `pesan`
+--
+ALTER TABLE `pesan`
+  MODIFY `id_pesan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `portfolio`
 --
 ALTER TABLE `portfolio`
-  MODIFY `id_portfolio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_portfolio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `provinsi`
 --
 ALTER TABLE `provinsi`
   MODIFY `id_provinsi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
+-- AUTO_INCREMENT for table `request_layanan`
+--
+ALTER TABLE `request_layanan`
+  MODIFY `id_request` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- Constraints for dumped tables
 --

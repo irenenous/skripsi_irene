@@ -36,7 +36,7 @@ if (isset ($_SESSION['id'])!="") {
 	}
 	else
 	{
-		echo (mysqli_error($koneksi));
+		echo mysqli_error($koneksi);
 	}
 	
 ?>

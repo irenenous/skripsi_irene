@@ -41,6 +41,7 @@ $select = mysqli_fetch_array($tampil);
     <!-- Favicon-->
     <link rel="shortcut icon" href="../temp-dashboard/img/favicon.ico">
     <link rel="stylesheet" href="../temp-dashboard/assets/css/lib/datatable/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.css" />
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -158,9 +159,45 @@ $select = mysqli_fetch_array($tampil);
 			 <td><img src="<?php echo $photo ?>" width ='150px' height='150px'></td>
 			<td><?php echo $description ?></td>
 			<td> 
-            <div class="btn-group btn-group-xs">
-            <a class="btn btn-default btn-sm" href="editportfolio.php?id_portfolio=<?php echo $idport?>">Edit</a>
-            <a class="btn btn-default btn-sm" href="deleteportfolio.php?id_portfolio=<?php echo $idport?>">Delete</a>
+            <div class="btn-group-xs">
+            <a class="btn btn-sm btn-primary" href="editportfolio.php?id_portfolio=<?php echo $idport?>"><i class="fa fa-edit"></i></a>
+            <script>
+                function deleteFunction(idport){
+                swal({
+                title: 'Are you sure?',
+                text: "Deleted records can not be recovered!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                showLoaderOnConfirm: true,
+                preConfirm: () => {
+                return fetch(`deleteportfolio.php?id_portfolio=${idport}`)
+                },
+                allowOutsideClick: () => !swal.isLoading()
+                }).then((status) => {
+                if (status.value.ok){
+                swal({
+                type: 'success',
+                title: 'Deleted!',
+                text: "Your portfolio record has been deleted",
+                showConfirmButton: false,
+                timer: 1500
+                }).then( () => {
+                location.reload();
+                })    
+                } else {
+                swal({
+                type: 'error',
+                title: 'Failed!',
+                text: "Your portfolio record can not be deleted",
+                showConfirmButton: false,
+                timer: 1500
+                })   
+                }       
+                })    
+                }    
+            </script>
+           <button onclick="deleteFunction(<?php echo $idport ?>)" class="btn btn-sm btn-primary"><i class="fa fa-trash" ></i></button>
             </div>
 		
           </td>
@@ -216,6 +253,7 @@ $select = mysqli_fetch_array($tampil);
     <script src="../temp-dashboard/assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="../temp-dashboard/assets/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="../temp-dashboard/assets/js/lib/data-table/datatables-init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.all.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
           $('#bootstrap-data-table-export').DataTable();

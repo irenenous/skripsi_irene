@@ -335,7 +335,7 @@ session_start();
                                       type: 'success',
                                       title: 'Kedefatar bro',
                                       showConfirmButton: false,
-                                      timer: 1000
+                                      timer: 1500
                                     }).then( () => {
                                     location.replace("../FRONTEND-WEB/index-fiyeo.php");
                                     });      
@@ -346,7 +346,7 @@ session_start();
                                       type: 'error',
                                       title: 'Tangan lu bau gan',
                                       showConfirmButton: false,
-                                      timer: 1000
+                                      timer: 1500
                                     });  
                                 }
                             });

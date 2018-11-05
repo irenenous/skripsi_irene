@@ -1,9 +1,5 @@
  <?php
-session_start(); 
-
-    if (isset($_POST['signup'])) {
-        include 'config.php';
-        
+include 'config.php';
         
         $tangkapNama        = $_POST['name'];
         $tangkapNohp        = $_POST['phone'];
@@ -19,17 +15,15 @@ session_start();
         '$tangkapPassword', '', '$tangkapRole', '$tangkapStatus')");
         
         if (!$query) {
-            echo '<script> alert("Registration failed. Email already exist"); window.history.back(); </script>';
+            echo mysqli_error($koneksi);
+            http_response_code(400);
         } 
         else {    
-        $keluar = mysqli_fetch_assoc($query);
-        $_SESSION['id'] = $keluar['id_user'];
-        $_SESSION['nama'] = $keluar['nama_user'];
-        $_SESSION['email'] = $keluar['email_user'];
+        echo "OK";
         
-        header('Location: ../FRONTEND-WEB/index-fiyeo.php');   
+//        header('Location: login-fiyeo.php');   
         }
-    }
+  
 
 ?>
 

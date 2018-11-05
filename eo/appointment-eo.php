@@ -159,86 +159,13 @@ $select = mysqli_fetch_array($tampil);
 	$(document).ready(function() {
 		$.fn.dataTable.ext.errMode = 'none';
 		
-	    var table = $('#datatable').DataTable({
-	    	"processing": true,
-			"serverSide": true,
-			"ajax": {
-				"url": "https://partner.hellobeauty.id/service",
-				"type": "POST",
-			},
-			"columns": [
-				{"data": "name"},
-				{"data": "service_category"},
-				{"data": "price"},
-				{"data": "duration"},
-				{"orderable": false, "searchable" : false, "data": "service_id"},
-			],
-			"sDom":'r<"table-responsive" t>i<"tp-pagination" p>',
-			"createdRow": function (row, data, index) {
-				$('td', row).eq(4).addClass('text-right').html('<a onclick="getForm('+data.service_id+', \'service/edit\');">Edit</a>&nbsp;&nbsp;&nbsp;<a onclick="delRecord('+data.service_id+');">Delete</a>');
-			},
-			"order": [[4, 'asc']]
-		});
 	});
 	
 	function refreshTable() {
 		$('#datatable').DataTable().ajax.reload();
 	}
 	
-	function delRecord(service_id) {
-		swal({
-			title: "Are you sure?",
-			text: "Deleted records can not be recovered!",
-			type: "warning",
-			showCancelButton: true,
-			confirmButtonText: "Yes",
-			cancelButtonText: "No",
-			closeOnConfirm: false,
-			closeOnCancel: true
-		}, function(isConfirm) {
-			if (isConfirm) {
-				$.ajax({
-					url : "https://partner.hellobeauty.id/service/delete",
-					type : 'post',
-					data: 'service_id='+service_id,
-					dataType: 'json',
-					success: function(json) {
-						if (json['success']) {
-							swal("Deleted!", json['success'], "success");
-						} else if (json['error']) {
-							swal("Error!", json['error'], "error");
-						} else if (json['redirect']) {
-							window.location = json['redirect'];
-						}
-						refreshTable();
-					}
-				});
-			}
-		});
-	}
 	
-	function refreshTable() {
-		$('#datatable').DataTable().ajax.reload();
-	}
-	
-	function getForm(service_id, path) {
-		$.ajax({
-			url : "https://partner.hellobeauty.id/" + path,
-			data: 'service_id='+service_id,
-			dataType: 'json',
-			success: function(json) {
-				if (json['error']) {
-					$('#message').html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><i class="icon fa fa-ban"></i> '+json['error']+'</div>');
-				} else if (json['content']) {
-					$('#modal').html('<div class="modal fade" id="form-modal" tabindex="-1" role="dialog" aria-hidden="true">'+json['content']+'</div>');
-					$('#form-modal').modal('show');
-					$('#form-modal').on('hidden.bs.modal', function (e) {
-						refreshTable();
-					});	
-				}
-			}
-		});
-	}
  
     </script>
   </body>

@@ -13,7 +13,7 @@ $ideo = $_GET['id_eo']; }
         
     $query2 = mysqli_query($koneksi , "insert into bookmark values ('','$iduser', '$ideo', 'BOOKMARKED')");
         
-    header('Location: ../FRONTEND-WEB/view-profile-eo.php?id_eo=<?php echo $ideo ?>'); 
+    header('Location: ../FRONTEND-WEB/view-profile-eo.php?id_eo='.$ideo); 
         
 //         echo '<script> window.history.back(); </script>';
 

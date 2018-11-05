@@ -41,6 +41,7 @@ $select = mysqli_fetch_array($tampil);
     <!-- Favicon-->
     <link rel="shortcut icon" href="../temp-dashboard/img/favicon.ico">
     <link rel="stylesheet" href="../temp-dashboard/assets/css/lib/datatable/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.css" />
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -124,9 +125,45 @@ $select = mysqli_fetch_array($tampil);
         <td><?php echo $klien ?></td>
         <td><?php echo $event ?></td>
         <td> 
-        <div class="btn-group btn-group-xs">
-        <a class="btn btn-default btn-sm" href="viewrequest.php?id_request=<?php echo $id ?>">View</a>
-        <a class="btn btn-default btn-sm" href="deleterequest.php?id_request=<?php echo $id?>">Delete</a>
+        <div class="btn-group-xs">
+        <a class="btn btn-sm btn-primary" href="viewrequest.php?id_request=<?php echo $id ?>"><i class="fa fa-eye"></i></a>
+                <script>
+                function deleteFunction(id){
+                swal({
+                title: 'Are you sure?',
+                text: "Deleted records can not be recovered!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                showLoaderOnConfirm: true,
+                preConfirm: () => {
+                return fetch(`deleterequest.php?id_request=${id}`)
+                },
+                allowOutsideClick: () => !swal.isLoading()
+                }).then((status) => {
+                if (status.value.ok){
+                swal({
+                type: 'success',
+                title: 'Deleted!',
+                text: "Your request record has been deleted",
+                showConfirmButton: false,
+                timer: 1500
+                }).then( () => {
+                location.reload();
+                })    
+                } else {
+                swal({
+                type: 'error',
+                title: 'Failed!',
+                text: "Your request record can not be deleted",
+                showConfirmButton: false,
+                timer: 1500
+                })   
+                }       
+                })    
+                }    
+            </script>
+        <button onclick="deleteFunction(<?php echo $id ?>)" class="btn btn-sm btn-primary"><i class="fa fa-trash" ></i></button>
         </div>
         </td>
         </tr>
@@ -179,6 +216,7 @@ $select = mysqli_fetch_array($tampil);
     <script src="../temp-dashboard/assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="../temp-dashboard/assets/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="../temp-dashboard/assets/js/lib/data-table/datatables-init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.all.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
           $('#bootstrap-data-table-export').DataTable();

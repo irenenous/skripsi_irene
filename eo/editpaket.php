@@ -42,6 +42,7 @@ $select = mysqli_fetch_array($tampil);
     <link rel="shortcut icon" href="img/favicon.ico">
     <link rel="stylesheet" href="../temp-dashboard/assets/css/lib/datatable/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.css" />
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -142,7 +143,7 @@ $select = mysqli_fetch_array($tampil);
     <textarea class="form-control" name="ketpaket" id="ketpaket" placeholder="Describe all the services included in the package" required><?php echo $description; ?></textarea>
     </div>
     <div class="form-group" style="margin-top:30px;">
-        <a class="btn btn-danger" href="paket-eo.php">Cancel</a>
+    <a class="btn btn-danger" href="paket-eo.php">Cancel</a>
     <button type="submit" class="btn btn-primary submitBtn" id="simpan" name="simpan">Save Changes</button>
     </div>          
     </form></div></div></div>
@@ -193,6 +194,7 @@ $select = mysqli_fetch_array($tampil);
     <script src="../temp-dashboard/assets/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="../temp-dashboard/assets/js/lib/data-table/datatables-init.js"></script>
     <script src="../temp-fiyeo/js/jQuery-Mask-Plugin-master/dist/jquery.mask.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.all.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
           $('#bootstrap-data-table-export').DataTable();

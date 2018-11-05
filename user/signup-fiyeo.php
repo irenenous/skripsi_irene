@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<?php 
-session_start();
-?>
+
 	<html lang="zxx" class="no-js">
 	<head>
 		<!-- Mobile Specific Meta -->
@@ -58,7 +56,7 @@ session_start();
 			<!-- End banner Area -->	
             
                     <div class="container" style="padding: 60px;">
-							<form class="form-area" role="form" id="signup" action="signup.php" method="POST">	
+							<form class="form-area" role="form" id="signup-form" action="signup.php" method="POST" onsubmit="registerFunction()">	
                                 <div class= "col-lg-6 offset-lg-3">
 									<div class="form-group">
                                         <div class="input-group">
@@ -174,7 +172,8 @@ session_start();
 			<script src="../temp-fiyeo/js/parallax.min.js"></script>
 			<script src="../temp-fiyeo/js/mail-script.js"></script>
 			<script src="../temp-fiyeo/js/main.js"></script>
-            <script src="https:/https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.all.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.all.min.js"></script>
+            
             
 <!--
 <script>
@@ -208,8 +207,44 @@ function(){
     });
 </script>
 
-            
-            
+    <script>
+    function registerFunction(){
+    var frm = $('#signup-form');
+    frm.submit(function (ev) {
+    $.ajax({       
+    type: "POST",
+    enctype: 'multipart/form-data',
+    url: frm.attr('action'),
+    processData: false,
+    contentType: false,
+    cache: false,
+    timeout: 600000,
+    data: new FormData(frm[0]),
+    success: function (data) {
+    swal({
+    type: 'success',
+    title: 'Kedefatar bro',
+    showConfirmButton: false,
+    timer: 1500
+    }).then( () => {
+    location.replace("login-fiyeo.php");
+    });      
+    },
+    error: function () {
+    swal({
+    type: 'error',
+    title: 'Tangan lu bau gan',
+    showConfirmButton: false,
+    timer: 1500
+    });  
+    }
+    });
+    ev.preventDefault();
+    ev.cancelBubble();
+    });   
+    }    
+    </script>
+                               
 <script type="text/javascript">
 function checkemail()
 {
