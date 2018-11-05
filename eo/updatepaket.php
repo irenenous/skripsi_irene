@@ -1,5 +1,10 @@
 <?php
-	include("config.php");
+include 'config.php';
+session_start();
+if (isset ($_SESSION['id'])!="") {
+    $ideo = $_SESSION['id'];
+}
+
     if(!empty($_POST['id_paket'])){
 		echo $id= $_POST['id_paket'];}
 	if(!empty($_POST['nama_paket'])){
@@ -23,7 +28,7 @@
     nama_paket='$tangkapPname',
 	jenis_paket='$tangkapType',
 	harga_paket='$tangkapPrice',
-	ket_paket='$tangkapDescription' Where id_paket = '$id' ";
+	ket_paket='$tangkapDescription' Where id_paket = '$id' AND id_eo = '$ideo' ";
 	$tampil = mysqli_query($koneksi,$query);
 	if($tampil)
 	{

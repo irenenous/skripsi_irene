@@ -1,4 +1,11 @@
-	<!DOCTYPE html>
+<?php
+include 'config.php';
+session_start();
+
+?>
+
+
+<!DOCTYPE html>
 	<html lang="zxx" class="no-js">
 	<head>
 		<!-- Mobile Specific Meta -->
@@ -101,9 +108,65 @@
 		</head>
 		<body>
 
-<?php include 'header-fiyeo.php' ?>
+<?php
+if ($_SESSION['id']!="") {
+include ("header-loggedin.php");
+}
+else {
+include ("header-fiyeo.php");
+    
+//$query = "SELECT * FROM user where id_user = '$iduser' AND status = 'ACTIVE'";
+//$result = mysqli_query($koneksi, $query);
+//$row =mysqli_num_rows($result);
+//if ($row > 0) {
+//$select = mysqli_fetch_array($result);
+//$iduser = $select['id_user'];
+//$namauser = $select['nama_user'];
+//$emailuser = $select['email_user'];
+//$fotouser = $select['foto_user'];  
+//    include ("header-loggedin.php");
+//} else {
+//        $query1 = "SELECT * FROM eo where id_eo = '$iduser' AND status = 'VERIFIED'";
+//        $result1 = mysqli_query($koneksi, $query1);
+//        $select = mysqli_fetch_array($result1); 
+//        $emaileo = $select['email_eo'];
+//        $namaeo = $select['nama_eo'];
+//        $fotoeo = $select['foto_eo'];
+//        $desceo = $select['ket_eo'];
+//        include ("header-view-eo.php");
+//        }
+}
+?>
+  
+    <?php
+	include("config.php");
+    if(!empty($_GET['id_eo'])){
+	$ideo = $_GET['id_eo']; }
 
-
+    $query="SELECT * FROM eo INNER JOIN provinsi ON eo.id_provinsi = provinsi.id_provinsi INNER JOIN kota ON eo.id_kota = kota.id_kota where id_eo = '".$ideo."' AND status = 'VERIFIED'";
+	$tampil = mysqli_query($koneksi,$query);
+    $select = mysqli_fetch_array($tampil);
+        
+        $emaileo = $select['email_eo'];
+        $namaeo = $select['nama_eo'];
+        $fotoeo = $select['foto_eo'];
+        $desceo = $select['ket_eo'];
+        $alamat = $select['alamat_eo'];
+        $nohp = $select['nohp_eo'];
+        $tahun = $select['tahun_diri'];
+        $link = $select['link_web'];
+        $provname  = $select['nama_provinsi'];
+        $cityname  = $select['nama_kota'];
+                     
+    ?>
+            
+    <?php 
+    $query2 = "SELECT * FROM bookmark where id_user = '$iduser' AND id_eo = '$ideo'";
+    $tampil2 = mysqli_query($koneksi, $query2);
+    $select = mysqli_fetch_array($tampil2);
+            $idbook = $select['id_bookmark'];
+            $statusbook = $select['status'];
+    ?>
 
 			<!-- start banner Area -->
 			<section class="banner-area relative" id="home">	
@@ -111,13 +174,19 @@
 				<div class="container">
 					<div class="row d-flex align-items-center justify-content-center">
 						<div class="about-content col-lg-12" style="padding:80px; margin-top:60px;">
-							<img src="../temp-dashboard/img/avatar-1.jpg" alt="" class="rounded-circle" style="width:150px; height:150px;">
+							<img src="../eo/<?php echo $fotoeo ?>" alt="" class="rounded-circle" style="width:150px; height:150px;">
                             <div style="margin-top: 20px;">
-							<h3 class="text-white link-nav">Excellent Event &nbsp;<img src="../temp-fiyeo/img/tick-inside-circle.png"></h3>
+							<h3 class="text-white link-nav"><?php echo $namaeo ?> &nbsp;<img src="../temp-fiyeo/img/tick-inside-circle.png"></h3>
                             <p style="color: white; font-size:120%; margin-top:10px;">Event Organizer</p>
                             </div>
                             <div style="margin-top:40px;">
-                            <a href="#" class="genric-btn success circle" style="width:210px;"><i class="fa fa-bookmark"></i>&nbsp;&nbsp;&nbsp;Add To Bookmark</a> &nbsp;&nbsp;&nbsp; <a href="#" class="genric-btn success circle" style="width:210px;"><i class="fa fa-envelope"></i>&nbsp;&nbsp;&nbsp;Send Message</a>
+                            <?php if ($statusbook != 'BOOKMARKED') {?>
+                            <a href="../user/addbookmark.php?id_eo=<?php echo $ideo ?>" class="genric-btn success circle" style="width:210px;"><i class="fa fa-bookmark fa-lg"></i>&nbsp;&nbsp;&nbsp;Add To Bookmark</a>
+                            <?php }
+                            else { ?>
+                            <a href="#" class="genric-btn circle disable" style="width:210px; color: #4cd3e3;"><i class="fa fa-bookmark fa-lg"></i>&nbsp;&nbsp;&nbsp;Bookmarked</a>
+                            <?php } ?>
+                            &nbsp;&nbsp;&nbsp; <a href="#" class="genric-btn success circle" style="width:210px;"><i class="fa fa-weixin fa-lg"></i>&nbsp;&nbsp;&nbsp;Send Message</a>
                             </div>
 						</div>
 					</div>
@@ -145,7 +214,7 @@
             <div class="col-lg-8 post-list">	
             <div class="single-post job-details">
                 <h4 class="single-title">Description</h4>
-                <p> Event & Party Organizer in Jakarta. </p>
+                <p> <?php echo $desceo ?> </p>
                 <hr>
                 <h4 class="single-title">Category</h4>
                 <p> Event & Party Organizer in Jakarta. </p>
@@ -153,35 +222,47 @@
             <div class="single-post job-experience">
                 <h4 class="single-title">Service Packages
                 <div class="pull-right">
-                <a href="#" class="genric-btn success-border circle medium" style="font-size:70%">Request Service</a>
+                <a href="request-service-form.php?id_eo=<?php echo $ideo ?>" class="genric-btn success circle medium" style="font-size:70%">Request Service</a>
                 </div></h4>
             <hr style="margin-top:30px;">
-            <ul><li>
-            <div class="details" style="margin-top:30px;">
-            <img src="../temp-fiyeo/img/pages/list.jpg" alt=""><span><strong> Emerald Green </strong></span><br>
-            <span> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua. </span>
-            <p class="address">
-            <span class="fa fa-sticky-note-o"></span> &nbsp;Wedding Party <br>
-            <span class="fa fa-money"></span> &nbsp;Start from IDR 3.000.000
-            </p></div></li>
-            <li>
-            <div class="details">
-            <img src="../temp-fiyeo/img/pages/list.jpg" alt=""><span><strong> Emerald Green </strong></span>	
+        <?php
+	include("config.php");
+	$query1="SELECT * from paket WHERE id_eo ='".$ideo."'";           
+	$simpan1= mysqli_query($koneksi,$query1);
+                           
+   while($select = mysqli_fetch_assoc($simpan1)) {
+			$idpaket     = $select['id_paket'];
+            $namapaket   = $select['nama_paket'];
+            $jenispaket  = $select['jenis_paket'];
+            $hargapaket  = $select['harga_paket'];
+            $ketpaket 	 = $select['ket_paket'];
+
+    ?>   
+            <table>
+            <tr>
+            <td><img src="../temp-fiyeo/img/pages/list.jpg" alt=""><span><strong> &nbsp;<?php echo $namapaket ?></strong></span>
+            </td>
+            </tr>
+            <tr>
+            <td>
+            <span><?php echo $ketpaket ?></span>
+            </td>
+            </tr>
+            <tr>
+            <td>
+            <span><i class="fa fa-calendar"></i> &nbsp; Event Type : <strong><?php echo $jenispaket ?></strong></span></td>
+            </tr>
+            <tr>
+            <td>
+            <span><i class="fa fa-money"></i> &nbsp;Price : <strong>Start from IDR <?php echo $hargapaket ?></strong></span>
+            </td>
+            </tr>
+            </table>
             <br>
-            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.</span>
-            <p class="address">
-            <span class="fa fa-sticky-note-o"></span> &nbsp;Wedding Party <br>
-            <span class="fa fa-money"></span> &nbsp;Start from IDR 3.000.000
-            </p></div></li>
-            <li>
-            <div class="details">
-            <img src="../temp-fiyeo/img/pages/list.jpg" alt=""><span><strong> Emerald Green </strong></span>	
-            <br>
-            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.</span>
-            <p class="address">
-            <span class="fa fa-sticky-note-o"></span> &nbsp;Wedding Party <br>
-            <span class="fa fa-money"></span> &nbsp;Start from IDR 3.000.000
-            </p></div></li></ul>
+        
+    <?php }
+	?>
+      
             </div>
             </div>				
          
@@ -203,18 +284,21 @@
                 <hr>
 				<ul class="cat-list">
 				<li><a class="justify-content-between d-flex">
-                <p><i class="fa fa-envelope"></i> &nbsp;&nbsp;irenenous@yahoo.com</p></a></li>
+                <p><i class="fa fa-envelope"></i> &nbsp;&nbsp;<?php echo $emaileo ?></p></a></li>
 				<li><a class="justify-content-between d-flex">
-                <p><i class="fa fa-phone"></i> &nbsp;&nbsp;081250381345</p></a></li>
+                <p><i class="fa fa-phone"></i> &nbsp;&nbsp;<?php echo $nohp ?></p></a></li>
                 <li><a class="justify-content-between d-flex">
-                <p><i class="fa fa-map"></i> &nbsp;&nbsp;Jakarta Barat, DKI Jakarta</p></a></li>
+                <p><i class="fa fa-map"></i> &nbsp;&nbsp;<?php echo $cityname ?>, <?php echo $provname ?></p></a></li>
                 <li><a class="justify-content-between d-flex">
-                <p><i class="fa fa-map-marker"></i> &nbsp;&nbsp;Kencana Tower, Lt.2. Meruya Ilir 88, West Jakarta</p></a></li></ul>
+                <p><i class="fa fa-map-marker"></i> &nbsp;&nbsp;<?php echo $alamat ?></p></a></li>
+                <li><a class="justify-content-between d-flex">
+                <p><i class="fa fa-link"></i> &nbsp;&nbsp;<?php echo $link ?></p></a></li>
+                </ul>
 				</div></div></div></div>
                 <div class="tab-pane" id="portfolio">
             <div class="col-lg-12 post-list">	
             <div class="single-post job-experience">
-						<h3>Portfolio</h3>
+						<h4>Portfolio</h4>
                         <hr>
 						<div class="row gallery-item">
 							<div class="col-md-4">
@@ -247,12 +331,73 @@
                 </div>
             <div class="tab-pane" id="reviews"> 
             <div class="col-lg-12 post-list">	
+                
             <div class="single-post job-experience">
-            <h3 class="single-title">Reviews
+            <h4 class="single-title">Write a Review 
             <div class="pull-right">
-            <button class="genric-btn success circle" style="font-size:60%;" data-toggle="modal" data-target="#myModal">Add Review</button>
+              <button id="closereview" class="genric-btn link circle medium" style="color:red">Cancel</button>
+            </div></h4>
+            <hr> 
+            <div id="ex1" name="ex1">
+            <div class="form-group">
+            <input type="text" style="font-family:Poppins, FontAwesome" placeholder="&#xf040; &nbsp; Please share your own experience by writing an honest review of <?php echo $namaeo ?>" disabled class="common-input mb-20 form-control">
             </div>
-            <hr style="margin-top:30px;"> </h3>  
+             <button class="genric-btn success circle medium" style="" id="showreview">Add Your Review</button>
+            </div>
+       
+        <form role="form" method="POST" action="addreview.php" id="editForm">
+        <div class="form-group">
+        <label for="rating"><b style="color:black">Rating</b></label>
+        <br>
+        <div class="rating" style="margin-left:3px;">
+  <label>
+    <input type="radio" name="stars" value="1" />
+    <span class="icon">★</span>
+  </label>
+  <label>
+    <input type="radio" name="stars" value="2" />
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+  </label>
+  <label>
+    <input type="radio" name="stars" value="3" />
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>   
+  </label>
+  <label>
+    <input type="radio" name="stars" value="4" />
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+  </label>
+  <label>
+    <input type="radio" name="stars" value="5" />
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+  </label>
+        </div>
+        
+        </div>
+        <div class="form-group">
+       <label for="review"><b style="color:black">* Review</b></label>
+        <textarea class="form-control" name="review" id="review" placeholder="Please write an honest review" required></textarea>
+        </div>
+        <p><strong>* Required Field</strong></p>
+      <div class="">
+        <button type="submit" class="genric-btn success circle medium submitBtn" id="tambah" name="tambah"> Publish </button>
+      </div>
+    </form>
+            </div>
+                
+                
+            <div class="single-post job-experience">
+            <h4 class="single-title">Reviews
+            <hr> </h4>  
            
             <ul><li>
             <div class="details justify-content-center align-items-center" style="margin-top:40px;">
@@ -377,7 +522,27 @@
 			<script src="../temp-fiyeo/js/main.js"></script>	     
             <script src="../temp-fiyeo/js/modal-img.js"></script>
 	
-        
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $("#editForm").hide();
+        $("#closereview").hide();
+        $("#showreview").click(function(e) {
+            $("#editForm").toggle();
+            $("#showreview").toggle();
+            $("#ex1").toggle();
+            $("#closereview").toggle();
+                
+        });
+        $("#closereview").click(function(e) {
+            $("#editForm").toggle();
+            $("#showreview").toggle();
+            $("#ex1").toggle();
+            $("#closereview").toggle();
+        });
+    });
+</script>    
+
     <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
@@ -431,7 +596,7 @@
        <label for="review"><b style="color:black">* Review</b></label>
         <textarea class="form-control" name="review" id="review" placeholder="Please write an honest review" required></textarea>
         </div>
-        <p><strong>* Wajib Diisi</strong></p>
+        <p><strong>* Required Field</strong></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

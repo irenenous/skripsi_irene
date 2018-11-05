@@ -1,8 +1,11 @@
 <?php
-
+include 'config.php';
+session_start();
+if (isset ($_SESSION['id'])!="") {
+    $ideo = $_SESSION['id'];
+}
 	
 	if (isset($_POST['tambah'])) {
-		include 'config.php';
     	
 //        $tangkapFile		= $_POST['port-file'];
 		$tangkapKetP		= $_POST['fileDesc'];
@@ -20,7 +23,7 @@
     }
 		//UPLOAD FOTO END
         
-		$query = mysqli_query($koneksi , "insert into portfolio values ('', '$target_filePort', '$tangkapKetP')");
+		$query = mysqli_query($koneksi , "insert into portfolio values ('','$ideo', '$target_filePort', '$tangkapKetP')");
         
         header('Location: portfolio-eo.php'); 
 	}

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<?php SESSION_START();   ?>
+<?php 
+session_start();
+?>
 	<html lang="zxx" class="no-js">
 	<head>
 		<!-- Mobile Specific Meta -->
@@ -29,6 +31,7 @@
 			<link rel="stylesheet" href="../temp-fiyeo/css/animate.min.css">
 			<link rel="stylesheet" href="../temp-fiyeo/css/owl.carousel.css">
 			<link rel="stylesheet" href="../temp-fiyeo/css/main.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.min.css" />
 		</head>
 		<body>
 
@@ -55,7 +58,7 @@
 			<!-- End banner Area -->	
             
                     <div class="container" style="padding: 60px;">
-							<form class="form-area" role="form" id="signup" action="signup.php" method="POST" onsubmit="validateForm()">	
+							<form class="form-area" role="form" id="signup" action="signup.php" method="POST">	
                                 <div class= "col-lg-6 offset-lg-3">
 									<div class="form-group">
                                         <div class="input-group">
@@ -109,14 +112,6 @@
                                 </div>
 							</form>
                     </div>
-            
-    
-    <script>
-    function validateForm(){
-        alert("Registration Successful !!");
-        window.location.replace("http://localhost:8069/page/tentang-kami");
-    } 
-    </script>
             
 			<!-- start footer Area -->		
 			<footer class="footer-area section-gap" style="padding:50px 0; height:345px;">
@@ -178,9 +173,28 @@
 			<script src="../temp-fiyeo/js/jquery.nice-select.min.js"></script>			
 			<script src="../temp-fiyeo/js/parallax.min.js"></script>
 			<script src="../temp-fiyeo/js/mail-script.js"></script>
-			<script src="../temp-fiyeo/js/main.js"></script>       
+			<script src="../temp-fiyeo/js/main.js"></script>
+            <script src="https:/https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.all.min.js"></script>
             
-        
+<!--
+<script>
+    function validateForm(){
+swal({
+  title: "Are you sure?",
+  text: "Your will not be able to recover this imaginary file!",
+  type: "warning",
+  showCancelButton: true,
+  confirmButtonClass: "btn-danger",
+  confirmButtonText: "Yes, delete it!",
+  closeOnConfirm: false
+},
+function(){
+  swal("Deleted!", "Your imaginary file has been deleted.", "success");
+});
+      
+    } 
+</script>
+-->
 <script type="text/javascript">
     $('#password, #confirmpass').on('keyup', function () {
         if ($('#password').val() == $('#confirmpass').val()) {

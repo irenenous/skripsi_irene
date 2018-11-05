@@ -13,9 +13,7 @@ session_start();
         {
             $keluar = mysqli_fetch_assoc($result);
             $_SESSION['id'] = $keluar['id_eo'];
-            $_SESSION['nama'] = $keluar['nama_eo'];
-            $_SESSION['email'] = $keluar['email_eo'];
-             header('location:../eo/dashboard-eo.php');           
+             header('location:../eo/dashboard-eo.php');
         }
         else if($row == 0) {
         
@@ -25,8 +23,6 @@ session_start();
         if ($row2> 0) {
             $keluar2 = mysqli_fetch_assoc($result2);
             $_SESSION['id'] = $keluar2['id_user'];
-            $_SESSION['nama'] = $keluar2['nama_user'];
-            $_SESSION['email'] = $keluar2['email_user'];
             header('location:../FRONTEND-WEB/index-fiyeo.php');
          }
             else 

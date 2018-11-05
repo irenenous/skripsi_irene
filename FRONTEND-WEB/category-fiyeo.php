@@ -1,4 +1,9 @@
-	<!DOCTYPE html>
+<?php 
+session_start();
+include 'config.php';
+?>
+
+<!DOCTYPE html>
 	<html lang="zxx" class="no-js">
 	<head>
 		<!-- Mobile Specific Meta -->
@@ -35,9 +40,15 @@
 		</head>
 		<body>
 
-		<?php
-        include 'header-fiyeo.php';
-        ?>
+<?php
+if (isset ($_SESSION['id'])!="") {
+    $iduser = $_SESSION['id'];
+   include ("header-loggedin.php");
+}
+else {
+include("header-fiyeo.php");
+}
+?>
         <!-- #header -->
 
 
@@ -63,7 +74,7 @@
 					<div class="row justify-content-center d-flex">
 						<div class="col-lg-8 post-list">
                             
-            <?php
+    <?php
 	include("config.php");
 	$query1="SELECT * from eo INNER JOIN provinsi ON eo.id_provinsi = provinsi.id_provinsi INNER JOIN kota ON eo.id_kota = kota.id_kota WHERE status='VERIFIED'";           
 	$simpan1= mysqli_query($koneksi,$query1);
@@ -95,7 +106,7 @@
                                 <table>
                                 <tr>
                                 <td rowspan="5"><img src="../eo/<?php echo $photo ?>" width='150px' height='150px'></td>
-                                <td style="padding-left:20px;"><h4><?php echo $name ?></h4></td>
+                                <td style="padding-left:20px;"><a href="view-profile-eo.php?id_eo=<?php echo $id ?>"><h4><?php echo $name ?></h4></a></td>
                                 <td>
                                 </td>
                                 </tr>
@@ -115,6 +126,7 @@
                                 </tr>
                                 </table>
 							</div>
+                            
     <?php }
 	?>
 

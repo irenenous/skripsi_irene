@@ -1,3 +1,35 @@
+<?php 
+session_start();
+include 'config.php';
+if (isset ($_SESSION['id'])!="") {
+    $ideo = $_SESSION['id'];
+}
+?>	
+
+<?php 
+$query = "SELECT * FROM eo where id_eo = '$ideo' AND status = 'VERIFIED'";
+$tampil = mysqli_query($koneksi, $query);
+$select = mysqli_fetch_array($tampil); 
+        $emaileo = $select['email_eo'];
+        $namaeo = $select['nama_eo'];
+        $fotoeo = $select['foto_eo'];
+        $desceo = $select['ket_eo'];      
+?>
+
+<?php 
+$query1 = "SELECT count(1) FROM portfolio where id_eo = '$ideo'";
+$result1 = mysqli_query($koneksi, $query1);
+$row = mysqli_fetch_array($result1); 
+$totalport = $row[0];       
+?>
+
+<?php 
+$query2 = "SELECT count(1) FROM paket where id_eo = '$ideo'";
+$result2 = mysqli_query($koneksi, $query2);
+$row = mysqli_fetch_array($result2); 
+$totalpaket = $row[0];       
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -36,9 +68,9 @@
         <nav class="side-navbar">
           <!-- Sidebar Header-->
           <div class="sidebar-header d-flex align-items-center">
-            <div class="avatar"><img src="../temp-dashboard/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+            <div class="avatar"><img src="<?php echo $fotoeo ?>" alt="..." class="img-fluid rounded-circle"></div>
             <div class="title">
-              <h1 class="h4">Excellent</h1>
+              <h1 class="h4"><?php echo $namaeo ?></h1>
               <p>Event Organizer</p>
             </div>
           </div>
@@ -51,8 +83,6 @@
                     <li> <a href="portfolio-eo.php"> <i class="icon-picture"></i>Portfolio </a></li>
                     <li> <a href="paket-eo.php"> <i class="fa fa-money"></i>Packages </a></li>
                     <li> <a href="appointment-eo.php"> <i class="fa fa-calendar"></i>Appointments </a></li>
-                    <li><a href="charts.html"> <i class="fa fa-bar-chart"></i>Charts </a></li>
-                    <li><a href="forms.html"> <i class="icon-padnote"></i>Forms </a></li>
           </ul>
         </nav>
         <div class="content-inner">
@@ -70,12 +100,12 @@
                 <div class="col-xl-4 col-sm-6">
                   <div class="item d-flex align-items-center">
                     <div class="icon bg-red"><i class="icon-picture"></i></div>
-                    <div class="title"><span>Porfolio</span>
+                    <div class="title"><span>Portfolio</span>
                       <div class="progress">
-                        <div role="progressbar" style="width: 70%; height: 4px;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-red"></div>
+                        <div role="progressbar" style="width: 100%; height: 4px;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-red"></div>
                       </div>
                     </div>
-                    <div class="number"><strong>70</strong></div>
+                    <div class="number"><strong><?php echo $totalport ?></strong></div>
                   </div>
                 </div>
                 <!-- Item -->
@@ -84,10 +114,10 @@
                     <div class="icon bg-green"><i class="fa fa-money"></i></div>
                     <div class="title"><span>Packages</span>
                       <div class="progress">
-                        <div role="progressbar" style="width: 40%; height: 4px;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-green"></div>
+                        <div role="progressbar" style="width: 100%; height: 4px;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-green"></div>
                       </div>
                     </div>
-                    <div class="number"><strong>40</strong></div>
+                    <div class="number"><strong><?php echo $totalpaket ?></strong></div>
                   </div>
                 </div>
                 <!-- Item -->
@@ -96,7 +126,7 @@
                     <div class="icon bg-orange"><i class="fa fa-calendar"></i></div>
                     <div class="title"><span>Appointments</span>
                       <div class="progress">
-                        <div role="progressbar" style="width: 50%; height: 4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-orange"></div>
+                        <div role="progressbar" style="width: 100%; height: 4px;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-orange"></div>
                       </div>
                     </div>
                     <div class="number"><strong>50</strong></div>

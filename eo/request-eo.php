@@ -1,3 +1,22 @@
+<?php 
+session_start();
+include 'config.php';
+if (isset ($_SESSION['id'])!="") {
+    $ideo = $_SESSION['id'];
+}
+
+?>	
+
+<?php 
+$query = "SELECT * FROM eo where id_eo = '$ideo' AND status = 'VERIFIED'";
+$tampil = mysqli_query($koneksi, $query);
+$select = mysqli_fetch_array($tampil); 
+        $emaileo = $select['email_eo'];
+        $namaeo = $select['nama_eo'];
+        $fotoeo = $select['foto_eo'];
+        $desceo = $select['ket_eo'];
+        
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -36,9 +55,9 @@
         <nav class="side-navbar">
           <!-- Sidebar Header-->
           <div class="sidebar-header d-flex align-items-center">
-            <div class="avatar"><img src="../temp-dashboard/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+            <div class="avatar"><img src="<?php echo $fotoeo ?>" alt="..." class="img-fluid rounded-circle"></div>
             <div class="title">
-              <h1 class="h4">Excellent</h1>
+              <h1 class="h4"><?php echo $namaeo ?></h1>
               <p>Event Organizer</p>
             </div>
           </div>
@@ -68,6 +87,12 @@
               <li class="breadcrumb-item active">Requests            </li>
             </ul>
           </div>
+            
+    <?php
+	include("config.php");
+	$query1="SELECT * FROM request_layanan INNER JOIN user ON request_layanan.id_user = user.id_user where id_eo = '$ideo'";
+	$simpan1= mysqli_query($koneksi,$query1);
+    ?> 
 
         <div class="animated fadeIn">
         <div class="row">
@@ -76,20 +101,38 @@
         <table id="bootstrap-data-table" class="table table-striped table-bordered">
 		<thead>
 			<tr role="row">
-            <th style="width: 200px;">Request ID</th>
-            <th style="width: 200px;">Request Date</th>
-            <th style="width: 300px;">Client</th>
+            <th style="width: 100px;">Request ID</th>
+            <th style="width: 150px;">Request Date</th>
+            <th style="width: 200px;">Client</th>
+            <th style="width: 250px;">Event Type</th>
             <th style="width: 100px;">Action</th></tr>
 		</thead>
 	   <tbody>
-        <tr role="row" class="odd">
-        <td class="sorting_1">4947</td>
-        <td>17/10/2018</td>
-        <td>Irene Andriani</td>
-        <td class="text-center">
-        <div class="btn-group btn-group-xs"><a class="btn btn-default btn-sm">View</a><a onclick="delRecord(4947)" class="btn btn-default btn-sm">Delete</a></div>
+            
+    <?php
+		while($select = mysqli_fetch_assoc($simpan1))
+        {
+			$id	    = $select['id_request'];
+			$date	= $select['tgl_request'];
+			$klien  = $select['nama_user']; 
+            $event  = $select['tipe_acara'];
+		
+	?>
+        <tr> 
+        <td><?php echo $id ?></td>
+        <td><?php echo $date ?></td>
+        <td><?php echo $klien ?></td>
+        <td><?php echo $event ?></td>
+        <td> 
+        <div class="btn-group btn-group-xs">
+        <a class="btn btn-default btn-sm" href="viewrequest.php?id_request=<?php echo $id ?>">View</a>
+        <a class="btn btn-default btn-sm" href="deleterequest.php?id_request=<?php echo $id?>">Delete</a>
+        </div>
         </td>
         </tr>
+	<?php }
+    ?>
+           
         </tbody>
         </table></div></div></div></div>
              

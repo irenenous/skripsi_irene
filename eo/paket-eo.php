@@ -1,3 +1,23 @@
+<?php 
+session_start();
+include 'config.php';
+if (isset ($_SESSION['id'])!="") {
+    $ideo = $_SESSION['id'];
+}
+
+?>	
+
+<?php 
+$query = "SELECT * FROM eo where id_eo = '$ideo' AND status = 'VERIFIED'";
+$tampil = mysqli_query($koneksi, $query);
+$select = mysqli_fetch_array($tampil); 
+        $emaileo = $select['email_eo'];
+        $namaeo = $select['nama_eo'];
+        $fotoeo = $select['foto_eo'];
+        $desceo = $select['ket_eo'];
+        
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -23,6 +43,7 @@
     <link rel="shortcut icon" href="img/favicon.ico">
     <link rel="stylesheet" href="../temp-dashboard/assets/css/lib/datatable/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.css" />
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -40,15 +61,15 @@
         <nav class="side-navbar">
           <!-- Sidebar Header-->
           <div class="sidebar-header d-flex align-items-center">
-            <div class="avatar"><img src="../temp-dashboard/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+            <div class="avatar"><img src="<?php echo $fotoeo ?>" alt="..." class="img-fluid rounded-circle"></div>
             <div class="title">
-              <h1 class="h4">Excellent</h1>
+              <h1 class="h4"><?php echo $namaeo ?></h1>
               <p>Event Organizer</p>
             </div>
           </div>
           <!-- Sidebar Navidation Menus-->
           <ul class="list-unstyled">
-                    <li><a href="index-eo.php"> <i class="icon-home"></i>Home </a></li>
+                    <li><a href="dashboard-eo.php"> <i class="icon-home"></i>Home </a></li>
                     <li> <a href="profile-eo.php"> <i class="fa fa-user"></i>Profile </a></li>
                     <li> <a href="inbox-eo.php"> <i class="icon-mail"></i>Inbox </a></li>
                     <li> <a href="request-eo.php"> <i class="fa fa-tasks"></i>Requests </a></li>
@@ -82,7 +103,7 @@
                     
     <?php
 	include("config.php");
-	$query1="SELECT * FROM paket";
+	$query1="SELECT * FROM paket where id_eo = '$ideo'";
 	$simpan1= mysqli_query($koneksi,$query1);
     ?>            
                     
@@ -111,7 +132,6 @@
 	?>
 			
 			<tr> 
-			
 			<td><?php echo $pname ?></td>
 			<td><?php echo $type ?></td>
 			<td><?php echo 'IDR '.$price ?></td>
@@ -119,7 +139,41 @@
 			<td> 
                 <div class="btn-group btn-group-xs">
                 <a class="btn btn-default btn-sm" href="editpaket.php?id_paket=<?php echo $id?>">Edit</a>
-                <a class="btn btn-default btn-sm" href="deletepaket.php?id_paket=<?php echo $id?>">Delete</a>
+                <script>
+                    function deleteFunction(id){
+                        swal({
+                          title: 'Ya sure bro want to delete ?',
+                          showCancelButton: true,
+                          confirmButtonText: 'Yes',
+                          showLoaderOnConfirm: true,
+                          preConfirm: () => {
+                            return fetch(`deletepaket.php?id_paket=${id}`)
+                          },
+                          allowOutsideClick: () => !swal.isLoading()
+                        }).then((status) => {
+                            if (status.value.ok){
+                                swal({
+                                  type: 'success',
+                                  title: 'Kedelete bro',
+                                  showConfirmButton: false,
+                                  timer: 1000
+                                }).then( () => {
+                                    location.reload();
+                                }
+
+                                )    
+                            } else {
+                                swal({
+                                  type: 'error',
+                                  title: 'Ga kedelete gan',
+                                  showConfirmButton: false,
+                                  timer: 1000
+                                })   
+                            }       
+                        })    
+                      }    
+                </script>
+                <button onclick="deleteFunction(<?php echo $id ?>)" class="btn btn-default btn-sm danger"><i class="fa fa-trash" ></i></button>
                 </div>
           </td>
 			</tr>
@@ -175,10 +229,12 @@
     <script src="../temp-dashboard/assets/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="../temp-dashboard/assets/js/lib/data-table/datatables-init.js"></script>
     <script src="../temp-fiyeo/js/jQuery-Mask-Plugin-master/dist/jquery.mask.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.all.js"></script>
+     
     <script type="text/javascript">
         $(document).ready(function() {
           $('#bootstrap-data-table-export').DataTable();
-      } );
+          
   </script>
      
  
@@ -237,7 +293,6 @@
         </div>
         </div>
         </div> 
-     
      
   </body>
 </html>

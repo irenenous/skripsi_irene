@@ -1,3 +1,40 @@
+<?php 
+session_start();
+include 'config.php';
+if (isset ($_SESSION['id'])!="") {
+    $ideo = $_SESSION['id'];
+}
+
+?>	
+
+<?php 
+$query = "SELECT * FROM eo INNER JOIN provinsi ON eo.id_provinsi = provinsi.id_provinsi INNER JOIN kota ON eo.id_kota = kota.id_kota where id_eo = '$ideo' AND status = 'VERIFIED'";
+$tampil = mysqli_query($koneksi, $query);
+$select = mysqli_fetch_array($tampil);
+        $emaileo = $select['email_eo'];
+        $namaeo = $select['nama_eo'];
+        $fotoeo = $select['foto_eo'];
+        $desceo = $select['ket_eo'];
+        $alamat = $select['alamat_eo'];
+        $nohp = $select['nohp_eo'];
+        $tahun = $select['tahun_diri'];
+        $link = $select['link_web'];
+        $idprov = $select['id_provinsi'];
+        $provname  = $select['nama_provinsi'];
+        $idcity = $select['id_kota'];
+        $cityname  = $select['nama_kota'];
+        
+?>
+
+<!--
+<?php 
+$query2 = "SELECT * FROM kategori_eo INNER JOIN kategori ON kategori_eo.id_kategori = kategori.id_kategori where id_eo = '$ideo'";
+$tampil2 = mysqli_query($koneksi, $query2);
+$select2 = mysqli_fetch_array($tampil2); 
+        $namakat = $select['nama_kategori'];
+?>
+-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +63,22 @@
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-      
+<style>
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}    
+</style>
 </head>
  <body>
     <div class="page" style="background-color: white;">
@@ -38,9 +90,9 @@
         <nav class="side-navbar">
           <!-- Sidebar Header-->
           <div class="sidebar-header d-flex align-items-center">
-            <div class="avatar"><img src="../temp-dashboard/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+            <div class="avatar"><img src="<?php echo $fotoeo ?>" alt="..." class="img-fluid rounded-circle"></div>
             <div class="title">
-              <h1 class="h4">Excellent</h1>
+              <h1 class="h4"><?php echo $namaeo ?></h1>
               <p>Event Organizer</p>
             </div>
           </div>
@@ -76,7 +128,6 @@
  <div class="container-fluid">
 <!-- <div class="container"> -->
     <div>
-	<form action="https://partner.hellobeauty.id/profile/validate" id="form" class="form-horizontal" method="post" accept-charset="utf-8">
     <div class="panel with-nav-tabs panel-default">
     <div class="panel-heading">
 		<input type="hidden" name="user_id" value="8668">
@@ -88,53 +139,67 @@
         <div class="panel-body">
 		<div class="tab-content" style="padding-top:20px; background-color: #fff;">
 			<div class="tab-pane active" id="tab1default">
+                <form action="updateprofile.php" id="form" class="form-horizontal" method="post" enctype="multipart/form-data">
 				<div class="form-group">
 				<label class="col-md-3 control-label">Company Logo</label>
-				<div class="col-md-3">
-				<img id="image" src="../temp-dashboard/img/avatar-1.jpg" class="img-thumbnail"> <button type="button" class="btn btn-default" id="upload" style="margin-left: 20px;">Upload</button>
+				<div class="col-md-3 d-flex">
+				<img id="image" src="<?php echo $fotoeo ?>" style= "width:150px; height:150px;"> 
+                <div class="align-self-center" style="margin-left: 20px;">
+                <div class="upload-btn-wrapper">
+                <button class="btn">Upload</button>
+                <input type="file" name="foto" id="foto" />
+                </div>
+                </div>
 				</div>
 				</div>
 				<div class="form-group">
 				<label class="control-label col-sm-3">Company Name</label>
 				<div class="col-sm-9">
-				<input type="text" class="form-control" name="name" value="Excellent Event Organizer">
+				<input type="text" class="form-control" id="name" name="name" value="<?php echo $namaeo ?>" required>
 				</div>
 				</div>
 				<div class="form-group">
 				<label class="control-label col-sm-3">Company Description</label>
 				<div class="col-sm-9">
-				<textarea class="single-textarea form-control" value=""></textarea>
+				<textarea class="single-textarea form-control" name="description" id="description" required><?php echo $desceo ?></textarea>
 				</div>
 				</div>
                 <div class="form-group">
 				<label class="control-label col-sm-3">Company Category</label>
-				<div class="col-sm-9">
-				<select name="category" class="form-control mb-3" disabled="">
-                <option>Wedding</option>
-                <option>Birthday</option>
-                <option>Private Party</option>
-                <option>MICE</option>
-                </select>
-				</div>
+                <div class="col-sm-9">
+                <?php 
+                $query2 = "SELECT * FROM kategori_eo INNER JOIN kategori ON kategori_eo.id_kategori = kategori.id_kategori where id_eo = '$ideo'";
+                $tampil2 = mysqli_query($koneksi, $query2);
+                while ($row = mysqli_fetch_array($tampil2)) {
+                ?>    
+                    <select name="nama_kategori[]" id="kategori" class="form-control mb-3" disabled="" required>
+                    <option value="<?php echo $row['id_kategori'] ?>" selected><?php echo $row['nama_kategori'] ?></option>
+                    </select>    
+                <?php
+                }
+                
+                ?>
+				
+
 				</div>
                 <div class="form-group">
                 <div class="row">
 				<div class="col-md-4">
                 <label class="control-label col-sm-3">Province</label>
-				<select name="provinsi" class="form-control ml-3">
-                <option>Banten</option>
-                <option>Jakarta</option>
-                <option>Kalimantan Barat</option>
-                <option>Jawa Barat</option>
+				<select name="provinsi" id="provinsi" class="form-control ml-3" required>
+              
+                <?php 
+                include 'config.php';
+                $tampil=mysqli_query($koneksi, "SELECT id_provinsi, nama_provinsi FROM provinsi");  
+                while($id_provinsi=mysqli_fetch_array($tampil)) {
+                echo "<option value='".$id_provinsi[id_provinsi]."' ".($id_provinsi[id_provinsi] == $idprov ? "selected" : "")."> ".$id_provinsi[nama_provinsi]."</option>";}
+                ?>
                 </select>
 				</div>
                 <div class="col-md-4">
                 <label class="control-label col-sm-3">City</label>
-				<select name="provinsi" class="form-control ml-3">
-                <option>Tangerang</option>
-                <option>Jakarta Barat</option>
-                <option>Pontianak</option>
-                <option>Bandung</option>
+				<select name="kota" id="kota" class="form-control ml-3" required>
+                    <option value=""><?php echo $cityname ?></option>
                 </select>
 				</div>
                 </div>
@@ -142,64 +207,70 @@
                 <div class="form-group">
 				<label class="control-label col-sm-3">Address</label>
 				<div class="col-sm-9">
-				<textarea class="single-textarea form-control" value=""></textarea>
+				<textarea name="address" id="address" class="single-textarea form-control" required><?php echo $alamat ?></textarea>
 				</div>
 				</div>
                 <div class="form-group">
 				<label class="control-label col-sm-3">E-mail</label>
 				<div class="col-sm-9">
-				<input type="text" class="form-control" name="email" value="excellenteo@gmail.com">
+				<input type="email" class="form-control" name="email" id="email" value="<?php echo $emaileo ?>" required onkeyup="checkemail();">
+                <div class="row justify-content-center">
+                <span id="email_status"></span>
+                </div>
 				</div>
 				</div>
 				<div class="form-group">
 				<label class="control-label col-sm-3">Phone Number</label>
 				<div class="col-sm-9">
-				<input type="text" class="form-control" name="telephone" value="085921471595">
+				<input type="text" class="form-control" name="phone" id="phone" value="<?php echo $nohp ?>" required>
 				</div>
 				</div>
                 <div class="form-group">
 				<label class="control-label col-sm-3">Year Of Establishment</label>
 				<div class="col-sm-9">
-				<select name="category" class="form-control mb-3" disabled="">
-                <option>2018</option>
-                <option>2017</option>
-                <option>2016</option>
-                <option>2015</option>
+				<select name="year" id="year" class="form-control mb-3" disabled="" required>
+                <option><?php echo $tahun ?></option>
                 </select>
 				</div>
 				</div>
                 <div class="form-group">
 				<label class="control-label col-sm-3">Website Link</label>
 				<div class="col-sm-9">
-				<input type="text" class="form-control" name="weblink" value="www.excellentevent.com">
+				<input type="text" class="form-control" name="weblink" id="weblink" value="<?php echo $link ?>" required>
 				</div>
 				</div>
         <div class="justify-content-center col-sm-3" style="margin-top:20px; margin-bottom:50px;">
-		  <a id="submit" class="btn btn-primary text-white"><i class="fa fa-check"></i> Save</a>
+		  <button type="submit" class="btn btn-primary submitBtn" id="btn-simpan" name="btn-simpan"><i class="fa fa-check"></i> Save</button>
             </div>
+            </div>
+            </form>
 			</div>
 			<div class="tab-pane" id="tab2default">
+                <form action="changepass.php" id="form" class="form-horizontal" method="post">
 				<div class="alert alert-info">Leave password blank if you don't want to change your password</div>
 				<div class="form-group">
 					<label class="control-label col-sm-3">Password</label>
 					<div class="col-sm-9">
-						<input type="password" class="form-control" name="password" value="">
+						<input type="password" class="form-control" name="password" id="password" value="">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label col-sm-3">Re-type Password</label>
 					<div class="col-sm-9">
-						<input type="password" class="form-control" name="confirm" value="">
+						<input type="password" class="form-control" name="confirmpass" id="confirmpass" value="">
+                        <div class="row justify-content-center">
+                        <span id="alert"></span>
+                        </div>
 					</div>
 				</div>
               <div class="justify-content-center col-sm-3" style="margin-top:20px; margin-bottom:30px;">
-		  <a id="submit" class="btn btn-primary text-white"><i class="fa fa-check"></i> Save</a>
+		  <button type="submit" class="btn btn-primary submitBtn" id="btn-simpan1" name="btn-simpan1"><i class="fa fa-check"></i> Save</button>
             </div>
+            </form>
 			</div>
         </div>
         </div>
 	</div>
-     </form>
      </div>
     </div>
     </div>
@@ -227,12 +298,113 @@
 
     <!-- JavaScript files-->
     <script src="../temp-dashboard/vendor/jquery/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="../temp-dashboard/vendor/popper.js/umd/popper.min.js"> </script>
     <script src="../temp-dashboard/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="../temp-dashboard/vendor/jquery.cookie/jquery.cookie.js"> </script>
     <script src="../temp-dashboard/vendor/chart.js/Chart.min.js"></script>
     <script src="../temp-dashboard/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="../temp-fiyeo/js/jQuery-Mask-Plugin-master/dist/jquery.mask.js"></script>
     <!-- Main File-->
     <script src="../temp-dashboard/js/front.js"></script>
+
+<script type="text/javascript">
+    $('#password, #confirmpass').on('keyup', function () {
+        if ($('#password').val() == $('#confirmpass').val()) {
+            $('#alert').html('Password match').css('color', 'green');
+            document.getElementById("btn-simpan1").disabled=false;
+        }
+        else if ($('#password').val() != $('#confirmpass').val()) {
+            $('#alert').html('Password does not match').css('color', 'red');
+            document.getElementById("btn-simpan1").disabled=true;
+        }        
+    });
+</script>
+  
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#provinsi').on('change',function(){
+        var id_provinsi = $(this).val();
+        if(id_provinsi){
+            $.ajax({
+                type:'POST',
+                url:'ajaxData.php',
+                data:'id_provinsi='+id_provinsi,
+                success:function(data){
+                    d = JSON.parse(data);
+                    $('#kota').empty();
+                    for (i = 0 ; i < d.length ; i++) {
+                        $('#kota').append($("<option></option>")
+                        .attr("value",d[i]['id_kota'])
+                        .text(d[i]['nama_kota']));
+                    };
+                }
+            }); 
+        }else{
+            $('#kota').html('<option value="">Select province first</option>'); 
+        }
+    });
+});
+</script>     
+     
+<script type="text/javascript">
+function checkemail()
+{
+ var email=document.getElementById("email").value;
+	
+ if(email)
+ {
+  $.ajax({
+  type: 'post',
+  url: 'checkProfileData.php',
+  data: {
+   update_email:email,
+  },
+  success: function (response) {
+   $( '#email_status' ).html(response).css('color', 'red');
+   if(response=="OK")	
+   {
+    return true;
+   }
+   else
+   {
+    return false;	
+   }
+  }
+  });
+ }
+ else
+ {
+  $( '#email_status' ).html("").css('color', 'red');
+  return false;
+ }
+}            
+</script>     
+     
+<script type="text/javascript">
+function readURL(input) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#image').attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#foto").change(function() {
+  readURL(this);
+});  
+</script>
+     
+<script type="text/javascript">
+	$(document).ready(function() {
+    $('#phone').mask('0000-0000-0000', {reverse: true});
+	});
+</script>
+     
   </body>
 </html>

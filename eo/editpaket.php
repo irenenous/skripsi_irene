@@ -1,3 +1,22 @@
+<?php 
+session_start();
+include 'config.php';
+if (isset ($_SESSION['id'])!="") {
+    $ideo = $_SESSION['id'];
+}
+
+?>	
+
+<?php 
+$query = "SELECT * FROM eo where id_eo = '$ideo' AND status = 'VERIFIED'";
+$tampil = mysqli_query($koneksi, $query);
+$select = mysqli_fetch_array($tampil); 
+        $emaileo = $select['email_eo'];
+        $namaeo = $select['nama_eo'];
+        $fotoeo = $select['foto_eo'];
+        $desceo = $select['ket_eo'];
+        
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -37,15 +56,15 @@
         <nav class="side-navbar">
           <!-- Sidebar Header-->
           <div class="sidebar-header d-flex align-items-center">
-            <div class="avatar"><img src="../temp-dashboard/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+            <div class="avatar"><img src="<?php echo $fotoeo ?>" alt="..." class="img-fluid rounded-circle"></div>
             <div class="title">
-              <h1 class="h4">Excellent</h1>
+              <h1 class="h4"><?php echo $namaeo ?></h1>
               <p>Event Organizer</p>
             </div>
           </div>
           <!-- Sidebar Navidation Menus-->
           <ul class="list-unstyled">
-                    <li><a href="index-eo.php"> <i class="icon-home"></i>Home </a></li>
+                    <li><a href="dashboard-eo.php"> <i class="icon-home"></i>Home </a></li>
                     <li> <a href="profile-eo.php"> <i class="fa fa-user"></i>Profile </a></li>
                     <li> <a href="inbox-eo.php"> <i class="icon-mail"></i>Inbox </a></li>
                     <li> <a href="request-eo.php"> <i class="fa fa-tasks"></i>Requests </a></li>
@@ -123,7 +142,7 @@
     <textarea class="form-control" name="ketpaket" id="ketpaket" placeholder="Describe all the services included in the package" required><?php echo $description; ?></textarea>
     </div>
     <div class="form-group" style="margin-top:30px;">
-    <input type="reset" class="btn btn-danger">
+        <a class="btn btn-danger" href="paket-eo.php">Cancel</a>
     <button type="submit" class="btn btn-primary submitBtn" id="simpan" name="simpan">Save Changes</button>
     </div>          
     </form></div></div></div>

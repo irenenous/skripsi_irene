@@ -36,9 +36,8 @@ include 'config.php';
 		<body>
 
 <?php
-if (isset ($_SESSION['email'])!="") {
+if (isset ($_SESSION['id'])!="") {
     $iduser = $_SESSION['id'];
-    $namauser = $_SESSION['nama'];
    include ("header-loggedin.php");
 }
 else {
@@ -261,7 +260,7 @@ include("header-fiyeo.php");
                                 <td style="padding-left:20px;"><h4>Creative Art Designer</h4></td>
                                 <td>
                                 <div class="btns">
-                                <a href="#" class="genric-btn success medium">View</a>
+                                <a href="view-profile-eo.php" class="genric-btn success medium">View</a>
                                 </div>
                                 </td>
                                 </tr>

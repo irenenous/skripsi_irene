@@ -1,3 +1,22 @@
+<?php 
+session_start();
+include 'config.php';
+if (isset ($_SESSION['id'])!="") {
+    $ideo = $_SESSION['id'];
+}
+?>
+
+<?php 
+$query = "SELECT * FROM eo where id_eo = '$ideo' AND status = 'VERIFIED'";
+$tampil = mysqli_query($koneksi, $query);
+$select = mysqli_fetch_array($tampil); 
+        $emaileo = $select['email_eo'];
+        $namaeo = $select['nama_eo'];
+        $fotoeo = $select['foto_eo'];
+        $desceo = $select['ket_eo'];
+        
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -36,9 +55,9 @@
         <nav class="side-navbar">
           <!-- Sidebar Header-->
           <div class="sidebar-header d-flex align-items-center">
-            <div class="avatar"><img src="../temp-dashboard/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+            <div class="avatar"><img src="<?php echo $fotoeo ?>" alt="..." class="img-fluid rounded-circle"></div>
             <div class="title">
-              <h1 class="h4">Excellent</h1>
+              <h1 class="h4"><?php echo $namaeo ?></h1>
               <p>Event Organizer</p>
             </div>
           </div>
@@ -112,7 +131,7 @@
                    
 <?php
 	include("config.php");
-	$query1="SELECT * FROM portfolio";
+	$query1="SELECT * FROM portfolio where id_eo = '$ideo'";
 	$simpan1= mysqli_query($koneksi,$query1);
 ?>             
                    
@@ -140,7 +159,7 @@
 			<td><?php echo $description ?></td>
 			<td> 
             <div class="btn-group btn-group-xs">
-            <input type="button" class="btn btn-default btn-sm" value="Edit" name="edit" id="edit" />
+            <a class="btn btn-default btn-sm" href="editportfolio.php?id_portfolio=<?php echo $idport?>">Edit</a>
             <a class="btn btn-default btn-sm" href="deleteportfolio.php?id_portfolio=<?php echo $idport?>">Delete</a>
             </div>
 		
@@ -174,6 +193,7 @@
         </div>
       </div>
     </div>
+
     <!-- JavaScript files-->
     <script src="../temp-dashboard/vendor/jquery/jquery.min.js"></script>
     <script src="../temp-dashboard/vendor/popper.js/umd/popper.min.js"> </script>

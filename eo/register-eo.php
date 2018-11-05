@@ -1,4 +1,6 @@
-<?php SESSION_START(); ?>	
+<?php 
+session_start(); 
+?>	
 <!DOCTYPE html>
 	<html lang="zxx" class="no-js">
 	<head>
@@ -30,6 +32,7 @@
 			<link rel="stylesheet" href="../temp-fiyeo/css/owl.carousel.css">
 			<link rel="stylesheet" href="../temp-fiyeo/css/main.css">
             <link rel="stylesheet" href="../temp-fiyeo/wizard/assets/css/wizard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.css" />
             
 <style>
 .nice-select .list { max-height: 300px; overflow: scroll; }
@@ -59,7 +62,8 @@
                 
                 <div class="row">
                     <div class="col-md-8 offset-md-2 form-box">
-                    	<form role="form" action="register.php" method="post" class="f1" enctype="multipart/form-data">
+                    	<form role="form" action="register.php" method="post" class="f1" id="register-form" enctype="multipart/form-data"
+                        onsubmit="registerFunction()">
 
                     		<div class="f1-steps" style="text-align: center; margin-top: 1px;">
                     			<div class="f1-progress" style="text-align: center">
@@ -312,7 +316,45 @@
             <script src="../temp-fiyeo/wizard/assets/js/jquery.backstretch.min.js"></script>
             <script src="../temp-fiyeo/wizard/assets/js/retina-1.1.0.min.js"></script>
             <script src="../temp-fiyeo/wizard/assets/js/scripts.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.all.js"></script>
             
+              <script>
+                    function registerFunction(){
+                        var frm = $('#register-form');
+                        frm.submit(function (ev) {
+                            $.ajax({                                     type: "POST",
+                                enctype: 'multipart/form-data',
+                                url: frm.attr('action'),
+                                processData: false,
+                                contentType: false,
+                                cache: false,
+                                timeout: 600000,
+                                data: new FormData(frm[0]),
+                                success: function (data) {
+                                    swal({
+                                      type: 'success',
+                                      title: 'Kedefatar bro',
+                                      showConfirmButton: false,
+                                      timer: 1000
+                                    }).then( () => {
+                                    location.replace("../FRONTEND-WEB/index-fiyeo.php");
+                                    });      
+                                    
+                                },
+                                error: function () {
+                                    swal({
+                                      type: 'error',
+                                      title: 'Tangan lu bau gan',
+                                      showConfirmButton: false,
+                                      timer: 1000
+                                    });  
+                                }
+                            });
+                            ev.preventDefault();
+                            ev.cancelBubble();
+                        });   
+                      }    
+                </script>
             
 <script type="text/javascript">
 $(document).ready(function(){

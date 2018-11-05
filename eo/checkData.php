@@ -1,5 +1,4 @@
 <?php
-
 include 'config.php';
 
 
@@ -41,6 +40,7 @@ if(isset($_POST['user_email']))
  }
  exit();
 }
+
 
 
 ?>

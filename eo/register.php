@@ -1,10 +1,10 @@
  <?php
+session_start();
         include 'config.php';
         
         
         $tangkapEmail     = $_POST['email'];
         $tangkapPassword  = $_POST['password'];
-//        $tangkapFoto      = $_POST['foto'];
         $tangkapCName     = $_POST['companyname'];
         $tangkapCDesc     = $_POST['companydesc'];
         $tangkapCategory  = $_POST['nama_kategori'];
@@ -12,10 +12,6 @@
         $tangkapKota      = $_POST['nama_kota'];
         $tangkapAddress   = $_POST['address'];
         $tangkapNoHp      = $_POST['phonenumber'];
-//        $tangkapFotoId    = $_POST['fotoid'];
-//        $tangkapFotoId1   = $_POST['fotoid1'];
-//        $tangkapFotoId2   = $_POST['fotoid2'];
-//        $tangkapFotoId3   = $_POST['fotoid3'];
         $tangkapYear      = $_POST['year'];
         $tangkapWeb      = $_POST['weblink'];
         $tangkapStatus     = 'PENDING';
@@ -67,15 +63,17 @@
         '$tangkapCName', '$tangkapCDesc', '$tangkapProvinsi', '$tangkapKota', '$tangkapAddress', '$tangkapNoHp', '$target_fileFotoId', '$target_fileFoto[0]', '$target_fileFoto[1]', '$target_fileFoto[2]', '$tangkapYear', '$tangkapWeb', '$tangkapStatus')");
         
         if (!$query) { 
-            echo '<script> alert("Registration failed. Email already exist"); window.history.back(); </script>';
-            
+//            echo '<script> alert("Registration failed. Email already exist"); window.history.back(); </script>';
+            echo mysqli_error($koneksi);
+            http_response_code(400);
         } else {
         
          $eo_id = mysqli_insert_id($koneksi);
         for ($ix = 0 ; $ix < count($tangkapCategory) ; $ix++) {
             $query = mysqli_query($koneksi , "insert into kategori_eo values ('$eo_id', '$tangkapCategory[$ix]')");
         } 
-        header('Location: ../FRONTEND-WEB/index-fiyeo.php'); 
+        echo "OK";
+//        header('Location: ../FRONTEND-WEB/index-fiyeo.php'); 
         } 
         
 
