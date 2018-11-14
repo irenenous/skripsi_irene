@@ -24,8 +24,9 @@ $date = date('m/d/Y h:i:s A');
         $tangkapSubjek    = $_POST['subject'];
         $tangkapPesan       = $_POST['message'];
         $tangkapStatus      = 'SENT';
+        $tangkapSender      = 'KLIEN';
         
-		$query = mysqli_query($koneksi , "insert into pesan values ('','$iduser', '$ideo', '$date', '$tangkapSubjek', '$tangkapPesan', '$tangkapStatus')");
+		$query = mysqli_query($koneksi , "insert into pesan values ('','$iduser', '$ideo', '$date', '$tangkapSubjek', '$tangkapPesan', '$tangkapStatus','$tangkapSender')");
         
          header('Location: ../FRONTEND-WEB/view-profile-eo.php?id_eo='.$ideo);
 	}

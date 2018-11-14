@@ -31,6 +31,7 @@ session_start();
 			<link rel="stylesheet" href="../temp-fiyeo/css/animate.min.css">
 			<link rel="stylesheet" href="../temp-fiyeo/css/owl.carousel.css">
 			<link rel="stylesheet" href="../temp-fiyeo/css/main.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.min.css" />
 		</head>
 		<body>
             
@@ -62,7 +63,7 @@ include '../FRONTEND-WEB/header-fiyeo.php'
 			<!-- End banner Area -->
             
                         <div class="container" style="padding: 60px;">
-							<form class="form-area" id="login" action="login.php" method="post">
+							<form class="form-area" id="login-form" action="login.php" method="POST">
 								<div class= "col-lg-6 offset-lg-3">	
 									<div class="form-group">
                                         <div class="input-group">
@@ -152,7 +153,8 @@ include '../FRONTEND-WEB/header-fiyeo.php'
 			<script src="../temp-fiyeo/js/jquery.nice-select.min.js"></script>			
 			<script src="../temp-fiyeo/js/parallax.min.js"></script>		
 			<script src="../temp-fiyeo/js/mail-script.js"></script>	
-			<script src="../temp-fiyeo/js/main.js"></script>	
+			<script src="../temp-fiyeo/js/main.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.all.min.js"></script>
 
         
 <script type="text/javascript"> 
@@ -162,8 +164,9 @@ include '../FRONTEND-WEB/header-fiyeo.php'
         x.type = "text";
     } else {
         x.type = "password";
-    }
-}</script>     
+    } }
+</script>     
+
         
         
         

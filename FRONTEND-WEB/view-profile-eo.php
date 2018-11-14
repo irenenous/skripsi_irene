@@ -109,34 +109,15 @@ session_start();
 		<body>
 
 <?php
-if ($_SESSION['id']!="") {
-include ("header-loggedin.php");
+if (isset ($_SESSION['id'])!="") {
+    $iduser = $_SESSION['id'];
+   include ("header-loggedin.php");
 }
 else {
-include ("header-fiyeo.php");
-    
-//$query = "SELECT * FROM user where id_user = '$iduser' AND status = 'ACTIVE'";
-//$result = mysqli_query($koneksi, $query);
-//$row =mysqli_num_rows($result);
-//if ($row > 0) {
-//$select = mysqli_fetch_array($result);
-//$iduser = $select['id_user'];
-//$namauser = $select['nama_user'];
-//$emailuser = $select['email_user'];
-//$fotouser = $select['foto_user'];  
-//    include ("header-loggedin.php");
-//} else {
-//        $query1 = "SELECT * FROM eo where id_eo = '$iduser' AND status = 'VERIFIED'";
-//        $result1 = mysqli_query($koneksi, $query1);
-//        $select = mysqli_fetch_array($result1); 
-//        $emaileo = $select['email_eo'];
-//        $namaeo = $select['nama_eo'];
-//        $fotoeo = $select['foto_eo'];
-//        $desceo = $select['ket_eo'];
-//        include ("header-view-eo.php");
-//        }
+include("header-fiyeo.php");
 }
 ?>
+     
   
     <?php
 	include("config.php");
@@ -167,6 +148,12 @@ include ("header-fiyeo.php");
             $idbook = $select['id_bookmark'];
             $statusbook = $select['status'];
     ?>
+<?php 
+$query7 = "SELECT count(1) FROM paket where id_eo = '$ideo'";
+$result7 = mysqli_query($koneksi, $query7);
+$row = mysqli_fetch_array($result7); 
+$totalpaket = $row[0];       
+?>
 
 			<!-- start banner Area -->
 			<section class="banner-area relative" id="home">	
@@ -180,20 +167,28 @@ include ("header-fiyeo.php");
                             <p style="color: white; font-size:120%; margin-top:10px;">Event Organizer</p>
                             </div>
                             <div style="margin-top:40px;">
-                            <?php if ($statusbook != 'BOOKMARKED') {?>
+                            <?php if (isset ($_SESSION['id'])!="") {
+                            if ($statusbook != 'BOOKMARKED') {?>
                             <a href="../user/addbookmark.php?id_eo=<?php echo $ideo ?>" class="genric-btn success circle" style="width:210px; font-size: 100%"><i class="fa fa-bookmark fa-lg"></i>&nbsp;&nbsp;&nbsp;Add To Bookmark</a>
                             <?php }
                             else { ?>
                             <a href="#" class="genric-btn circle disable" style="width:210px; color: #4cd3e3; font-size: 100%;"><i class="fa fa-bookmark fa-lg"></i>&nbsp;&nbsp;&nbsp;Bookmarked</a>
+                            <?php } }
+                            else { ?>
+                            <a href="../user/login-fiyeo.php" class="genric-btn success circle" style="width:210px; font-size: 100%"><i class="fa fa-bookmark fa-lg"></i>&nbsp;&nbsp;&nbsp;Add To Bookmark</a>  
                             <?php } ?>
-                            &nbsp;&nbsp;&nbsp; <button class="genric-btn success circle" style="width:210px; font-size: 100%; font-weight:300;" data-toggle="modal" data-target="#modalForm"><i class="fa fa-weixin fa-lg"></i>&nbsp;&nbsp;&nbsp;Send Message</button>
+                            &nbsp;&nbsp;&nbsp; 
+                            <?php if (isset ($_SESSION['id'])!="") { ?>
+                            <button class="genric-btn success circle" style="width:210px; font-size: 100%; font-weight:300;" data-toggle="modal" data-target="#modalForm"><i class="fa fa-weixin fa-lg"></i>&nbsp;&nbsp;&nbsp;Send Message</button>
+                            <?php } 
+                            else { ?>
+                            <a href="../user/login-fiyeo.php" class="genric-btn success circle" style="width:210px; font-size: 100%"><i class="fa fa-weixin fa-lg"></i>&nbsp;&nbsp;&nbsp;Send Message</a>
+                            <?php } ?>
                             </div>
 						</div>
 					</div>
 				</div>
 			</section>
-         
-			<!-- Start post Area -->
 			<section class="post-area section-gap" style="padding: 30px;">
 				<div class="container">
                 <div class="col-lg-12">
@@ -217,19 +212,38 @@ include ("header-fiyeo.php");
                 <p> <?php echo $desceo ?> </p>
                 <hr>
                 <h4 class="single-title">Category</h4>
-                <p> Event & Party Organizer in Jakarta. </p>
+                <ul>
+            <?php 
+                $query9 = "SELECT * FROM kategori_eo INNER JOIN kategori ON kategori_eo.id_kategori = kategori.id_kategori where id_eo = '$ideo'";
+                $simpan9 = mysqli_query($koneksi, $query9);
+                while ($select = mysqli_fetch_array($simpan9)) {
+			     $namakat = $select['nama_kategori'];
+           
+            ?>   
+                <li><img src ="../temp-fiyeo/img/pages/list.jpg">&nbsp; <?php echo $namakat ?></li>
+            <?php }
+            ?>
+            </ul>
             </div>
             <div class="single-post job-experience">
                 <h4 class="single-title">Service Packages
                 <div class="pull-right">
+                <?php if (isset ($_SESSION['id'])!="") { ?>
                 <a href="request-service-form.php?id_eo=<?php echo $ideo ?>" class="genric-btn success circle medium" style="font-size:70%">Request Service</a>
+                <?php }
+                else { ?>
+                <a href="../user/login-fiyeo.php" class="genric-btn success circle medium" style="font-size:70%">Request Service</a>
+                <?php } ?>
                 </div></h4>
             <hr style="margin-top:30px;">
-        <?php
+        <?php if ($totalpaket == '0') { ?>
+            <p>No service package available yet</p>
+        <?php } 
+        else {
+            
 	include("config.php");
-	$query1="SELECT * from paket WHERE id_eo ='".$ideo."'";           
-	$simpan1= mysqli_query($koneksi,$query1);
-                           
+	$query1="SELECT * from paket WHERE id_eo ='".$ideo."'";        
+	$simpan1= mysqli_query($koneksi,$query1);      
    while($select = mysqli_fetch_assoc($simpan1)) {
 			$idpaket     = $select['id_paket'];
             $namapaket   = $select['nama_paket'];
@@ -260,25 +274,59 @@ include ("header-fiyeo.php");
             </table>
             <br>
         
-    <?php }
+    <?php } }
 	?>
       
             </div>
             </div>				
-         
+<?php 
+$query5 = "SELECT cast(AVG(rating) as decimal(2,1)) FROM review where id_eo = '$ideo'";
+$tampil5 = mysqli_query($koneksi, $query5);
+$select = mysqli_fetch_array($tampil5);
+$totalrating = $select['cast(AVG(rating) as decimal(2,1))'];
+?>
+<?php 
+$query6 = "SELECT count(1) FROM review where id_eo = '$ideo'";
+$result6 = mysqli_query($koneksi, $query6);
+$row = mysqli_fetch_array($result6); 
+$totalreview = $row[0];       
+?>
+<?php 
+$query8 = "SELECT count(1) FROM portfolio where id_eo = '$ideo'";
+$result8 = mysqli_query($koneksi, $query8);
+$row = mysqli_fetch_array($result8); 
+$totalportfolio = $row[0];       
+?>
+                
 				<div class="col-lg-4 sidebar">
-				<div class="container" style="padding:20px; margin-bottom: 30px; border: 1px solid #aa80ff; border-radius: 5px; width:300px; height:100px;">
+                <?php if ($totalreview == '0') {?>
+			     <div class="container" style="padding:20px; margin-bottom: 30px; border: 1px solid #aa80ff; border-radius: 5px; width:300px; height:100px;">
                 <div class="row d-flex align-items-center justify-content-center">
 				<div>
-				<div class="box-deskripsi" style="text-align: center; font-size:130%; font-weight:300; padding:10px; color:  #aa80ff;">
-                <div class="deskripsi-rating">
-				<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i></div>
-                <div class="tulisan">
-				Rating <small>From 1 Reviews</small></div>
-				</div>
-				</div>
-				</div>
+				<div class="box-deskripsi" style="text-align: center; font-size:130%; font-weight:300; padding:5px; color: #aa80ff;">
+                <div>
+                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
                 </div>
+                <div class="tulisan">
+				<small>No rating yet</small></div>
+                </div></div></div>
+                </div>
+                <?php } 
+                else { ?>      
+                <div class="container" style="padding:20px; margin-bottom: 30px; border: 1px solid #aa80ff; border-radius: 5px; width:300px; height:120px;">
+                <div class="row d-flex align-items-center justify-content-center">
+				<div>
+				<div class="box-deskripsi" style="text-align: center; font-size:130%; font-weight:300; padding:5px; color: #aa80ff;">
+                <div>
+                <h1 style="color: #aa80ff;">
+				<?php echo $totalrating ?> <small>/ 5</small></h1></div>
+                <div class="tulisan">
+				<small>Total rating from <?php echo $totalreview ?> Reviews</small></div>
+                </div>
+                </div>
+                </div> 
+                </div>
+                <?php } ?>
                 <div class="single-slidebar">
 				<h4>More Information</h4>
                 <hr>
@@ -300,32 +348,29 @@ include ("header-fiyeo.php");
             <div class="single-post job-experience">
 						<h4>Portfolio</h4>
                         <hr>
-						<div class="row gallery-item">
-							<div class="col-md-4">
-								<a href="../temp-dashboard/img/avatar-0.jpg" class="img-pop-up"><div class="single-gallery-image" style="background: url(../temp-dashboard/img/avatar-0.jpg);"></div></a>
-							</div>
-							<div class="col-md-4">
-								<a href="../temp-dashboard/img/avatar-3.jpg" class="img-pop-up"><div class="single-gallery-image" style="background: url(../temp-dashboard/img/avatar-3.jpg);"></div></a>
-							</div>
-							<div class="col-md-4">
-								<a href="../temp-fiyeo/img/elements/g3.jpg" class="img-pop-up"><div class="single-gallery-image" style="background: url(../temp-fiyeo/img/elements/g3.jpg);"></div></a>
-							</div>
-							<div class="col-md-6">
-								<a href="../temp-fiyeo/img/elements/g4.jpg" class="img-pop-up"><div class="single-gallery-image" style="background: url(../temp-fiyeo/img/elements/g4.jpg);"></div></a>
-							</div>
-							<div class="col-md-6">
-								<a href="../temp-fiyeo/img/elements/g5.jpg" class="img-pop-up"><div class="single-gallery-image" style="background: url(../temp-fiyeo/img/elements/g5.jpg);"></div></a>
-							</div>
-							<div class="col-md-4">
-								<a href="../temp-fiyeo/img/elements/g6.jpg" class="img-pop-up"><div class="single-gallery-image" style="background: url(../temp-fiyeo/img/elements/g6.jpg);"></div></a>
-							</div>
-							<div class="col-md-4">
-								<a href="../temp-fiyeo/img/elements/g7.jpg" class="img-pop-up"><div class="single-gallery-image" style="background: url(../temp-fiyeo/img/elements/g7.jpg);"></div></a>
-							</div>
-							<div class="col-md-4">
-								<a href="../temp-fiyeo/img/elements/g8.jpg" class="img-pop-up"><div class="single-gallery-image" style="background: url(../temp-fiyeo/img/elements/g8.jpg);"></div></a>
-							</div>
-						</div>
+        <?php if ($totalportfolio == '0') { ?>
+                <p>No portfolio available yet</p>
+         <?php } 
+        else { ?>
+                <div class="row gallery-item">
+    <?php
+	include("config.php");
+	$query3="SELECT * from portfolio WHERE id_eo ='".$ideo."'";           
+	$simpan3= mysqli_query($koneksi,$query3);
+                           
+   while($select = mysqli_fetch_assoc($simpan3)) {
+			$idport     = $select['id_portfolio'];
+            $fotoport   = $select['foto'];
+            $ketfoto  = $select['ket_foto'];
+
+    ?>      
+				<div class="col-md-4">
+				<a href="../eo/<?php echo $fotoport ?>" class="img-pop-up"><div class="single-gallery-image" style="background: url(../eo/<?php echo $fotoport ?>);"></div></a>
+				</div>
+    <?php }
+    ?>
+				</div>
+    <?php } ?>
                 </div>
                 </div>
                 </div>
@@ -342,10 +387,15 @@ include ("header-fiyeo.php");
             <div class="form-group">
             <input type="text" style="font-family:Poppins, FontAwesome" placeholder="&#xf040; &nbsp; Please share your own experience by writing an honest review of <?php echo $namaeo ?>" disabled class="common-input mb-20 form-control">
             </div>
+            <?php if (isset ($_SESSION['id'])!="") { ?>
              <button class="genric-btn success circle medium" style="" id="showreview">Add Your Review</button>
+            <?php }
+            else { ?> 
+            <a href="../user/login-fiyeo.php" class="genric-btn success circle medium" style="">Add Your Review</a> 
+            <?php } ?>
             </div>
        
-        <form role="form" method="POST" action="addreview.php" id="editForm">
+        <form role="form" method="POST" action="../user/addreview.php?id_eo=<?php echo $ideo ?>" id="editForm">
         <div class="form-group">
         <label for="rating"><b style="color:black">Rating</b></label>
         <br>
@@ -381,16 +431,15 @@ include ("header-fiyeo.php");
     <span class="icon">★</span>
   </label>
         </div>
-        
         </div>
         <div class="form-group">
-       <label for="review"><b style="color:black">* Review</b></label>
-        <textarea class="form-control" name="review" id="review" placeholder="Please write an honest review" required></textarea>
+       <label for="review"><b style="color:black">Review</b></label>
+        <textarea class="form-control" name="review" id="review" placeholder="Please write an honest review" required style="height:120px;"></textarea>
         </div>
-        <p><strong>* Required Field</strong></p>
-      <div class="">
+        <br>
+      <div align="right">
         <button type="submit" class="genric-btn success circle medium submitBtn" id="tambah" name="tambah"> Publish </button>
-      </div>
+            </div>
     </form>
             </div>
                 
@@ -398,59 +447,72 @@ include ("header-fiyeo.php");
             <div class="single-post job-experience">
             <h4 class="single-title">Reviews
             <hr> </h4>  
-           
-            <ul><li>
-            <div class="details justify-content-center align-items-center" style="margin-top:40px;">
+            <div class="details justify-content-center align-items-center" style="margin-top:30px;">
+            <?php if ($totalreview == '0') { ?>
+            <p>No review available yet</p>
+            <?php }
+            else { 
+                
+	include("config.php");
+	$query4="SELECT * from review INNER JOIN user ON review.id_user = user.id_user WHERE id_eo ='".$ideo."'";           
+	$simpan4= mysqli_query($koneksi,$query4);
+                           
+   while($select = mysqli_fetch_assoc($simpan4)) {
+            $date     = $select['tgl_review'];
+			$rating   = $select['rating'];
+            $ket      = $select['keterangan'];
+            $fotoklien  = $select['foto_user'];
+            $namaklien = $select['nama_user'];
+
+    ?>      
+            <div class="row d-flex">
+            <div>
+            <table style="color:black; padding:20px; margin-left:18px">
+            <tr>
+            <td><img src="../user/<?php echo $fotoklien ?>" style="height:50px; width:50px;"></td>
+            </tr>
+            <tr>
+            <td width="150px;"><?php echo $namaklien ?></td>
+            </tr>
+            </table>
+            </div>
+            <div>
             <table style="color:black; padding:20px;">
             <tr>
-            <td rowspan="2" colspan="2"><img src="../temp-dashboard/img/avatar-1.jpg" style="height:50px; width:50px;"></td>
-            <td style="padding-left:70px;">17/10/2018</td>
+            <td style=""><?php echo $date ?></td>
             </tr>
             <tr>
-            <td style="padding-left:70px; color:#aa80ff;">
-            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></td>
+            <td style="color:#aa80ff;">
+            <?php if ($rating == '1') {?>
+            <i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+            <?php }
+            else if ($rating == '2') { ?>
+            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+            <?php }
+            else if ($rating == '3') { ?>
+            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+            <?php }
+            else if ($rating == '4') { ?>
+            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i>
+            <?php }
+            else if ($rating == '5') { ?>
+            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+            <?php }
+            else { ?>
+            <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+            <?php } ?>
+            </td>
             </tr>
-            <tr style="">
-            <td colspan="2">Irene</td>
-            <td style="padding-left:70px;">No comment</td>
+            <tr>
+            <td style="width:830px;">"<?php echo $ket ?>"</td>
             </tr>    
             </table>
-            </div></li>
-            <li>
-            <div class="details" style="margin-top:50px;">
-            <table style="color:black; padding:20px;">
-            <tr>
-            <td rowspan="2" colspan="2"><img src="../temp-dashboard/img/avatar-2.jpg" style="height:50px; width:50px;"></td>
-            <td style="padding-left:70px;">15/10/2018</td>
-            </tr>
-            <tr>
-            <td style="padding-left:70px; color:#aa80ff;">
-            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i></td>
-            </tr>
-            <tr>
-            <td colspan="2">Iven</td>
-            <td style="padding-left:70px;">Best service</td>
-            </tr>    
-            </table>
-            </div></li>
-            <li>
-            <div class="details" style="margin-top:50px;">
-            <table style="color:black; padding:20px;">
-            <tr>
-            <td rowspan="2"><img src="../temp-dashboard/img/avatar-3.jpg" style="height:50px; width:50px;"></td>
-            <td style="padding-left:70px;">14/10/2018</td>
-            </tr>
-            <tr>
-            <td style="padding-left:70px; color:#aa80ff;">
-            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></td>
-            </tr>
-            <tr>
-            <td>Andre</td>
-            <td style="padding-left:70px;">Best service</td>
-            </tr>    
-            </table>
-            </div></li>
-            </ul>
+            </div>
+            </div>
+            <hr>
+    <?php } }
+    ?>
+            </div>
             <div class="row justify-content-center align-items-right col-lg-12">
             <a href="#" class="genric-btn success-border e-large mt-20 mb-20" style="width:1000px; height:50px;">Load More</a></div>
             </div>    
@@ -582,6 +644,7 @@ $(':radio').change(function() {
   console.log('New star rating: ' + this.value);
 });
 </script>
+                       
 
 </body>
 </html>

@@ -1,7 +1,12 @@
 <?php 
 session_start();
 include 'config.php';
+if (isset ($_SESSION['id'])!="") {
+    $iduser = $_SESSION['id'];
+}
 ?>	
+
+
 <!DOCTYPE html>
 	<html lang="zxx" class="no-js">
 	<head>
@@ -32,18 +37,22 @@ include 'config.php';
 			<link rel="stylesheet" href="../temp-fiyeo/css/../temp-fiyeo/animate.min.css">
 			<link rel="stylesheet" href="../temp-fiyeo/css/owl.carousel.css">
 			<link rel="stylesheet" href="../temp-fiyeo/css/main.css">
+        
+<style>
+.nice-select .list { max-height: 300px; overflow: scroll; }
+</style>
 		</head>
 		<body>
 
 <?php
 if (isset ($_SESSION['id'])!="") {
-    $iduser = $_SESSION['id'];
    include ("header-loggedin.php");
 }
 else {
 include("header-fiyeo.php");
 }
 ?>
+
             <!-- #header -->
 
 
@@ -63,26 +72,30 @@ include("header-fiyeo.php");
 									</div>
 									<div class="col-lg-3 form-cols">
 										<div class="default-select" id="default-selects">
-											<select>
-												<option value="1">Select area</option>
-												<option value="2">Dhaka</option>
-												<option value="3">Rajshahi</option>
-												<option value="4">Barishal</option>
-												<option value="5">Noakhali</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-lg-3 form-cols">
-										<div class="default-select" id="default-selects2">
-											<select>
-												<option value="1">All Category</option>
-												<option value="2">Medical</option>
-												<option value="3">Technology</option>
-												<option value="4">Goverment</option>
-												<option value="5">Development</option>
-											</select>
-										</div>				
-									</div>
+								<select name="area" id="area">
+								<option value="" selected>Select area</option>
+                    <?php 
+                    include 'config.php';
+                    $tampil=mysqli_query($koneksi, "SELECT * FROM eo INNER JOIN kota ON eo.id_kota = kota.id_kota GROUP BY eo.id_kota");
+                    while($id_kota=mysqli_fetch_array($tampil)) {
+                    echo "<option value='".$id_kota[id_kota]."' required> ".$id_kota[nama_kota]."</option>";}
+                    ?>
+								</select>
+								</div>
+								</div>
+								<div class="col-lg-3 form-cols">
+								<div class="default-select" id="default-selects2">
+								<select name="kategori" id="kategori">
+								<option value="">All Category</option>
+                    <?php 
+                    include 'config.php';
+                    $tampil=mysqli_query($koneksi, "SELECT * FROM kategori_eo INNER JOIN kategori ON kategori_eo.id_kategori = kategori.id_kategori GROUP BY kategori_eo.id_kategori");
+                    while($id_kategori=mysqli_fetch_array($tampil)) {
+                    echo "<option value='".$id_kategori[id_kategori]."'> ".$id_kategori[nama_kategori]."</option>";}
+                    ?>
+								</select>
+								</div>				
+								</div>
 									<div class="col-lg-2 form-cols">
 									    <button type="button" class="btn btn-info">
 									      <span class="lnr lnr-magnifier"></span> Search
@@ -240,8 +253,91 @@ include("header-fiyeo.php");
         </a>
         </div>
         </div>
-        </section>                                                                                            
+        </section>                                                                  
+            
+    <section class="testimonial-area section-gap" id="review" style="padding: 0px 0; margin-bottom: 70px">
+				<div class="container">
+					<div class="row d-flex justify-content-center">
+						<div class="menu-content pb-60 col-lg-8">
+							<div class="title text-center">
+								<h1 class="mb-10">Testimonial from our Clients</h1>
+								<p>Who are in extremely love with eco friendly system.</p>
+							</div>
+						</div>
+					</div>						
+					<div class="row">
+						<div class="active-review-carusel">
+							<div class="single-review">
+								<img src="img/r1.png" alt="">
+								<div class="title d-flex flex-row">
+									<h4>lorem ipusm</h4>
+									<div class="star">
+										<span class="fa fa-star checked"></span>
+										<span class="fa fa-star checked"></span>
+										<span class="fa fa-star checked"></span>
+										<span class="fa fa-star"></span>
+										<span class="fa fa-star"></span>								
+									</div>
+								</div>
+								<p>
+									Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
+								</p>
+							</div>	
+							<div class="single-review">
+								<img src="img/r2.png" alt="">
+								<div class="title d-flex flex-row">
+									<h4>lorem ipusm</h4>
+									<div class="star">
+										<span class="fa fa-star checked"></span>
+										<span class="fa fa-star checked"></span>
+										<span class="fa fa-star"></span>
+										<span class="fa fa-star"></span>
+										<span class="fa fa-star"></span>								
+									</div>
+								</div>
+								<p>
+									Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
+								</p>
+							</div>	
+							<div class="single-review">
+								<img src="img/r1.png" alt="">
+								<div class="title d-flex flex-row">
+									<h4>lorem ipusm</h4>
+									<div class="star">
+										<span class="fa fa-star checked"></span>
+										<span class="fa fa-star checked"></span>
+										<span class="fa fa-star checked"></span>
+										<span class="fa fa-star"></span>
+										<span class="fa fa-star"></span>								
+									</div>
+								</div>
+								<p>
+									Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
+								</p>
+							</div>	
+							<div class="single-review">
+								<img src="img/r2.png" alt="">
+								<div class="title d-flex flex-row">
+									<h4>lorem ipusm</h4>
+									<div class="star">
+										<span class="fa fa-star checked"></span>
+										<span class="fa fa-star checked"></span>
+										<span class="fa fa-star"></span>
+										<span class="fa fa-star"></span>
+										<span class="fa fa-star"></span>								
+									</div>
+								</div>
+								<p>
+									Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
+								</p>
+							</div>								
+						</div>
+					</div>
+				</div>	
+			</section>        
+            
 			<!-- Start post Area -->
+<!--
 			<section class="post-area section-gap" style="padding: 0px 0; margin-bottom: 50px">
 				<div class="container">
 					<div class="row justify-content-center d-flex">
@@ -335,20 +431,48 @@ include("header-fiyeo.php");
                                 </table>
 							</div>
 							
-							<a class="text-uppercase loadmore-btn mx-auto d-block" href="category.html">View More</a>
-
-						</div>
+							<a class="text-uppercase loadmore-btn mx-auto d-block" href="category-fiyeo.php">View More</a>
+                            </div>
+<?php 
+$query1 = "SELECT count(1) FROM eo where id_provinsi = '6'";
+$result1 = mysqli_query($koneksi, $query1);
+$row = mysqli_fetch_array($result1); 
+$eojkt = $row[0];       
+?>
+<?php 
+$query1 = "SELECT count(1) FROM eo where id_provinsi = '3'";
+$result1 = mysqli_query($koneksi, $query1);
+$row = mysqli_fetch_array($result1); 
+$eobanten = $row[0];       
+?>
+<?php 
+$query1 = "SELECT count(1) FROM eo where id_kota = '5'";
+$result1 = mysqli_query($koneksi, $query1);
+$row = mysqli_fetch_array($result1); 
+$eobdg = $row[0];       
+?>
+<?php 
+$query1 = "SELECT count(1) FROM eo where id_kota = '67'";
+$result1 = mysqli_query($koneksi, $query1);
+$row = mysqli_fetch_array($result1); 
+$eoponti = $row[0];       
+?>
+<?php 
+$query1 = "SELECT count(1) FROM eo where id_provinsi = '34'";
+$result1 = mysqli_query($koneksi, $query1);
+$row = mysqli_fetch_array($result1); 
+$eojogja = $row[0];       
+?>
+                            
 						<div class="col-lg-4 sidebar">
 							<div class="single-slidebar">
 								<h4>EO by Location</h4>
 								<ul class="cat-list">
-									<li><a class="justify-content-between d-flex" href="category.html"><p>Jakarta</p><span>37</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.html"><p>Tangerang</p><span>57</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.html"><p>Bandung</p><span>33</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.html"><p>Pontianak</p><span>36</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.html"><p>Yogyakarta</p><span>47</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.html"><p>Bekasi</p><span>27</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.html"><p>Solo</p><span>17</span></a></li>
+									<li><a class="justify-content-between d-flex" href=""><p>Jakarta</p><span><?php echo $eojkt ?></span></a></li>
+									<li><a class="justify-content-between d-flex" href=""><p>Banten</p><span><?php echo $eobanten ?></span></a></li>
+									<li><a class="justify-content-between d-flex" href=""><p>Bandung</p><span><?php echo $eobdg ?></span></a></li>
+									<li><a class="justify-content-between d-flex" href=""><p>Pontianak</p><span><?php echo $eoponti ?></span></a></li>
+									<li><a class="justify-content-between d-flex" href=""><p>Yogyakarta</p><span><?php echo $eojogja ?></span></a></li>
 								</ul>
 							</div>
 
@@ -356,7 +480,8 @@ include("header-fiyeo.php");
 					</div>
 				</div>	
 			</section>
-			<!-- End post Area -->
+			 End post Area 
+-->
 				
 
 			<!-- Start callto-action Area -->
@@ -374,7 +499,6 @@ include("header-fiyeo.php");
 				</div>	
 			</section>
 			<!-- End calto-action Area -->
-		
 			<!-- start footer Area -->		
 			<footer class="footer-area section-gap" style="padding:50px 0; height:345px;">
 				<div class="container">
@@ -383,7 +507,7 @@ include("header-fiyeo.php");
 							<div class="single-footer-widget">
 								<h6>F I Y E O</h6>
 								<ul class="footer-nav">
-                                    <li><a href="about-us.html">About Us</a></li>
+                                    <li><a href="about-us.php">About Us</a></li>
 									<li><a href="#">Privacy Policy</a></li>
 									<li><a href="#">Terms & Conditions</a></li>
 									<li><a href="#">Help</a></li>
@@ -435,7 +559,9 @@ include("header-fiyeo.php");
 			<script src="../temp-fiyeo/js/parallax.min.js"></script>		
 			<script src="../temp-fiyeo/js/mail-script.js"></script>	
 			<script src="../temp-fiyeo/js/main.js"></script>	
-		</body>
+       
+            
+    </body>
 	</html>
 
 

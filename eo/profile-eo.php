@@ -56,6 +56,7 @@ $select2 = mysqli_fetch_array($tampil2);
     <link rel="stylesheet" href="../temp-dashboard/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="../temp-dashboard/css/custom.css">
+    <link rel="stylesheet" href="../temp-dashboard/css/message.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="../temp-dashboard/img/favicon.ico">
     
@@ -130,14 +131,18 @@ $select2 = mysqli_fetch_array($tampil2);
     <div>
     <div class="panel with-nav-tabs panel-default">
     <div class="panel-heading">
-		<input type="hidden" name="user_id" value="8668">
 		<ul class="nav nav-tabs">
-			<li class="nav-item active"><a href="#tab1default" data-toggle="tab">Main Profile</a></li>
-			<li class="nav-item"><a href="#tab2default" data-toggle="tab">Password</a></li>
+			<li class="nav-item">
+                <a href="#tab1default" data-toggle="tab" class="nav-link active">Main Profile</a>
+            </li>
+			<li class="nav-item">
+            <a href="#tab2default" data-toggle="tab" class="nav-link">Password</a>
+            </li>
 		</ul>
     </div>
+    <hr>
         <div class="panel-body">
-		<div class="tab-content" style="padding-top:20px; background-color: #fff;">
+		<div class="tab-content" style="background-color: #fff;">
 			<div class="tab-pane active" id="tab1default">
                 <form action="updateprofile.php" id="form" class="form-horizontal" method="post" enctype="multipart/form-data">
 				<div class="form-group">
@@ -147,7 +152,7 @@ $select2 = mysqli_fetch_array($tampil2);
                 <div class="align-self-center" style="margin-left: 20px;">
                 <div class="upload-btn-wrapper">
                 <button class="btn">Upload</button>
-                <input type="file" name="foto" id="foto" />
+                <input type="file" name="foto" id="foto" value="<?php echo $fotoeo ?>"/>
                 </div>
                 </div>
 				</div>
@@ -161,7 +166,7 @@ $select2 = mysqli_fetch_array($tampil2);
 				<div class="form-group">
 				<label class="control-label col-sm-3">Company Description</label>
 				<div class="col-sm-9">
-				<textarea class="single-textarea form-control" name="description" id="description" required><?php echo $desceo ?></textarea>
+				<textarea class="single-textarea form-control" name="description" id="description" style="height:150px;" required><?php echo $desceo ?></textarea>
 				</div>
 				</div>
                 <div class="form-group">
@@ -175,13 +180,11 @@ $select2 = mysqli_fetch_array($tampil2);
                     <select name="nama_kategori[]" id="kategori" class="form-control mb-3" disabled="" required>
                     <option value="<?php echo $row['id_kategori'] ?>" selected><?php echo $row['nama_kategori'] ?></option>
                     </select>    
-                <?php
-                }
-                
+                <?php }
                 ?>
-				
 
 				</div>
+                </div>
                 <div class="form-group">
                 <div class="row">
 				<div class="col-md-4">
@@ -199,7 +202,7 @@ $select2 = mysqli_fetch_array($tampil2);
                 <div class="col-md-4">
                 <label class="control-label col-sm-3">City</label>
 				<select name="kota" id="kota" class="form-control ml-3" required>
-                    <option value=""><?php echo $cityname ?></option>
+                    <option value="<?php echo $idcity ?>"><?php echo $cityname ?></option>
                 </select>
 				</div>
                 </div>
@@ -241,7 +244,6 @@ $select2 = mysqli_fetch_array($tampil2);
 				</div>
         <div class="justify-content-center col-sm-3" style="margin-top:20px; margin-bottom:50px;">
 		  <button type="submit" class="btn btn-primary submitBtn" id="btn-simpan" name="btn-simpan"><i class="fa fa-check"></i> Save</button>
-            </div>
             </div>
             </form>
 			</div>

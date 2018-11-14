@@ -44,6 +44,8 @@ $select = mysqli_fetch_array($tampil);
      <link rel="stylesheet" href="../temp-dashboard/assets/calendar/fullcalendar.css">
     
       <link rel="stylesheet" href="../temp-dashboard/assets/css/lib/datatable/dataTables.bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.css" />
+      <link rel="stylesheet" href="../temp-dashboard/css/message.css">
 
   </head>
   <body>
@@ -110,7 +112,7 @@ $select = mysqli_fetch_array($tampil);
     <?php
 		while($select = mysqli_fetch_assoc($simpan1))
         {
-			$id	      = $select['id_bookmark'];
+			$idbook	  = $select['id_bookmark'];
             $ideo     = $select['id_eo'];
             $emaileo  = $select['email_eo'];
             $fotoeo   = $select['foto_eo'];
@@ -125,8 +127,43 @@ $select = mysqli_fetch_array($tampil);
             <td><?php echo $emaileo ?></td>
             <td><?php echo $nohpeo ?></td>
 			<td> 
-            <a href ="../FRONTEND-WEB/view-profile-eo.php?id_eo=<?php echo $ideo ?>" class="btn btn-success btn-sm"><i class="fa fa-user"></i></a> 
-            <a href="" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+            <a href ="../FRONTEND-WEB/view-profile-eo.php?id_eo=<?php echo $ideo ?>" class="btn btn-sm btn-primary"><i class="fa fa-user"></i></a> 
+            <script>
+                    function deleteFunction(idbook){
+                        swal({
+                          title: 'Are you sure?',
+                          type: 'warning',
+                          showCancelButton: true,
+                          confirmButtonText: 'Yes',
+                          showLoaderOnConfirm: true,
+                          preConfirm: () => {
+                            return fetch(`deletebookmark.php?id_bookmark=${idbook}`)
+                          },
+                          allowOutsideClick: () => !swal.isLoading()
+                        }).then((status) => {
+                            if (status.value.ok){
+                                swal({
+                                  type: 'success',
+                                  title: 'EO has been unbookmarked!',
+                                  showConfirmButton: false,
+                                  timer: 1500
+                                }).then( () => {
+                                    location.reload();
+                                }
+
+                                )    
+                            } else {
+                                swal({
+                                  type: 'error',
+                                  title: 'Failed!',
+                                  showConfirmButton: false,
+                                  timer: 1500
+                                })   
+                            }       
+                        })    
+                      }    
+                </script>
+                <button onclick="deleteFunction(<?php echo $idbook ?>)" class="btn btn-sm btn-primary"><i class="fa fa-trash" ></i></button>
             </td>
 			</tr>
 	<?php }
@@ -182,6 +219,7 @@ $select = mysqli_fetch_array($tampil);
     <script src="../temp-dashboard/assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="../temp-dashboard/assets/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="../temp-dashboard/assets/js/lib/data-table/datatables-init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.all.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
           $('#bootstrap-data-table-export').DataTable();

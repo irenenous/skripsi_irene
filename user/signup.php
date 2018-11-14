@@ -5,14 +5,15 @@ include 'config.php';
         $tangkapNohp        = $_POST['phone'];
         $tangkapEmail        = $_POST['email'];
         $tangkapPassword     = $_POST['password'];
+        $tangkapFoto       = 'image-user/user-image.jpg';
         $tangkapRole       = 'KLIEN';
-        $tangkapStatus     = 'ACTIVE';
+        $tangkapStatus     = 'PENDING';
         
         $tangkapPassword = ($tangkapPassword);
         
         
         $query = mysqli_query($koneksi , "insert into user values ('','$tangkapNama', '$tangkapNohp', '$tangkapEmail',
-        '$tangkapPassword', '', '$tangkapRole', '$tangkapStatus')");
+        '$tangkapPassword', '$tangkapFoto', '$tangkapRole', '$tangkapStatus')");
         
         if (!$query) {
             echo mysqli_error($koneksi);

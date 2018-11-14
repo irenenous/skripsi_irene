@@ -38,6 +38,7 @@ $select = mysqli_fetch_array($tampil);
     <link rel="stylesheet" href="../temp-dashboard/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="../temp-dashboard/css/custom.css">
+    <link rel="stylesheet" href="../temp-dashboard/css/message.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="img/favicon.ico">
     <link rel="stylesheet" href="../temp-dashboard/assets/css/lib/datatable/dataTables.bootstrap.min.css">
@@ -86,7 +87,7 @@ $select = mysqli_fetch_array($tampil);
           <!-- Breadcrumb-->
           <div class="breadcrumb-holder container-fluid">
             <ul class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index-eo.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="dashboard-eo.php">Home</a></li>
                 <li class="breadcrumb-item"><a href="paket-eo.php">Packages</a></li>
             <li class="breadcrumb-item active">Edit</li>
             </ul>
@@ -123,7 +124,7 @@ $select = mysqli_fetch_array($tampil);
                 
     <div class="form-group">
     <label for="inputName">Package Name </label>
-    <input type="text" class="form-control" name="namapaket" id="namapaket" placeholder="Enter package Name" value="<?php echo $pname; ?>" required>   
+    <input type="text" class="form-control" name="namapaket" id="namapaket" placeholder="Enter package name" value="<?php echo $pname; ?>" required>   
     </div>
     <div class="form-group">
     <label for="inputType">Type (Event)</label>
@@ -143,7 +144,7 @@ $select = mysqli_fetch_array($tampil);
     <textarea class="form-control" name="ketpaket" id="ketpaket" placeholder="Describe all the services included in the package" required><?php echo $description; ?></textarea>
     </div>
     <div class="form-group" style="margin-top:30px;">
-    <a class="btn btn-danger" href="paket-eo.php">Cancel</a>
+    <button onclick="window.history.go(-1)" class="btn btn-danger"> Cancel</button>
     <button type="submit" class="btn btn-primary submitBtn" id="simpan" name="simpan">Save Changes</button>
     </div>          
     </form></div></div></div>

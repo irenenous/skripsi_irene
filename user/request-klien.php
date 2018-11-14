@@ -38,6 +38,7 @@ $select = mysqli_fetch_array($tampil);
     <link rel="stylesheet" href="../temp-dashboard/css/custom.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="../temp-dashboard/img/favicon.ico">
+    <link rel="stylesheet" href="../temp-dashboard/css/message.css">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -123,7 +124,7 @@ $select = mysqli_fetch_array($tampil);
             <td><?php echo $event ?></td>
 			<td> 
             <div class="btn-group btn-group-xs">
-            <a class="btn btn-default btn-sm" href="viewrequest.php?id_request=<?php echo $id ?>">View</a>
+            <a class="btn btn-sm btn-primary" href="viewrequest.php?id_request=<?php echo $id ?>"><i class="fa fa-eye"></i></a>
             </div>
             </td>
 			</tr>

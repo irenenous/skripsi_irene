@@ -7,7 +7,7 @@ if (isset ($_SESSION['id'])!="") {
 ?>
 
 <?php 
-$query = "SELECT * FROM user where id_user = '$iduser' AND role = 'KLIEN' AND status = 'ACTIVE'";
+$query = "SELECT * FROM user where id_user = '$iduser' AND status = 'ACTIVE'";
 $tampil = mysqli_query($koneksi, $query);
 $select = mysqli_fetch_array($tampil); 
         $namauser = $select['nama_user'];
@@ -39,6 +39,7 @@ $select = mysqli_fetch_array($tampil);
     <link rel="stylesheet" href="../temp-dashboard/css/custom.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="../temp-dashboard/img/favicon.ico">
+    <link rel="stylesheet" href="../temp-dashboard/css/message.css">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -87,12 +88,33 @@ $select = mysqli_fetch_array($tampil);
                 <div class="card-close">
                 <a href="inbox-klien.php" class="btn pull-right">See All</a>
                 </div>
-                <div class="card-header d-flex align-items-center">           
-                <h2 class="h3">Latest Message</h2>
+                <div class="card-header d-flex align-items-center"> <h2 class="h3">Latest Message</h2>
                 </div>
                 <div class="card-body">
                 <div class="list-group">
+        <?php 
+        include("config.php");      
+        $query2 = "SELECT * from pesan INNER JOIN eo ON pesan.id_eo = eo.id_eo where id_user = '$iduser' AND pesan.status = 'SENT' AND sender = 'EO' GROUP BY subjek";
+        $simpan2 = mysqli_query($koneksi, $query2);
+        if (mysqli_num_rows($simpan2) > 0) {
+		while($select = mysqli_fetch_assoc($simpan2))
+        {
+			$idmsg	    = $select['id_pesan'];
+			$eo         = $select['nama_eo']; 
+            $subject    = $select['subjek'];
+		
+	   ?>
+                <div class="message-row" style="padding:5px;">
+                <a href="showconversation.php?subjek=<?php echo $subject ?>">
+                <div class="message-vendor-name" style="color: #aa80ff"><?php echo $eo ?></div>
+                <div class="message-subject">Subject: <?php echo $subject ?></div> 
+                <div class="message-deskripsi">You've got new message!</div>
+                </a>
+                </div>
+        <?php } } 
+        else { ?>
                 <p>No message found!</p>
+        <?php } ?>
                 </div>
                 </div>
                 </div>

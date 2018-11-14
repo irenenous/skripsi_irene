@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2018 at 01:44 PM
+-- Generation Time: Nov 14, 2018 at 04:06 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -48,6 +48,14 @@ CREATE TABLE `bookmark` (
   `status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `bookmark`
+--
+
+INSERT INTO `bookmark` (`id_bookmark`, `id_user`, `id_eo`, `status`) VALUES
+(6, 9, 118, 'BOOKMARKED'),
+(7, 1, 118, 'BOOKMARKED');
+
 -- --------------------------------------------------------
 
 --
@@ -79,7 +87,31 @@ CREATE TABLE `eo` (
 --
 
 INSERT INTO `eo` (`id_eo`, `email_eo`, `password_eo`, `foto_eo`, `nama_eo`, `ket_eo`, `id_provinsi`, `id_kota`, `alamat_eo`, `nohp_eo`, `foto_ktp`, `fotodiri_ktp`, `foto_alamat`, `foto_siup`, `tahun_diri`, `link_web`, `status`) VALUES
-(118, 'groovyeo@gmail.com', '123456', 'image-eo/groovy.png', 'Groovy EO', 'Best EO in JKT', 3, 86, 'Jl. Permata', '0812-5038-1345', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/friendship-quotes-hd-wallpaper_052819784.jpg', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'image-eo/scenery-wallpaper-hd-beach-HD.jpg', 2018, 'www.groovyeo.com', 'VERIFIED');
+(118, 'groovyeo@gmail.com', '123456', 'image-eo/groovy.png', 'Groovy EO', 'best eo in jkt', 8, 12, 'jl. permata', '0812-5038-1343', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/friendship-quotes-hd-wallpaper_052819784.jpg', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'image-eo/scenery-wallpaper-hd-beach-HD.jpg', 2018, 'www.groovy-eo.com', 'VERIFIED'),
+(119, 'excellenteo@gmail.com', '1234567', 'image-eo/Summer-hd-quote-wallpaper.png', 'Excellent EO', 'Great event organizer company ever!', 11, 67, 'Jl. Sei Raya Dalam', '0896-4321-5679', 'image-eo/scenery-wallpaper-hd-beach-HD.jpg', 'image-eo/Nice-good-morning-quote-hd-high-resolution-images.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 2012, 'www.excellenteo.com', 'VERIFIED');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fuzzy`
+--
+
+CREATE TABLE `fuzzy` (
+  `id_fuzzy` int(11) NOT NULL,
+  `nama_fuzzy` varchar(20) NOT NULL,
+  `nilai` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `fuzzy`
+--
+
+INSERT INTO `fuzzy` (`id_fuzzy`, `nama_fuzzy`, `nilai`) VALUES
+(1, 'Sangat Kurang', 0.2),
+(2, 'Kurang', 0.4),
+(3, 'Cukup', 0.6),
+(4, 'Baik', 0.8),
+(5, 'Sangat Baik', 1);
 
 -- --------------------------------------------------------
 
@@ -123,7 +155,8 @@ CREATE TABLE `kategori_eo` (
 INSERT INTO `kategori_eo` (`id_eo`, `id_kategori`) VALUES
 (118, 1),
 (118, 2),
-(118, 4);
+(118, 4),
+(119, 4);
 
 -- --------------------------------------------------------
 
@@ -245,15 +278,152 @@ INSERT INTO `kota` (`id_kota`, `nama_kota`, `id_provinsi`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kriteria`
+--
+
+CREATE TABLE `kriteria` (
+  `id_kriteria` int(11) NOT NULL,
+  `nama_kriteria` varchar(20) NOT NULL,
+  `jenis_kriteria` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kriteria`
+--
+
+INSERT INTO `kriteria` (`id_kriteria`, `nama_kriteria`, `jenis_kriteria`) VALUES
+(1, 'Budget', 'COST'),
+(2, 'Reputasi', 'BENEFIT'),
+(3, 'Fasilitas & Layanan', 'BENEFIT'),
+(4, 'Konsep & Dekorasi', 'BENEFIT');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kriteria_budget`
+--
+
+CREATE TABLE `kriteria_budget` (
+  `id_kriteria_budget` int(11) NOT NULL,
+  `id_kriteria` int(11) NOT NULL,
+  `detail_kriteria1` varchar(30) NOT NULL,
+  `id_fuzzy` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kriteria_budget`
+--
+
+INSERT INTO `kriteria_budget` (`id_kriteria_budget`, `id_kriteria`, `detail_kriteria1`, `id_fuzzy`) VALUES
+(1, 1, '> 30.000.000', 1),
+(2, 1, '> 20.000.000 - 30.000.000', 2),
+(3, 1, '> 10.000.000 - 20.000.000', 3),
+(4, 1, '5.000.000 - 10.000.000', 4),
+(5, 1, '< 5.000.000', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kriteria_eo`
+--
+
+CREATE TABLE `kriteria_eo` (
+  `id_kriteria_eo` int(11) NOT NULL,
+  `id_eo` int(11) NOT NULL,
+  `id_kriteria_budget` int(11) NOT NULL,
+  `id_kriteria_reputasi` int(11) NOT NULL,
+  `id_kriteria_fasilitas` int(11) NOT NULL,
+  `id_kriteria_konsep` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kriteria_eo`
+--
+
+INSERT INTO `kriteria_eo` (`id_kriteria_eo`, `id_eo`, `id_kriteria_budget`, `id_kriteria_reputasi`, `id_kriteria_fasilitas`, `id_kriteria_konsep`) VALUES
+(1, 118, 5, 3, 4, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kriteria_fasilitas`
+--
+
+CREATE TABLE `kriteria_fasilitas` (
+  `id_kriteria_fasilitas` int(11) NOT NULL,
+  `id_kriteria` int(11) NOT NULL,
+  `detail_kriteria3` varchar(30) NOT NULL,
+  `id_fuzzy` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kriteria_fasilitas`
+--
+
+INSERT INTO `kriteria_fasilitas` (`id_kriteria_fasilitas`, `id_kriteria`, `detail_kriteria3`, `id_fuzzy`) VALUES
+(1, 3, 'Tidak Banyak', 2),
+(2, 3, 'Cukup', 3),
+(3, 3, 'Banyak', 4),
+(4, 3, 'Sangat Banyak', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kriteria_konsep`
+--
+
+CREATE TABLE `kriteria_konsep` (
+  `id_kriteria_konsep` int(11) NOT NULL,
+  `id_kriteria` int(11) NOT NULL,
+  `detail_kriteria4` varchar(30) NOT NULL,
+  `id_fuzzy` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kriteria_konsep`
+--
+
+INSERT INTO `kriteria_konsep` (`id_kriteria_konsep`, `id_kriteria`, `detail_kriteria4`, `id_fuzzy`) VALUES
+(1, 4, 'Kurang Baik', 2),
+(2, 4, 'Cukup Baik', 3),
+(3, 4, 'Baik', 4),
+(4, 4, 'Sangat Baik', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kriteria_reputasi`
+--
+
+CREATE TABLE `kriteria_reputasi` (
+  `id_kriteria_reputasi` int(11) NOT NULL,
+  `id_kriteria` int(11) NOT NULL,
+  `detail_kriteria2` varchar(30) NOT NULL,
+  `id_fuzzy` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kriteria_reputasi`
+--
+
+INSERT INTO `kriteria_reputasi` (`id_kriteria_reputasi`, `id_kriteria`, `detail_kriteria2`, `id_fuzzy`) VALUES
+(1, 2, '0 - 1.49', 2),
+(2, 2, '1.5 - 2.99', 3),
+(3, 2, '3.0 - 4.49', 4),
+(4, 2, '4.5 - 5.0', 5);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `paket`
 --
 
 CREATE TABLE `paket` (
   `id_paket` int(10) NOT NULL,
   `id_eo` int(11) NOT NULL,
-  `nama_paket` varchar(100) NOT NULL,
-  `jenis_paket` varchar(100) NOT NULL,
-  `harga_paket` varchar(1000) NOT NULL,
+  `nama_paket` varchar(50) NOT NULL,
+  `jenis_paket` varchar(50) NOT NULL,
+  `harga_paket` bigint(20) NOT NULL,
   `ket_paket` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -262,7 +432,10 @@ CREATE TABLE `paket` (
 --
 
 INSERT INTO `paket` (`id_paket`, `id_eo`, `nama_paket`, `jenis_paket`, `harga_paket`, `ket_paket`) VALUES
-(28, 118, 'Fun Surprise', 'Birthday', '2.000.000', 'sasasa');
+(28, 118, 'Fun Surprise', 'Birthday', 2000000, 'sasasa'),
+(29, 118, 'Emerald', 'Wedding Party', 3000000, 'lalala'),
+(30, 118, 'Gold', 'Birthday Party', 500000, 'yeay'),
+(33, 119, 'Cool', 'Wedding Party', 5500000, 'hehe');
 
 -- --------------------------------------------------------
 
@@ -277,15 +450,28 @@ CREATE TABLE `pesan` (
   `tgl_pesan` varchar(50) NOT NULL,
   `subjek` varchar(100) NOT NULL,
   `pesan` varchar(1000) NOT NULL,
-  `status` varchar(20) NOT NULL
+  `status` varchar(20) NOT NULL,
+  `sender` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pesan`
 --
 
-INSERT INTO `pesan` (`id_pesan`, `id_user`, `id_eo`, `tgl_pesan`, `subjek`, `pesan`, `status`) VALUES
-(1, 1, 118, '11/05/2018 06:14:26 PM', 'hai', 'helo', 'SENT');
+INSERT INTO `pesan` (`id_pesan`, `id_user`, `id_eo`, `tgl_pesan`, `subjek`, `pesan`, `status`, `sender`) VALUES
+(1, 1, 118, '11/05/2018 06:14:26 PM', 'hai', 'helo', 'READ', 'KLIEN'),
+(2, 9, 118, '11/05/2018 09:22:23 PM', 'lala', 'hahihuheho', 'READ', 'KLIEN'),
+(3, 1, 118, '11/11/2018 12:58:11 PM', 'hai', 'lala', 'READ', 'EO'),
+(10, 1, 118, '11/11/2018 01:01:14 PM', 'hai', 'h', 'READ', 'EO'),
+(11, 1, 118, '11/11/2018 01:33:02 PM', 'hai', 'safasdf', 'READ', 'EO'),
+(12, 1, 118, '11/11/2018 01:50:52 PM', 'hai', 'HAHAHA', 'READ', 'EO'),
+(14, 1, 118, '11/11/2018 01:58:38 PM', 'hai', 'aaaaae', 'READ', 'EO'),
+(16, 1, 118, '11/12/2018 02:38:50 PM', 'hai', 'mau nanya', 'READ', 'KLIEN'),
+(17, 1, 119, '11/12/2018 02:43:52 PM', 'lokasi', 'lokasi ', 'SENT', 'KLIEN'),
+(18, 1, 118, '11/14/2018 07:00:17 PM', 'hai', 'bisa dibantu?', 'READ', 'EO'),
+(19, 9, 118, '11/14/2018 08:36:44 PM', 'lala', '?', 'READ', 'EO'),
+(20, 9, 118, '11/14/2018 08:51:37 PM', 'lala', 'saya mau nanya pricelistnya', 'READ', 'KLIEN'),
+(21, 9, 118, '11/14/2018 08:52:20 PM', 'lala', 'oke', 'READ', 'EO');
 
 -- --------------------------------------------------------
 
@@ -382,6 +568,36 @@ CREATE TABLE `request_layanan` (
   `status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `request_layanan`
+--
+
+INSERT INTO `request_layanan` (`id_request`, `id_user`, `id_eo`, `tgl_request`, `tgl_acara`, `tipe_acara`, `lokasi_acara`, `jml_peserta`, `durasi_acara`, `ket_acara`, `id_paket`, `nama`, `nohp`, `email`, `status`) VALUES
+(24, 1, 118, '11/14/2018 09:48:44 PM', '11/22/2018', 's', 's', 1, '1 hours,0 minutes,0 seconds', 's', 29, 'Irene A', '0812-5038-1341', 'irenenous@yahoo.com', 'READ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review`
+--
+
+CREATE TABLE `review` (
+  `id_user` int(11) NOT NULL,
+  `id_eo` int(11) NOT NULL,
+  `tgl_review` varchar(20) NOT NULL,
+  `rating` int(11) NOT NULL,
+  `keterangan` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `review`
+--
+
+INSERT INTO `review` (`id_user`, `id_eo`, `tgl_review`, `rating`, `keterangan`) VALUES
+(1, 118, '11/06/2018', 3, 'Bagus banget pelayanannya!'),
+(9, 118, '11/06/2018', 5, 'Very impressed with Groovy EOâ€™s fast response and quality of work. Willing to work extra & with scope added. Very knowledgeable and experienced in their design and execution. Thumbs up!'),
+(1, 118, '11/11/2018', 3, 'Jelek');
+
 -- --------------------------------------------------------
 
 --
@@ -404,9 +620,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nama_user`, `nohp_user`, `email_user`, `password_user`, `foto_user`, `role`, `status`) VALUES
-(1, 'Irene Andriani', '0812-5038-1345', 'irenenous@yahoo.com', '123456', 'image-user/151014-101849.png', 'KLIEN', 'ACTIVE'),
-(2, 'Ivennia', '081250381346', 'aivennia@yahoo.com', '123456', '', 'ADMIN', 'ACTIVE'),
-(6, 'Andre ', '0812-5038-1350', 'andreadianto@yahoo.com', '123456', '', 'KLIEN', 'ACTIVE');
+(1, 'Irene A', '0812-5038-1341', 'irenenous@yahoo.com', '12345', 'image-user/151014-102414.png', 'KLIEN', 'ACTIVE'),
+(2, 'Ivennia', '081250381346', 'aivennia@yahoo.com', '123456', 'image-user/admin.png', 'ADMIN', 'ACTIVE'),
+(9, 'Albert', '0822-3456-7890', 'albert@yahoo.com', '123456', 'image-user/you-cant-cross-the-sea-quotes-qhd-wallpaper-2560x2560.jpg', 'KLIEN', 'ACTIVE'),
+(10, 'Bella', '0812-5678-3421', 'bella@yahoo.com', '123456', 'image-user/user-image.jpg', 'KLIEN', 'PENDING');
 
 --
 -- Indexes for dumped tables
@@ -439,6 +656,12 @@ ALTER TABLE `eo`
   ADD KEY `id_kota` (`id_kota`);
 
 --
+-- Indexes for table `fuzzy`
+--
+ALTER TABLE `fuzzy`
+  ADD PRIMARY KEY (`id_fuzzy`);
+
+--
 -- Indexes for table `kategori`
 --
 ALTER TABLE `kategori`
@@ -457,6 +680,56 @@ ALTER TABLE `kategori_eo`
 ALTER TABLE `kota`
   ADD PRIMARY KEY (`id_kota`),
   ADD KEY `id_provinsi` (`id_provinsi`);
+
+--
+-- Indexes for table `kriteria`
+--
+ALTER TABLE `kriteria`
+  ADD PRIMARY KEY (`id_kriteria`);
+
+--
+-- Indexes for table `kriteria_budget`
+--
+ALTER TABLE `kriteria_budget`
+  ADD PRIMARY KEY (`id_kriteria_budget`),
+  ADD KEY `id_kriteria` (`id_kriteria`),
+  ADD KEY `id_fuzzy` (`id_fuzzy`),
+  ADD KEY `id_kriteria_2` (`id_kriteria`);
+
+--
+-- Indexes for table `kriteria_eo`
+--
+ALTER TABLE `kriteria_eo`
+  ADD PRIMARY KEY (`id_kriteria_eo`),
+  ADD UNIQUE KEY `id_eo` (`id_eo`),
+  ADD KEY `id_kriteria_budget` (`id_kriteria_budget`),
+  ADD KEY `id_kriteria_reputasi` (`id_kriteria_reputasi`),
+  ADD KEY `id_kriteria_fasilitas` (`id_kriteria_fasilitas`),
+  ADD KEY `id_kriteria_konsep` (`id_kriteria_konsep`);
+
+--
+-- Indexes for table `kriteria_fasilitas`
+--
+ALTER TABLE `kriteria_fasilitas`
+  ADD PRIMARY KEY (`id_kriteria_fasilitas`),
+  ADD KEY `id_kriteria` (`id_kriteria`),
+  ADD KEY `id_fuzzy` (`id_fuzzy`);
+
+--
+-- Indexes for table `kriteria_konsep`
+--
+ALTER TABLE `kriteria_konsep`
+  ADD PRIMARY KEY (`id_kriteria_konsep`),
+  ADD KEY `id_kriteria` (`id_kriteria`),
+  ADD KEY `id_fuzzy` (`id_fuzzy`);
+
+--
+-- Indexes for table `kriteria_reputasi`
+--
+ALTER TABLE `kriteria_reputasi`
+  ADD PRIMARY KEY (`id_kriteria_reputasi`),
+  ADD KEY `id_kriteria` (`id_kriteria`),
+  ADD KEY `id_fuzzy` (`id_fuzzy`);
 
 --
 -- Indexes for table `paket`
@@ -495,6 +768,13 @@ ALTER TABLE `request_layanan`
   ADD KEY `id_paket` (`id_paket`);
 
 --
+-- Indexes for table `review`
+--
+ALTER TABLE `review`
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_eo` (`id_eo`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -514,12 +794,17 @@ ALTER TABLE `app_reminder`
 -- AUTO_INCREMENT for table `bookmark`
 --
 ALTER TABLE `bookmark`
-  MODIFY `id_bookmark` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_bookmark` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `eo`
 --
 ALTER TABLE `eo`
-  MODIFY `id_eo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `id_eo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+--
+-- AUTO_INCREMENT for table `fuzzy`
+--
+ALTER TABLE `fuzzy`
+  MODIFY `id_fuzzy` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `kategori`
 --
@@ -531,15 +816,45 @@ ALTER TABLE `kategori`
 ALTER TABLE `kota`
   MODIFY `id_kota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 --
+-- AUTO_INCREMENT for table `kriteria`
+--
+ALTER TABLE `kriteria`
+  MODIFY `id_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `kriteria_budget`
+--
+ALTER TABLE `kriteria_budget`
+  MODIFY `id_kriteria_budget` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `kriteria_eo`
+--
+ALTER TABLE `kriteria_eo`
+  MODIFY `id_kriteria_eo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `kriteria_fasilitas`
+--
+ALTER TABLE `kriteria_fasilitas`
+  MODIFY `id_kriteria_fasilitas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `kriteria_konsep`
+--
+ALTER TABLE `kriteria_konsep`
+  MODIFY `id_kriteria_konsep` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `kriteria_reputasi`
+--
+ALTER TABLE `kriteria_reputasi`
+  MODIFY `id_kriteria_reputasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT for table `paket`
 --
 ALTER TABLE `paket`
-  MODIFY `id_paket` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_paket` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT for table `pesan`
 --
 ALTER TABLE `pesan`
-  MODIFY `id_pesan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pesan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `portfolio`
 --
@@ -554,12 +869,12 @@ ALTER TABLE `provinsi`
 -- AUTO_INCREMENT for table `request_layanan`
 --
 ALTER TABLE `request_layanan`
-  MODIFY `id_request` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_request` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- Constraints for dumped tables
 --

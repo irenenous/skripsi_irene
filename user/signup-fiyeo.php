@@ -56,7 +56,7 @@
 			<!-- End banner Area -->	
             
                     <div class="container" style="padding: 60px;">
-							<form class="form-area" role="form" id="signup-form" action="signup.php" method="POST" onsubmit="registerFunction()">	
+							<form class="form-area" role="form" id="signup-form" action="signup.php" method="POST">	
                                 <div class= "col-lg-6 offset-lg-3">
 									<div class="form-group">
                                         <div class="input-group">
@@ -223,9 +223,10 @@ function(){
     success: function (data) {
     swal({
     type: 'success',
-    title: 'Kedefatar bro',
+    title: 'Registration successful!',
+    text: 'Go activate your account by clicking the link we have sent to you by email. Thankyou for joining us',
     showConfirmButton: false,
-    timer: 1500
+    timer: 2000
     }).then( () => {
     location.replace("login-fiyeo.php");
     });      
@@ -233,7 +234,8 @@ function(){
     error: function () {
     swal({
     type: 'error',
-    title: 'Tangan lu bau gan',
+    title: 'Registration failed!',
+    text: 'Please fill in the sign up form properly',
     showConfirmButton: false,
     timer: 1500
     });  
@@ -242,7 +244,8 @@ function(){
     ev.preventDefault();
     ev.cancelBubble();
     });   
-    }    
+    } 
+    $('#signup-form').submit(registerFunction());
     </script>
                                
 <script type="text/javascript">

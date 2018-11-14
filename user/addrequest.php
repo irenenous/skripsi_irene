@@ -31,7 +31,7 @@ $date = date('m/d/Y h:i:s A');
         $tangkapName        = $_POST['name'];
         $tangkapPhone       = $_POST['phonenumber'];
         $tangkapEmail       = $_POST['email'];
-        $tangkapStatus      = 'ACTIVE';
+        $tangkapStatus      = 'SENT';
         
 		$query = mysqli_query($koneksi , "insert into request_layanan values ('','$iduser', '$ideo', '$date', '$tangkapEventDate', '$tangkapType', '$tangkapLocation', '$tangkapGuest', '$tangkapDuration', '$tangkapDesc', '$tangkapPackage', '$tangkapName', '$tangkapPhone', '$tangkapEmail', '$tangkapStatus')");
         

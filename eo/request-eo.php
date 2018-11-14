@@ -38,6 +38,7 @@ $select = mysqli_fetch_array($tampil);
     <link rel="stylesheet" href="../temp-dashboard/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="../temp-dashboard/css/custom.css">
+    <link rel="stylesheet" href="../temp-dashboard/css/message.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="../temp-dashboard/img/favicon.ico">
     <link rel="stylesheet" href="../temp-dashboard/assets/css/lib/datatable/dataTables.bootstrap.min.css">
@@ -91,7 +92,7 @@ $select = mysqli_fetch_array($tampil);
             
     <?php
 	include("config.php");
-	$query1="SELECT * FROM request_layanan INNER JOIN user ON request_layanan.id_user = user.id_user where id_eo = '$ideo'";
+	$query1="SELECT * FROM request_layanan INNER JOIN user ON request_layanan.id_user = user.id_user INNER JOIN paket ON request_layanan.id_paket = paket.id_paket where request_layanan.id_eo = '$ideo'";
 	$simpan1= mysqli_query($koneksi,$query1);
     ?> 
 
@@ -105,7 +106,7 @@ $select = mysqli_fetch_array($tampil);
             <th style="width: 100px;">Request ID</th>
             <th style="width: 150px;">Request Date</th>
             <th style="width: 200px;">Client</th>
-            <th style="width: 250px;">Event Type</th>
+            <th style="width: 250px;">Service Package</th>
             <th style="width: 100px;">Action</th></tr>
 		</thead>
 	   <tbody>
@@ -116,14 +117,14 @@ $select = mysqli_fetch_array($tampil);
 			$id	    = $select['id_request'];
 			$date	= $select['tgl_request'];
 			$klien  = $select['nama_user']; 
-            $event  = $select['tipe_acara'];
+            $paket  = $select['nama_paket'];
 		
 	?>
         <tr> 
         <td><?php echo $id ?></td>
         <td><?php echo $date ?></td>
         <td><?php echo $klien ?></td>
-        <td><?php echo $event ?></td>
+        <td><?php echo $paket ?></td>
         <td> 
         <div class="btn-group-xs">
         <a class="btn btn-sm btn-primary" href="viewrequest.php?id_request=<?php echo $id ?>"><i class="fa fa-eye"></i></a>

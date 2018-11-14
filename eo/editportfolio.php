@@ -38,11 +38,13 @@ $select = mysqli_fetch_array($tampil);
     <link rel="stylesheet" href="../temp-dashboard/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="../temp-dashboard/css/custom.css">
+    <link rel="stylesheet" href="../temp-dashboard/css/message.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="img/favicon.ico">
     <link rel="stylesheet" href="../temp-dashboard/assets/css/lib/datatable/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="../temp-dashboard/assets/sweetalert-master/src/sweetalert.css" />
+    <link rel="stylesheet" type="text/css" href="../temp-dashboard/jquery.imgzoom-0.2.2/css/imgzoom.css" />
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -82,7 +84,7 @@ $select = mysqli_fetch_array($tampil);
           </div>
           <!-- Sidebar Navidation Menus-->
           <ul class="list-unstyled">
-                    <li><a href="index-eo.php"> <i class="icon-home"></i>Home </a></li>
+                    <li><a href="dashboard-eo.php"> <i class="icon-home"></i>Home </a></li>
                     <li> <a href="profile-eo.php"> <i class="fa fa-user"></i>Profile </a></li>
                     <li> <a href="inbox-eo.php"> <i class="icon-mail"></i>Inbox </a></li>
                     <li> <a href="request-eo.php"> <i class="fa fa-tasks"></i>Requests </a></li>
@@ -140,7 +142,7 @@ $select = mysqli_fetch_array($tampil);
     <div style="margin-left:4px;">
     <label for="image">Photo</label>
     <div class="d-flex">
-        <img src="<?php echo $photo ?>" style= "width:150px; height:150px;"> 
+        <a href="<?php echo $photo ?>" target="_blank"><img class="thumbnail" src="<?php echo $photo ?>" style= "width:150px; height:150px;"> </a>
         <div class="align-self-center" style="margin-left: 20px;">
         <div class="upload-btn-wrapper">
         <button class="btn" disabled>Upload</button>
@@ -154,7 +156,7 @@ $select = mysqli_fetch_array($tampil);
     <textarea class="form-control" name="fileDesc" id="fileDesc" placeholder="Give some description about the event" required><?php echo $description ?></textarea>
     </div>
     <div class="form-group" style="margin-top:30px;">
-    <a class="btn btn-danger" href="portfolio-eo.php">Cancel</a>
+    <button onclick="window.history.go(-1)" class="btn btn-danger"> Cancel</button>
     <button type="submit" class="btn btn-primary submitBtn" id="simpan" name="simpan">Save Changes</button>
     </div>          
     </form></div></div></div>
@@ -206,6 +208,7 @@ $select = mysqli_fetch_array($tampil);
     <script src="../temp-dashboard/assets/js/lib/data-table/datatables-init.js"></script>
     <script src="../temp-fiyeo/js/jQuery-Mask-Plugin-master/dist/jquery.mask.js"></script>
     <script src="../temp-dashboard/assets/sweetalert-master/src/sweetalert.js"></script>
+    <script type="text/javascript" src="../temp-dashboard/jquery.imgzoom-0.2.2/scripts/jquery.imgzoom.pack.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
           $('#bootstrap-data-table-export').DataTable();
@@ -220,7 +223,11 @@ $select = mysqli_fetch_array($tampil);
 		$('#datatable').DataTable().ajax.reload();
 	}
     </script>
-     
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#img.thumbnail').imgZoom();
+  });
+</script>
      
   </body>
 </html>

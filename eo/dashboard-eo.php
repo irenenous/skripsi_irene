@@ -30,6 +30,13 @@ $row = mysqli_fetch_array($result2);
 $totalpaket = $row[0];       
 ?>
 
+<?php 
+$query3 = "SELECT count(1) FROM app_reminder where id_eo = '$ideo'";
+$result3 = mysqli_query($koneksi, $query3);
+$row = mysqli_fetch_array($result3); 
+$totalreminder = $row[0];       
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -51,6 +58,7 @@ $totalpaket = $row[0];
     <link rel="stylesheet" href="../temp-dashboard/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="../temp-dashboard/css/custom.css">
+    <link rel="stylesheet" href="../temp-dashboard/css/message.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="../temp-dashboard/img/favicon.ico">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
@@ -129,7 +137,7 @@ $totalpaket = $row[0];
                         <div role="progressbar" style="width: 100%; height: 4px;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-orange"></div>
                       </div>
                     </div>
-                    <div class="number"><strong>50</strong></div>
+                    <div class="number"><strong><?php echo $totalreminder ?></strong></div>
                   </div>
                 </div>
               </div>
@@ -150,7 +158,29 @@ $totalpaket = $row[0];
                 </div>
                 <div class="card-body">
                 <div class="list-group">
+               <?php 
+        include("config.php");      
+        $query2 = "SELECT * from pesan INNER JOIN user ON pesan.id_user = user.id_user where id_eo = '$ideo' AND pesan.status = 'SENT' AND sender = 'KLIEN' GROUP BY subjek";
+        $simpan2 = mysqli_query($koneksi, $query2);
+        if (mysqli_num_rows($simpan2) > 0) {
+		while($select = mysqli_fetch_assoc($simpan2))
+        {
+			$idmsg	    = $select['id_pesan'];
+			$klien      = $select['nama_user']; 
+            $subject    = $select['subjek'];
+		
+	   ?>
+                <div class="message-row" style="padding:5px;">
+                <a href="showconversation.php?subjek=<?php echo $subject ?>">
+                <div class="message-vendor-name" style="color: #aa80ff"><?php echo $klien ?></div>
+                <div class="message-subject">Subject: <?php echo $subject ?></div> 
+                <div class="message-deskripsi">You've got new message!</div>
+                </a>
+                </div>
+        <?php } } 
+        else { ?>
                 <p>No message found!</p>
+        <?php } ?>
                 </div>
                 </div>
                 </div>
@@ -163,7 +193,37 @@ $totalpaket = $row[0];
                 </div>
                 <div class="card-body">
                 <div class="list-group">
+                
+        <?php 
+        include("config.php");      
+        $query3 = "SELECT * from request_layanan INNER JOIN user ON request_layanan.id_user = user.id_user INNER JOIN paket ON request_layanan.id_paket = paket.id_paket where request_layanan.id_eo = '$ideo' AND request_layanan.status = 'SENT'";
+        $simpan3 = mysqli_query($koneksi, $query3);
+        if (mysqli_num_rows($simpan3) > 0) {
+		while($select = mysqli_fetch_assoc($simpan3))
+        {
+			$idreq	    = $select['id_request'];
+			$klien      = $select['nama_user']; 
+            $fotoklien  = $select['foto_user'];
+            $paket      = $select['nama_paket'];
+            $date       = $select['tgl_request'];
+		
+	   ?>
+                <div class="d-flex">
+				<div class="col-lg-2" href="#" style="margin-right:0px; padding-right:0px;">
+				<img class="media-object img-circle" src="../user/<?php echo $fotoklien ?>" style="width:60px; height:60px; border-radius: 50%;">
+				</div>
+				<div class="col-lg-12 media-body">
+				<strong class="media-heading"><?php echo $klien ?></strong><a href="viewrequest.php?id_request=<?php echo $idreq ?>" class="btn btn-primary btn-xs pull-right" style="height:32px;"><p style="font-size:10pt">View Detail</p></a><br>
+				<?php echo $paket ?><br>
+				<?php echo $date ?><br>
+				</div>
+                </div>
+				<hr style="margin: 15px 0;">
+        <?php } } 
+        else { ?>
                 <p>No request found!</p>
+        <?php } ?>
+                
                 </div>
                 </div>
                 </div>

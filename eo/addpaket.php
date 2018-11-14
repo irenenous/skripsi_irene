@@ -10,9 +10,10 @@ if (isset ($_SESSION['id'])!="") {
         $tangkapNamaP		= $_POST['namapaket'];
 		$tangkapJenisP		= $_POST['jenispaket'];
 		$tangkapHargaP		= $_POST['hargapaket'];
+        $harga = str_replace('.','', $tangkapHargaP);
 		$tangkapKetP		= $_POST['ketpaket'];
         
-		$query = mysqli_query($koneksi , "insert into paket values ('','$ideo','$tangkapNamaP', '$tangkapJenisP', '$tangkapHargaP', '$tangkapKetP')");
+		$query = mysqli_query($koneksi , "insert into paket values ('','$ideo','$tangkapNamaP', '$tangkapJenisP', '$harga', '$tangkapKetP')");
         
          header('Location: paket-eo.php'); 
 	}

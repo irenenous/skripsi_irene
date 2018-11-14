@@ -2,19 +2,21 @@
 include 'config.php';
 session_start();
 
-// munculin kategori
-// provinsi, kota
 
         $ideo = $_SESSION['id'];
         
         $tangkapName		 = $_POST['name'];
 		$tangkapDesc		 = $_POST['description'];
+        $tangkapProvinsi     = $_POST['provinsi'];
+        $tangkapKota         = $_POST['kota'];
 		$tangkapAddress		 = $_POST['address'];
         $tangkapEmail		 = $_POST['email'];
 		$tangkapPhone        = $_POST['phone'];
         $tangkapLink         = $_POST['weblink'];
 
-
+var_dump($_FILES);
+if($_FILES["foto"]["error"] == 0){
+		
 // UPLOAD FOTO START
         $target_dir = "image-eo/";
 		$target_fileFoto0 = $target_dir . basename($_FILES["foto"]["name"]);
@@ -33,9 +35,24 @@ session_start();
     foto_eo='$target_fileFoto0',
     nama_eo='$tangkapName',
 	ket_eo='$tangkapDesc',
+    id_provinsi='$tangkapProvinsi',
+    id_kota='$tangkapKota',
 	alamat_eo='$tangkapAddress', 
     nohp_eo='$tangkapPhone',
 	link_web='$tangkapLink' Where id_eo = '$ideo' AND STATUS = 'VERIFIED' ";
+}
+
+else {
+    $query = "UPDATE eo SET
+    email_eo='$tangkapEmail',
+    nama_eo='$tangkapName',
+	ket_eo='$tangkapDesc',
+    id_provinsi='$tangkapProvinsi',
+    id_kota='$tangkapKota',
+	alamat_eo='$tangkapAddress', 
+    nohp_eo='$tangkapPhone',
+	link_web='$tangkapLink' Where id_eo = '$ideo' AND STATUS = 'VERIFIED' ";  
+}
 	$tampil = mysqli_query($koneksi,$query);
 	if($tampil)
 	{

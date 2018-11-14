@@ -76,7 +76,32 @@ include("header-fiyeo.php");
                             
     <?php
 	include("config.php");
-	$query1="SELECT * from eo INNER JOIN provinsi ON eo.id_provinsi = provinsi.id_provinsi INNER JOIN kota ON eo.id_kota = kota.id_kota WHERE status='VERIFIED'";           
+                            
+//    $order_category = 'id_kategori';
+//     if (isset($_GET['order_criteria'])) {
+//        if ($_GET['order_criteria'] == 'name-asc') {
+//            $order_criteria = 'nama_eo ASC';
+//        } else if ($_GET['order_criteria'] == 'name-desc') {
+//            $order_criteria = 'nama_eo DESC';
+//        }
+//        else if ($_GET['order_criteria'] == 'price-asc') {
+//            $order_criteria = 'min(harga_paket) ASC';
+//        }
+//    }
+//                            
+    $order_criteria = 'id_eo';
+    if (isset($_GET['order_criteria'])) {
+        if ($_GET['order_criteria'] == 'name-asc') {
+            $order_criteria = 'nama_eo ASC';
+        } else if ($_GET['order_criteria'] == 'name-desc') {
+            $order_criteria = 'nama_eo DESC';
+        }
+        else if ($_GET['order_criteria'] == 'price-asc') {
+            $order_criteria = 'min(harga_paket) ASC';
+        }
+    }
+                                 
+	$query1="SELECT * from eo INNER JOIN provinsi ON eo.id_provinsi = provinsi.id_provinsi INNER JOIN kota ON eo.id_kota = kota.id_kota WHERE status='VERIFIED' ORDER BY ".$order_criteria;           
 	$simpan1= mysqli_query($koneksi,$query1);
                            
    while($select = mysqli_fetch_assoc($simpan1)) {
@@ -101,18 +126,22 @@ include("header-fiyeo.php");
             $cityname  = $select['nama_kota'];
 
     ?>   
+                            
+<?php 
+$query2 = "SELECT min(harga_paket) from paket where id_eo ='$id'";
+$simpan2 = mysqli_query($koneksi, $query2); 
+$select = mysqli_fetch_array($simpan2);
+       $lowprice = $select['min(harga_paket)'];
+       
+?>
+                          
 							<div class="single-post d-flex flex-row">
  
                                 <table>
                                 <tr>
-                                <td rowspan="5"><img src="../eo/<?php echo $photo ?>" width='150px' height='150px'></td>
+                                <td rowspan="4"><img src="../eo/<?php echo $photo ?>" width='130px' height='130px'></td>
                                 <td style="padding-left:20px;"><a href="view-profile-eo.php?id_eo=<?php echo $id ?>"><h4><?php echo $name ?></h4></a></td>
                                 <td>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td style="color:#aa80ff; padding-left:20px;">
-                                 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
                                 </td>
                                 </tr>
                                 <tr>
@@ -122,7 +151,7 @@ include("header-fiyeo.php");
                                 <td style="padding-left:20px;"><i class="fa fa-map-o"></i>&nbsp; <?php echo $cityname ?>, <?php echo $provname ?></td>
                                 </tr>
                                 <tr>
-                                <td style="padding-left:20px;"><i class="fa fa-money"></i>&nbsp; Start from IDR 3.000.000 </td>
+                                <td style="padding-left:20px;"><i class="fa fa-money"></i>&nbsp; Start from IDR <?php echo $lowprice ?> </td>
                                 </tr>
                                 </table>
 							</div>
@@ -132,19 +161,25 @@ include("header-fiyeo.php");
 
 						</div>
 						<div class="col-lg-4 sidebar">
+                            <div class="single-widget search-widget" style="border:2px dotted #aa80ff;">
+								<form class="example" action="#" style="margin:auto;max-width:300px">
+								  <input type="text" placeholder="Search" name="search2">
+								  <button type="submit"><i class="fa fa-search"></i></button>
+								</form>								
+							</div>
 							<div class="single-slidebar" style="background-color:#fff; border:2px dotted #aa80ff;">
 				            <h4>Refine Your Search</h4>
                             <hr>
 				            <div class="form-group">
                             <label><strong>Select Category</strong></label>
                             <div class="form-select" id="default-select" style="">
-                            <select id="category" name='nama_kategori'>
-                            <option value='belum milih' selected>- Choose Category -</option>
+                            <select id="sortCategory" name="sortCategory">
+                            <option value="">All category</option>
                             <?php 
                             include 'config.php';
-                            $tampil=mysqli_query($koneksi, "SELECT id_kategori, nama_kategori FROM kategori");
+                            $tampil=mysqli_query($koneksi, "SELECT * FROM kategori_eo INNER JOIN kategori ON kategori_eo.id_kategori = kategori.id_kategori GROUP BY kategori_eo.id_kategori");
                             while($id_kategori=mysqli_fetch_array($tampil)) {
-                            echo "<option value='".$id_kategori[id_kategori]."' required> ".$id_kategori[nama_kategori]."</option>";}
+                            echo "<option value='".$id_kategori[id_kategori]."'> ".$id_kategori[nama_kategori]."</option>";}
                             ?>
                             </select>
                             </div>
@@ -154,16 +189,34 @@ include("header-fiyeo.php");
                             <label><strong>Select Area</strong></label>
                             <div class="form-select" id="default-select" style="">
                             <select id="area" name='nama_area'>
-                            <option value='belum milih' selected>- Choose Area -</option>
+                            <option value='' selected>Choose area</option>
+                    <?php 
+                    include 'config.php';
+                    $tampil=mysqli_query($koneksi, "SELECT * FROM eo INNER JOIN kota ON eo.id_kota = kota.id_kota");
+                    while($id_kota=mysqli_fetch_array($tampil)) {
+                    echo "<option value='".$id_kota[id_kota]."' required> ".$id_kota[nama_kota]."</option>";}
+                    ?>
                             </select>
                             </div>
 				            </div>
                             <hr>
-                            <div class="form-group">
+                      <div class="form-group">
                             <label><strong>Sort By</strong></label>
                             <div class="form-select" id="default-select" style="">
-                            <select id="sortby" name='sortby'>
-                            <option value='belum milih' selected>- Default -</option>
+                            <select id="sortFilter" name="sortFilter">
+                            <option value="">- Default -</option>
+                            <option value="name-asc" '<?php $order_criteria == 'name-asc' ? ':selected' : '' ?>'>
+                            Name A » Z
+                            </option>
+                            <option value="name-desc">
+                            Name Z » A
+                            </option>
+                            <option value="price-asc">
+                            Price Low » High
+                            </option>
+                            <option value="price-desc">
+                            Price High » Low
+                            </option>
                             </select>
                             </div>
                             <hr>
@@ -252,5 +305,27 @@ include("header-fiyeo.php");
 			<script src="../temp-fiyeo/js/parallax.min.js"></script>		
 			<script src="../temp-fiyeo/js/mail-script.js"></script>	
 			<script src="../temp-fiyeo/js/main.js"></script>	
-		</body>
+		
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#sortFilter').on('change',function(){
+        console.log($(this).val());
+        var url = new URL(window.location.href);
+        url.searchParams.set('order_criteria', $(this).val());
+        window.location.href = url.href; 
+    });    
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#sortCategory').on('change',function(){
+        console.log($(this).val());
+        var url = new URL(window.location.href);
+        url.searchParams.set('order_category', $(this).val());
+        window.location.href = url.href; 
+    });    
+});
+</script>   
+            
+    </body>
 	</html>

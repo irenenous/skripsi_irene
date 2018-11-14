@@ -22,12 +22,13 @@ if (isset ($_SESSION['id'])!="") {
         $tangkapPname		 = $_POST['namapaket'];
 		$tangkapType		 = $_POST['jenispaket'];
 		$tangkapPrice		 = $_POST['hargapaket'];
+        $harga = str_replace('.','', $tangkapPrice);
 		$tangkapDescription  = $_POST['ketpaket'];
 	
 	$query = "UPDATE paket SET
     nama_paket='$tangkapPname',
 	jenis_paket='$tangkapType',
-	harga_paket='$tangkapPrice',
+	harga_paket='$harga',
 	ket_paket='$tangkapDescription' Where id_paket = '$id' AND id_eo = '$ideo' ";
 	$tampil = mysqli_query($koneksi,$query);
 	if($tampil)

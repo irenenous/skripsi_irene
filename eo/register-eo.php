@@ -333,18 +333,20 @@ session_start();
                                 success: function (data) {
                                     swal({
                                       type: 'success',
-                                      title: 'Kedefatar bro',
+                                      title: 'Registration successful!',
+                                      text: 'Your business profile will be processed by us in 1-2 days. Go activate your account by clicking the link we have sent you by email. Thankyou for joining us',
                                       showConfirmButton: false,
-                                      timer: 1500
+                                      timer: 2000
                                     }).then( () => {
-                                    location.replace("../FRONTEND-WEB/index-fiyeo.php");
+                                    location.replace("../user/login-fiyeo.php");
                                     });      
                                     
                                 },
                                 error: function () {
                                     swal({
                                       type: 'error',
-                                      title: 'Tangan lu bau gan',
+                                      title: 'Registration failed!',
+                                      text: 'Please fill in the registration form properly',
                                       showConfirmButton: false,
                                       timer: 1500
                                     });  

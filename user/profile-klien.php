@@ -38,7 +38,7 @@ $select = mysqli_fetch_array($tampil);
     <link rel="stylesheet" href="../temp-dashboard/css/custom.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="../temp-dashboard/img/favicon.ico">
-    
+    <link rel="stylesheet" href="../temp-dashboard/css/message.css">
     
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -111,12 +111,17 @@ $select = mysqli_fetch_array($tampil);
     <div class="panel-heading">
 		<input type="hidden" name="user_id" value="8668">
 		<ul class="nav nav-tabs">
-			<li class="nav-item active"><a href="#tab1default" data-toggle="tab">Main Profile</a></li>
-			<li class="nav-item"><a href="#tab2default" data-toggle="tab">Password</a></li>
+			<li class="nav-item">
+            <a href="#tab1default" data-toggle="tab" class="nav-link active">Main Profile</a>
+            </li>
+			<li class="nav-item">
+            <a href="#tab2default" data-toggle="tab" class="nav-link">Password</a>
+            </li>
 		</ul>
     </div>
+    <hr>
         <div class="panel-body">
-		<div class="tab-content" style="padding-top:20px; background-color: #fff;">
+		<div class="tab-content" style="background-color: #fff;">
 			<div class="tab-pane active" id="tab1default">
                 <form action="updateprofile.php" id="form" class="form-horizontal" method="post" enctype="multipart/form-data">
 				<div class="form-group">

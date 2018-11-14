@@ -38,6 +38,7 @@ $select = mysqli_fetch_array($tampil);
     <link rel="stylesheet" href="../temp-dashboard/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="../temp-dashboard/css/custom.css">
+     <link rel="stylesheet" href="../temp-dashboard/css/message.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="../temp-dashboard/img/favicon.ico">
     <link rel="stylesheet" href="../temp-dashboard/assets/css/lib/datatable/dataTables.bootstrap.min.css">
@@ -92,26 +93,38 @@ $select = mysqli_fetch_array($tampil);
              
     <?php
 	include("config.php");
-	$query1="SELECT * FROM pesan INNER JOIN user ON pesan.id_user = user.id_user where id_eo = '$ideo'";
+    $order_criteria = 'id_pesan';
+    if (isset($_GET['order_criteria'])) {
+        if ($_GET['order_criteria'] == 'date-asc') {
+            $order_criteria = 'STR_TO_DATE(c.tgl_pesan, \'%m/%d/%Y %r\') ASC';
+        } else if ($_GET['order_criteria'] == 'date-desc') {
+            $order_criteria = 'STR_TO_DATE(c.tgl_pesan, \'%m/%d/%Y %r\') DESC';
+        }
+    }
+	$query1="SELECT c.*, e.*, f.* FROM pesan AS c INNER JOIN (SELECT MAX(a.id_pesan) AS id_pesan, STR_TO_DATE(a.tgl_pesan, '%m/%d/%Y %r') FROM pesan AS a INNER JOIN (SELECT MAX(STR_TO_DATE(tgl_pesan, '%m/%d/%Y %r')) AS tgl_max FROM pesan WHERE id_eo = '$ideo' GROUP BY subjek, id_eo, id_user) AS b ON STR_TO_DATE(a.tgl_pesan, '%m/%d/%Y %r') = b.tgl_max GROUP BY a.id_user, a.id_eo, a.subjek, STR_TO_DATE(a.tgl_pesan, '%m/%d/%Y %r')) AS d ON c.id_pesan = d.id_pesan INNER JOIN user AS e ON e.id_user = c.id_user INNER JOIN eo AS f ON f.id_eo = c.id_eo ORDER BY ".$order_criteria;
 	$simpan1= mysqli_query($koneksi,$query1);
-    ?> 
+    ?>             
             
-        <div class="animated fadeIn">
-        <div class="row">
-        <div class="col-md-12" style="margin-top: 20px; margin-bottom:50px;">
-        <div class="ov-h">
-        <table id="bootstrap-data-table" class="table table-striped table-bordered">
-        <thead class="none">
-        <tr>
-        <th class="avatar">Picture</th>
-        <th style="width:150px">Name</th>
-        <th style="width:150px">Date & Time</th>
-        <th style="width:400px">Subject</th>
-        <th style="width:70px">Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
+            <div class="container-fluid">                           
+<div class="col-lg-12" style="border:1px solid #D3D3D3; border-radius:10px; padding:20px;">
+<div class="row" style="padding:10px;">
+  <div class="col-xs-12 col-md-12 filter filter-message" style="">
+   <select id="sortFilter" class="sortFilter">
+    <option value="">Default</option>
+       <option value="date-desc">
+           Date Newest » Oldest
+       </option>
+<!--       <?php $_GET['order_criteria'] == 'date-desc' ? 'selected' : '' ?>-->
+       <option value="date-asc">Date Oldest » Newest</option>
+    <!-- <option value="budget-asc">Read Message » Newest Message</option> -->
+  </select>
+</div>
+</div>
+<div id="message">
+<div class="scroll">
+<div class="jscroll-inner">	
+<hr>
+     <?php
 		while($select = mysqli_fetch_assoc($simpan1))
         {
 			$idmsg	    = $select['id_pesan'];
@@ -122,26 +135,121 @@ $select = mysqli_fetch_array($tampil);
             $message    = $select['pesan'];
 		
 	   ?>
-        <tr> 
-        <td class="avatar"><img src="../user/<?php echo $fotoklien ?>" style="width:70px; height:70px;" class="rounded-circle imgcenter"></td>
-        <td><?php echo $klien ?></td>
-        <td><?php echo $date ?></td>
-        <td><?php echo $subject ?></td>  
-        <td>
-        <div class="btn-group-xs">
-        <button onclick="showConversation(<?php echo $idmsg?>)" class="btn btn-sm btn-primary" ><i class="fa fa-reply"></i></button>
-        <button onclick="deleteFunction(<?php echo $idmsg ?>)" class="btn btn-sm btn-primary"><i class="fa fa-trash" ></i></button> 
-        </div>
-        </td></tr>
-    <?php }
-    ?>                                                    
-            </tbody>
-            </table>
-            </div>
-            </div>
-            </div>
-            </div>
-         
+<div class="message-row" style="padding:10px;">
+<a href="showconversation.php?subjek=<?php echo $subject ?>">
+<div class="d-flex">
+<div style="justify-content:center; width:70px;">
+<img src="../user/<?php echo $fotoklien ?>" class="img-vendor-message" style="height:55px; width:55px;">  
+</div>
+<div style="width:750px;">
+<div class="message-vendor-name" style="color: #aa80ff"><?php echo $klien ?></div>
+<div class="message-subject"><?php echo $subject ?></div>
+<div class="message-deskripsi"><?php echo $message ?></div>
+</div>
+<div style="width:150px;">
+<div class="message-date" style="text-align:right"><?php echo $date ?></div>
+</div>
+</div>    
+</a> 
+</div>
+<hr>
+<?php }
+?>
+</div></div> </div></div></div>
+
+<script src="https://www.hellobeauty.id/assets/js/jscroll.min.js"></script>
+<script type="text/javascript">
+		$('.filter-message').show();
+</script>           
+<script>
+  function create_custom_dropdowns() {
+    $('select').each(function(i, select) {
+      if (!$(this).next().hasClass('dropdown')) {
+        $(this).after('<div class="dropdown ' + ($(this).attr('class') || '') + '" tabindex="0"><span class="current"></span><div class="list"><ul></ul></div></div>');
+        var dropdown = $(this).next();
+        var options = $(select).find('option');
+        var selected = $(this).find('option:selected');
+        dropdown.find('.current').html(selected.data('display-text') || selected.text());
+        options.each(function(j, o) {
+          var display = $(o).data('display-text') || '';
+          dropdown.find('ul').append('<li class="option ' + ($(o).is(':selected') ? 'selected' : '') + '" data-value="' + $(o).val() + '" data-display-text="' + display + '">' + $(o).text() + '</li>');
+        });
+      }
+    });
+  }
+// Event listeners
+
+// Open/close
+$(document).on('click', '.dropdown', function(event) {
+  $('.dropdown').not($(this)).removeClass('open');
+  $(this).toggleClass('open');
+  if ($(this).hasClass('open')) {
+    $(this).find('.option').attr('tabindex', 0);
+    $(this).find('.selected').focus();
+  } else {
+    $(this).find('.option').removeAttr('tabindex');
+    $(this).focus();
+  }
+});
+// Close when clicking outside
+$(document).on('click', function(event) {
+  if ($(event.target).closest('.dropdown').length === 0) {
+    $('.dropdown').removeClass('open');
+    $('.dropdown .option').removeAttr('tabindex');
+  }
+  event.stopPropagation();
+});
+// Option click
+$(document).on('click', '.dropdown .option', function(event) {
+  $(this).closest('.list').find('.selected').removeClass('selected');
+  $(this).addClass('selected');
+  var text = $(this).data('display-text') || $(this).text();
+  $(this).closest('.dropdown').find('.current').text(text);
+  $(this).closest('.dropdown').prev('select').val($(this).data('value')).trigger('change');
+});
+
+// Keyboard events
+$(document).on('keydown', '.dropdown', function(event) {
+  var focused_option = $($(this).find('.list .option:focus')[0] || $(this).find('.list .option.selected')[0]);
+  // Space or Enter
+  if (event.keyCode == 32 || event.keyCode == 13) {
+    if ($(this).hasClass('open')) {
+      focused_option.trigger('click');
+    } else {
+      $(this).trigger('click');
+    }
+    return false;
+    // Down
+  } else if (event.keyCode == 40) {
+    if (!$(this).hasClass('open')) {
+      $(this).trigger('click');
+    } else {
+      focused_option.next().focus();
+    }
+    return false;
+    // Up
+  } else if (event.keyCode == 38) {
+    if (!$(this).hasClass('open')) {
+      $(this).trigger('click');
+    } else {
+      var focused_option = $($(this).find('.list .option:focus')[0] || $(this).find('.list .option.selected')[0]);
+      focused_option.prev().focus();
+    }
+    return false;
+  // Esc
+} else if (event.keyCode == 27) {
+  if ($(this).hasClass('open')) {
+    $(this).trigger('click');
+  }
+  return false;
+}
+});
+
+$(document).ready(function() {
+  create_custom_dropdowns();
+});
+
+</script>         
           <!-- Page Footer-->
           <footer class="main-footer">
             <div class="container-fluid">
@@ -185,7 +293,7 @@ $select = mysqli_fetch_array($tampil);
       
     <script type="text/javascript">
         $(document).ready(function() {
-          $('#bootstrap-data-table-export').DataTable();
+          $('#bootstrap-data-table-export').DataTable(); }
           
   </script>  
       
@@ -216,12 +324,18 @@ $select = mysqli_fetch_array($tampil);
 			}
 		});
 	}
-	
-	
-
       
 </script>    
-      
-      
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#sortFilter').on('change',function(){
+        console.log($(this).val());
+        var url = new URL(window.location.href);
+        url.searchParams.set('order_criteria', $(this).val());
+        window.location.href = url.href; 
+    });    
+});
+</script>
   </body>
 </html>
