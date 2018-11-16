@@ -38,6 +38,7 @@ $select = mysqli_fetch_array($tampil);
     <link rel="stylesheet" href="../temp-dashboard/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="../temp-dashboard/css/custom.css">
+    <link rel="stylesheet" href="../temp-dashboard/css/message.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="../temp-dashboard/img/favicon.ico">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
@@ -260,33 +261,80 @@ $select2 = mysqli_fetch_array($tampil2);
     </div>
     <div class="form-group">
     <label for="status">Status </label>
-    <select name="eostatus" id="eostatus" class="form-control mb-3" required>
-        
+    <div style="margin-left:5px; margin-top:5px;">
     <?php if ($statuseo == 'PENDING') { ?> 
-    <option value="<?php echo $statuseo ?>" selected><?php echo $statuseo ?></option>
-    <option value="CONFIRMED">CONFIRMED</option>
-    <option value="VERIFIED">VERIFIED</option>
-    <option value="INACTIVE">INACTIVE</option>
+    <div class="i-checks">
+    <input id="eostatus" name="eostatus" type="radio" value="<?php echo $statuseo ?>" checked="" class="radio-template">
+    <label for="stat"><?php echo $statuseo ?></label>
+    </div>
+    <div class="i-checks">
+    <input id="eostatus" name="eostatus" type="radio" value="CONFIRMED" class="radio-template">
+    <label for="stat">CONFIRMED</label>
+    </div>
+    <div class="i-checks">
+    <input id="eostatus" name="eostatus" type="radio" value="VERIFIED" class="radio-template">
+    <label for="stat">VERIFIED</label>
+    </div>
+    <div class="i-checks">
+    <input id="eostatus" name="eostatus" type="radio" value="INACTIVE" class="radio-template">
+    <label for="stat">INACTIVE</label>
+    </div>
     <?php } 
     else if ($statuseo == 'CONFIRMED') { ?> 
-    <option value="<?php echo $statuseo ?>" selected><?php echo $statuseo ?></option>
-    <option value="PENDING">PENDING</option>
-    <option value="VERIFIED">VERIFIED</option>
-    <option value="INACTIVE">INACTIVE</option>
+    <div class="i-checks">
+    <input id="eostatus" name="eostatus" type="radio" value="PENDING" class="radio-template">
+    <label for="stat">PENDING</label>
+    </div>
+    <div class="i-checks">
+    <input id="eostatus" name="eostatus" type="radio" value="<?php echo $statuseo ?>" checked="" class="radio-template">
+    <label for="stat"><?php echo $statuseo ?></label>
+    </div>
+    <div class="i-checks">
+    <input id="eostatus" name="eostatus" type="radio" value="VERIFIED" class="radio-template">
+    <label for="stat">VERIFIED</label>
+    </div>
+    <div class="i-checks">
+    <input id="eostatus" name="eostatus" type="radio" value="INACTIVE" class="radio-template">
+    <label for="stat">INACTIVE</label>
+    </div>
     <?php } 
     else if ($statuseo == 'VERIFIED') { ?> 
-    <option value="<?php echo $statuseo ?>" selected><?php echo $statuseo ?></option>
-    <option value="PENDING">PENDING</option>
-    <option value="CONFIRMED">CONFIRMED</option>
-    <option value="INACTIVE">INACTIVE</option>
+    <div class="i-checks">
+    <input id="eostatus" name="eostatus" type="radio" value="PENDING" class="radio-template">
+    <label for="stat">PENDING</label>
+    </div>
+    <div class="i-checks">
+    <input id="eostatus" name="eostatus" type="radio" value="CONFIRMED" class="radio-template">
+    <label for="stat">CONFIRMED</label>
+    </div>
+    <div class="i-checks">
+    <input id="eostatus" name="eostatus" type="radio" value="<?php echo $statuseo ?>" checked="" class="radio-template">
+    <label for="stat"><?php echo $statuseo ?></label>
+    </div>
+    <div class="i-checks">
+    <input id="eostatus" name="eostatus" type="radio" value="INACTIVE" class="radio-template">
+    <label for="stat">INACTIVE</label>
+    </div>
     <?php } 
     else { ?>
-    <option value="<?php echo $statuseo ?>" selected><?php echo $statuseo ?></option>
-    <option value="PENDING">PENDING</option>
-    <option value="CONFIRMED">CONFIRMED</option>
-    <option value="VERIFIED">VERIFIED</option>
+    <div class="i-checks">
+    <input id="eostatus" name="eostatus" type="radio" value="PENDING" class="radio-template">
+    <label for="stat">PENDING</label>
+    </div>
+    <div class="i-checks">
+    <input id="eostatus" name="eostatus" type="radio" value="CONFIRMED" class="radio-template">
+    <label for="stat">CONFIRMED</label>
+    </div>
+    <div class="i-checks">
+    <input id="eostatus" name="eostatus" type="radio" value="VERIFIED" class="radio-template">
+    <label for="stat">VERIFIED</label>
+    </div>
+    <div class="i-checks">
+    <input id="eostatus" name="eostatus" type="radio" value="<?php echo $statuseo ?>" checked="" class="radio-template">
+    <label for="stat"><?php echo $statuseo ?></label>
+    </div>
     <?php } ?>
-    </select>   
+    </div>   
     </div>
     <div class="form-group" style="margin-top:30px;">
     <a class="btn btn-danger" href="acc-eo.php">Cancel</a>

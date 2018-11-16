@@ -88,7 +88,7 @@ include("header-fiyeo.php");
 						</div>
 						<div class="col-lg-4 col-md-6">
 							<div class="single-service">
-								<h4><span class="lnr lnr-rocket"></span>Convenient</h4>
+								<h4><span class="lnr lnr-thumbs-up"></span>Convenient</h4>
 								<p>
 									No more wasting time. Find and request event organizer services instantly with just few clicks.
 								</p>				
@@ -96,7 +96,7 @@ include("header-fiyeo.php");
 						</div>
 						<div class="col-lg-4 col-md-6">
 							<div class="single-service">
-								<h4><span class="lnr lnr-diamond"></span>Trusted</h4>
+								<h4><span class="lnr lnr-checkmark-circle"></span>Trusted</h4>
 								<p>
 									We made sure to provide the best service and keep all informations safe. 
 								</p>								

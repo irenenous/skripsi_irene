@@ -8,7 +8,7 @@ if (isset ($_SESSION['id'])!="") {
 ?>	
 
 <?php 
-$query = "SELECT * FROM eo INNER JOIN provinsi ON eo.id_provinsi = provinsi.id_provinsi INNER JOIN kota ON eo.id_kota = kota.id_kota where id_eo = '$ideo' AND status = 'VERIFIED'";
+$query = "SELECT * FROM eo INNER JOIN kota ON eo.id_kota = kota.id_kota where id_eo = '$ideo' AND status = 'VERIFIED'";
 $tampil = mysqli_query($koneksi, $query);
 $select = mysqli_fetch_array($tampil);
         $emaileo = $select['email_eo'];

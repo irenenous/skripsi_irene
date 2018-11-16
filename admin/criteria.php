@@ -38,6 +38,7 @@ $select = mysqli_fetch_array($tampil);
     <link rel="stylesheet" href="../temp-dashboard/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="../temp-dashboard/css/custom.css">
+    <link rel="stylesheet" href="../temp-dashboard/css/message.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="../temp-dashboard/img/favicon.ico">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
@@ -109,7 +110,7 @@ $select = mysqli_fetch_array($tampil);
                       <div class="table-responsive">                
     <?php
 	include("config.php");
-	$query1="SELECT * FROM kriteria_budget INNER JOIN kriteria ON kriteria_budget.id_kriteria = kriteria.id_kriteria INNER JOIN fuzzy ON kriteria_budget.id_fuzzy = fuzzy.id_fuzzy";
+	$query1="SELECT * FROM kriteria_budget INNER JOIN kriteria ON kriteria_budget.id_kriteria = kriteria.id_kriteria INNER JOIN indikator_penilaian ON kriteria_budget.id_indikator_penilaian = indikator_penilaian.id_indikator_penilaian";
 	$simpan1= mysqli_query($koneksi,$query1);
     ?>
                     <table class="table table-striped table-hover">
@@ -117,7 +118,7 @@ $select = mysqli_fetch_array($tampil);
                     <tr>
                         <th>ID</th>
                         <th>Criteria Detail</th>
-                        <th>Fuzzy</th>
+                        <th width="120px">Indikator Penilaian</th>
                         <th>Score</th>
                         <th>Action</th>
                     </tr>
@@ -129,16 +130,16 @@ $select = mysqli_fetch_array($tampil);
 			$idbudget        = $select['id_kriteria_budget'];
             $idkriteria	     = $select['id_kriteria'];
 			$namakriteria    = $select['nama_kriteria']; 
-            $detailkriteria  = $select['detail_kriteria1'];
-            $idfuzzy         = $select['id_fuzzy'];
-            $fuzzy           = $select['nama_fuzzy'];
+            $detailkriteria  = $select['detail_kriteria'];
+            $idindikator         = $select['id_indikator_penilaian'];
+            $indikatorpenilaian  = $select['indikator_penilaian'];
             $score           = $select['nilai'];
 		
 	   ?>          
                         <tr>
                         <th scope="row"><?php echo $idbudget ?></th>
                         <td><?php echo $detailkriteria ?></td>
-                        <td><?php echo $fuzzy ?></td>
+                        <td><?php echo $indikatorpenilaian ?></td>
                         <td><?php echo $score ?></td>
                         <td>
                         <a class="btn btn-sm btn-primary" href="editkriteriabudget.php?id_kriteria_budget=<?php echo $idbudget ?>"><i class="fa fa-edit"></i></a>
@@ -167,7 +168,7 @@ $select = mysqli_fetch_array($tampil);
                       <div class="table-responsive">               
     <?php
 	include("config.php");
-	$query2="SELECT * FROM kriteria_reputasi INNER JOIN kriteria ON kriteria_reputasi.id_kriteria = kriteria.id_kriteria INNER JOIN fuzzy ON kriteria_reputasi.id_fuzzy = fuzzy.id_fuzzy";
+	$query2="SELECT * FROM kriteria_reputasi INNER JOIN kriteria ON kriteria_reputasi.id_kriteria = kriteria.id_kriteria INNER JOIN indikator_penilaian ON kriteria_reputasi.id_indikator_penilaian = indikator_penilaian.id_indikator_penilaian";
 	$simpan2= mysqli_query($koneksi,$query2);
     ?>
                     <table class="table table-striped table-hover">
@@ -175,7 +176,7 @@ $select = mysqli_fetch_array($tampil);
                     <tr>
                         <th>ID</th>
                         <th>Criteria Detail</th>
-                        <th>Fuzzy</th>
+                        <th width="120px">Indikator Penilaian</th>
                         <th>Score</th>
                         <th>Action</th>
                     </tr>
@@ -187,16 +188,16 @@ $select = mysqli_fetch_array($tampil);
 			$idreputasi      = $select['id_kriteria_reputasi'];
             $idkriteria	     = $select['id_kriteria'];
 			$namakriteria    = $select['nama_kriteria']; 
-            $detailkriteria  = $select['detail_kriteria2'];
-            $idfuzzy         = $select['id_fuzzy'];
-            $fuzzy           = $select['nama_fuzzy'];
+            $detailkriteria  = $select['detail_kriteria'];
+            $idindikator         = $select['id_indikator_penilaian'];
+            $indikatorpenilaian  = $select['indikator_penilaian'];
             $score           = $select['nilai'];
 		
 	   ?>          
                         <tr>
                         <th scope="row"><?php echo $idreputasi ?></th>
                         <td><?php echo $detailkriteria ?></td>
-                        <td><?php echo $fuzzy ?></td>
+                        <td><?php echo $indikatorpenilaian ?></td>
                         <td><?php echo $score ?></td>
                         <td>
                         <a class="btn btn-sm btn-primary" href="editkriteriareputasi.php?id_kriteria_reputasi=<?php echo $idreputasi ?>"><i class="fa fa-edit"></i></a>
@@ -225,7 +226,7 @@ $select = mysqli_fetch_array($tampil);
                       <div class="table-responsive">                
     <?php
 	include("config.php");
-	$query3="SELECT * FROM kriteria_fasilitas INNER JOIN kriteria ON kriteria_fasilitas.id_kriteria = kriteria.id_kriteria INNER JOIN fuzzy ON kriteria_fasilitas.id_fuzzy = fuzzy.id_fuzzy";
+	$query3="SELECT * FROM kriteria_fasilitas INNER JOIN kriteria ON kriteria_fasilitas.id_kriteria = kriteria.id_kriteria INNER JOIN indikator_penilaian ON kriteria_fasilitas.id_indikator_penilaian = indikator_penilaian.id_indikator_penilaian";
 	$simpan3= mysqli_query($koneksi,$query3);
     ?>
                     <table class="table table-striped table-hover">
@@ -233,7 +234,7 @@ $select = mysqli_fetch_array($tampil);
                     <tr>
                         <th>ID</th>
                         <th>Criteria Detail</th>
-                        <th>Fuzzy</th>
+                        <th width="120px">Indikator Penilaian</th>
                         <th>Score</th>
                         <th>Action</th>
                     </tr>
@@ -245,16 +246,16 @@ $select = mysqli_fetch_array($tampil);
 			$idfasilitas      = $select['id_kriteria_fasilitas'];
             $idkriteria	     = $select['id_kriteria'];
 			$namakriteria    = $select['nama_kriteria']; 
-            $detailkriteria  = $select['detail_kriteria3'];
-            $idfuzzy         = $select['id_fuzzy'];
-            $fuzzy           = $select['nama_fuzzy'];
+            $detailkriteria  = $select['detail_kriteria'];
+            $idindikator         = $select['id_indikator_penilaian'];
+            $indikatorpenilaian  = $select['indikator_penilaian'];
             $score           = $select['nilai'];
 		
 	   ?>          
                         <tr>
                         <th scope="row"><?php echo $idfasilitas ?></th>
                         <td><?php echo $detailkriteria ?></td>
-                        <td><?php echo $fuzzy ?></td>
+                        <td><?php echo $indikatorpenilaian ?></td>
                         <td><?php echo $score ?></td>
                         <td>
                         <a class="btn btn-sm btn-primary" href="editkriteriafasilitas.php?id_kriteria_fasilitas=<?php echo $idfasilitas ?>"><i class="fa fa-edit"></i></a>
@@ -282,7 +283,7 @@ $select = mysqli_fetch_array($tampil);
                       <div class="table-responsive">                
     <?php
 	include("config.php");
-	$query4="SELECT * FROM kriteria_konsep INNER JOIN kriteria ON kriteria_konsep.id_kriteria = kriteria.id_kriteria INNER JOIN fuzzy ON kriteria_konsep.id_fuzzy = fuzzy.id_fuzzy";
+	$query4="SELECT * FROM kriteria_konsep INNER JOIN kriteria ON kriteria_konsep.id_kriteria = kriteria.id_kriteria INNER JOIN indikator_penilaian ON kriteria_konsep.id_indikator_penilaian = indikator_penilaian.id_indikator_penilaian";
 	$simpan4= mysqli_query($koneksi,$query4);
     ?>
                     <table class="table table-striped table-hover">
@@ -290,7 +291,7 @@ $select = mysqli_fetch_array($tampil);
                     <tr>
                         <th>ID</th>
                         <th>Criteria Detail</th>
-                        <th>Fuzzy</th>
+                        <th width="120px">Indikator Penilaian</th>
                         <th>Score</th>
                         <th>Action</th>
                     </tr>
@@ -302,16 +303,16 @@ $select = mysqli_fetch_array($tampil);
 			$idkonsep      = $select['id_kriteria_konsep'];
             $idkriteria	     = $select['id_kriteria'];
 			$namakriteria    = $select['nama_kriteria']; 
-            $detailkriteria  = $select['detail_kriteria4'];
-            $idfuzzy         = $select['id_fuzzy'];
-            $fuzzy           = $select['nama_fuzzy'];
+            $detailkriteria  = $select['detail_kriteria'];
+            $idindikator     = $select['id_indikator_penilaian'];
+            $indikatorpenilaian  = $select['indikator_penilaian'];
             $score           = $select['nilai'];
 		
 	   ?>          
                         <tr>
                         <th scope="row"><?php echo $idkonsep ?></th>
                         <td><?php echo $detailkriteria ?></td>
-                        <td><?php echo $fuzzy ?></td>
+                        <td><?php echo $indikatorpenilaian ?></td>
                         <td><?php echo $score ?></td>
                         <td>
                         <a class="btn btn-sm btn-primary" href="editkriteriakonsep.php?id_kriteria_konsep=<?php echo $idkonsep ?>"><i class="fa fa-edit"></i></a>

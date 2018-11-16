@@ -174,11 +174,10 @@ $select = mysqli_fetch_array($simpan2);
                             <label><strong>Select Category</strong></label>
                             <div class="form-select" id="default-select" style="">
                             <select id="sortCategory" name="sortCategory">
-                            <option value="">All category</option>
                             <?php 
                             include 'config.php';
-                            $tampil=mysqli_query($koneksi, "SELECT * FROM kategori_eo INNER JOIN kategori ON kategori_eo.id_kategori = kategori.id_kategori GROUP BY kategori_eo.id_kategori");
-                            while($id_kategori=mysqli_fetch_array($tampil)) {
+                            $tampil=mysqli_query($koneksi, "SELECT * FROM kategori");
+                     while($id_kategori=mysqli_fetch_array($tampil)) {
                             echo "<option value='".$id_kategori[id_kategori]."'> ".$id_kategori[nama_kategori]."</option>";}
                             ?>
                             </select>
@@ -253,7 +252,7 @@ $select = mysqli_fetch_array($simpan2);
 							<div class="single-footer-widget">
 								<h6>F I Y E O</h6>
 								<ul class="footer-nav">
-                                    <li><a href="about-us.html">About Us</a></li>
+                                    <li><a href="about-us.php">About Us</a></li>
 									<li><a href="#">Privacy Policy</a></li>
 									<li><a href="#">Terms & Conditions</a></li>
 									<li><a href="#">Help</a></li>

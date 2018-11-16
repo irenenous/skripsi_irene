@@ -156,15 +156,15 @@ if(!empty($_GET['id_eo'])){
         </div>
         <div class="form-group">
         <label for="name"><b style="color:black">Name</b></label>
-        <input name="name" id="name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" class="common-input mb-20 form-control" required="" type="text" value="<?php echo $namauser ?>">
+        <input name="name" id="name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" class="common-input mb-20 form-control" required="" type="text" value="<?php echo $namauser ?>" disabled>
         </div>
         <div class="form-group">
         <label for="phone"><b style="color:black">Phone Number</b></label>
-        <input name="phonenumber" id="phonenumber" placeholder="Enter your phone number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your phone number'" class="common-input mb-20 form-control" required="" type="text" value="<?php echo $nohpuser ?>">
+        <input name="phonenumber" id="phonenumber" placeholder="Enter your phone number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your phone number'" class="common-input mb-20 form-control" required="" type="text" value="<?php echo $nohpuser ?>" disabled>
         </div>
         <div class="form-group">
         <label for="email"><b style="color:black">E-mail</b></label>
-        <input name="email" id="email" placeholder="Enter your email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your email address'" class="common-input mb-20 form-control" required="" type="email" value="<?php echo $emailuser ?>">
+        <input name="email" id="email" placeholder="Enter your email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your email address'" class="common-input mb-20 form-control" required="" type="email" value="<?php echo $emailuser ?>" disabled>
         </div>
         <div class="pull-right" style="margin-top: 40px;">
         <button type="submit" class="genric-btn success-border circle arrow" name="tambah" id="tambah">Submit<span class="lnr lnr-arrow-right"></span></button>
@@ -185,7 +185,7 @@ if(!empty($_GET['id_eo'])){
 							<div class="single-footer-widget">
 								<h6>F I Y E O</h6>
 								<ul class="footer-nav">
-                                    <li><a href="about-us.html">About Us</a></li>
+                                    <li><a href="about-us.php">About Us</a></li>
 									<li><a href="#">Privacy Policy</a></li>
 									<li><a href="#">Terms & Conditions</a></li>
 									<li><a href="#">Help</a></li>

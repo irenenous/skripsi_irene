@@ -102,7 +102,7 @@ include '../FRONTEND-WEB/header-fiyeo.php'
 							<div class="single-footer-widget">
 								<h6>F I Y E O</h6>
 								<ul class="footer-nav">
-                                    <li><a href="about-us.html">About Us</a></li>
+                                    <li><a href="../FRONTEND-WEB/about-us.php">About Us</a></li>
 									<li><a href="#">Privacy Policy</a></li>
 									<li><a href="#">Terms & Conditions</a></li>
 									<li><a href="#">Help</a></li>

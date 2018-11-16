@@ -38,6 +38,7 @@ $select = mysqli_fetch_array($tampil);
     <link rel="stylesheet" href="../temp-dashboard/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="../temp-dashboard/css/custom.css">
+    <link rel="stylesheet" href="../temp-dashboard/css/message.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="../temp-dashboard/img/favicon.ico">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
@@ -168,25 +169,51 @@ $select = mysqli_fetch_array($tampil);
     <input type="text" class="form-control" name="clientphone" id="clientphone" value="<?php echo $nohpklien ?>" disabled>   
     </div>
     <div class="form-group">
-    <label for="status">Status </label>
-    <select name="clientstatus" id="clientstatus" class="form-control mb-3" required>
-        
+    <label for="status">Status </label>  
+    <div style="margin-left:5px; margin-top:5px;">
     <?php if ($statusklien == 'PENDING') { ?> 
-    <option value="<?php echo $statusklien ?>" selected><?php echo $statusklien ?></option>
-    <option value="ACTIVE">ACTIVE</option>
-    <option value="INACTIVE">INACTIVE</option>
+    <div class="i-checks">
+    <input id="clientstatus" name="clientstatus" type="radio" value="<?php echo $statusklien ?>" checked="" class="radio-template">
+    <label for="stat"><?php echo $statusklien ?></label>
+    </div>
+    <div class="i-checks">
+    <input id="clientstatus" name="clientstatus" type="radio" value="ACTIVE" class="radio-template">
+    <label for="stat">ACTIVE</label>
+    </div>
+    <div class="i-checks">
+    <input id="clientstatus" name="clientstatus" type="radio" value="INACTIVE" class="radio-template">
+    <label for="stat">INACTIVE</label>
+    </div>
     <?php } 
     else if ($statusklien == 'ACTIVE') { ?> 
-    <option value="<?php echo $statusklien ?>" selected><?php echo $statusklien ?></option>
-    <option value="PENDING">PENDING</option>
-    <option value="INACTIVE">INACTIVE</option>
+    <div class="i-checks">
+    <input id="clientstatus" name="clientstatus" type="radio" value="PENDING" class="radio-template">
+    <label for="stat">PENDING</label>
+    </div>
+    <div class="i-checks">
+    <input id="clientstatus" name="clientstatus" type="radio" value="<?php echo $statusklien ?>" checked="" class="radio-template">
+    <label for="stat"><?php echo $statusklien ?></label>
+    </div>
+    <div class="i-checks">
+    <input id="clientstatus" name="clientstatus" type="radio" value="INACTIVE" class="radio-template">
+    <label for="stat">INACTIVE</label>
+    </div>
     <?php } 
     else { ?> 
-    <option value="<?php echo $statusklien ?>" selected><?php echo $statusklien ?></option>
-    <option value="PENDING">PENDING</option>
-    <option value="ACTIVE">ACTIVE</option>
+    <div class="i-checks">
+    <input id="clientstatus" name="clientstatus" type="radio" value="PENDING" class="radio-template">
+    <label for="stat">PENDING</label>
+    </div>
+    <div class="i-checks">
+    <input id="clientstatus" name="clientstatus" type="radio" value="ACTIVE" class="radio-template">
+    <label for="stat">ACTIVE</label>
+    </div>
+    <div class="i-checks">
+    <input id="clientstatus" name="clientstatus" type="radio" value="<?php echo $statusklien ?>" checked="" class="radio-template">
+    <label for="stat"><?php echo $statusklien ?></label>
+    </div>
     <?php } ?> 
-    </select>   
+    </div>
     </div>
     <div class="form-group" style="margin-top:30px;">
     <a class="btn btn-danger" href="acc-klien.php">Cancel</a>

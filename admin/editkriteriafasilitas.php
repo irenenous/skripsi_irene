@@ -38,6 +38,7 @@ $select = mysqli_fetch_array($tampil);
     <link rel="stylesheet" href="../temp-dashboard/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="../temp-dashboard/css/custom.css">
+    <link rel="stylesheet" href="../temp-dashboard/css/message.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="../temp-dashboard/img/favicon.ico">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
@@ -108,14 +109,14 @@ $select = mysqli_fetch_array($tampil);
     if(!empty($_GET['id_kriteria_fasilitas'])){
 	$idfasilitas = $_GET['id_kriteria_fasilitas']; }
 
-    $query1="SELECT * FROM kriteria_fasilitas INNER JOIN fuzzy ON kriteria_fasilitas.id_fuzzy = fuzzy.id_fuzzy where id_kriteria_fasilitas = '".$idfasilitas."'";
+    $query1="SELECT * FROM kriteria_fasilitas INNER JOIN indikator_penilaian ON kriteria_fasilitas.id_indikator_penilaian = indikator_penilaian.id_indikator_penilaian where id_kriteria_fasilitas = '".$idfasilitas."'";
 	$tampil1 = mysqli_query($koneksi,$query1);
     $select = mysqli_fetch_array($tampil1);
         
     $idfasilitas	  = $select['id_kriteria_fasilitas'];
-    $detailkriteria   = $select['detail_kriteria3']; 
-    $idfuzzy          = $select['id_fuzzy'];
-    $fuzzy            = $select['nama_fuzzy'];
+    $detailkriteria   = $select['detail_kriteria']; 
+    $idindikator      = $select['id_indikator_penilaian'];
+    $indikatorpenilaian   = $select['indikator_penilaian'];
     ?>
             
     <form method="POST" action="updatekriteriafasilitas.php?id_kriteria_fasilitas=<?php echo $idfasilitas ?>" class="form-horizontal">            
@@ -128,13 +129,13 @@ $select = mysqli_fetch_array($tampil);
     <input type="text" class="form-control" name="detailfasilitas" id="detailfasilitas" value="<?php echo $detailkriteria ?>" required> 
     </div>
     <div class="form-group">
-    <label for="fuzzy">Fuzzy </label>
-    <select name="fuzzy" id="fuzzy" class="form-control" required>
+    <label for="indikator">Indikator Penilaian </label>
+    <select name="indikator" id="indikator" class="form-control" required>
     <?php 
     include 'config.php';
-    $tampil=mysqli_query($koneksi, "SELECT id_fuzzy, nama_fuzzy FROM fuzzy");  
-    while($id_fuzzy=mysqli_fetch_array($tampil)) {
-    echo "<option value='".$id_fuzzy[id_fuzzy]."' ".($id_fuzzy[id_fuzzy] == $idfuzzy ? "selected" : "")."> ".$id_fuzzy[nama_fuzzy]."</option>";}
+    $tampil=mysqli_query($koneksi, "SELECT id_indikator_penilaian, indikator_penilaian FROM indikator_penilaian");  
+    while($id_indikator_penilaian=mysqli_fetch_array($tampil)) {
+    echo "<option value='".$id_indikator_penilaian[id_indikator_penilaian]."' ".($id_indikator_penilaian[id_indikator_penilaian] == $idindikator ? "selected" : "")."> ".$id_indikator_penilaian[indikator_penilaian]."</option>";}
     ?>
     </select>
     </div>

@@ -38,6 +38,7 @@ $select = mysqli_fetch_array($tampil);
     <link rel="stylesheet" href="../temp-dashboard/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="../temp-dashboard/css/custom.css">
+    <link rel="stylesheet" href="../temp-dashboard/css/message.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="../temp-dashboard/img/favicon.ico">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
@@ -100,7 +101,7 @@ $select = mysqli_fetch_array($tampil);
                <button class="btn btn-primary" style="color: white;" data-toggle="modal" data-target="#modalForm"><i class="fa fa-plus-circle"></i> Add EO Criteria</button></div> </div> 
     <?php
 	include("config.php");
-	$query1="SELECT * FROM kriteria_eo INNER JOIN eo ON kriteria_eo.id_eo = eo.id_eo INNER JOIN kriteria_budget ON kriteria_eo.id_kriteria_budget = kriteria_budget.id_kriteria_budget INNER JOIN kriteria_reputasi ON kriteria_eo.id_kriteria_reputasi = kriteria_reputasi.id_kriteria_reputasi INNER JOIN kriteria_fasilitas ON kriteria_eo.id_kriteria_fasilitas = kriteria_fasilitas.id_kriteria_fasilitas INNER JOIN kriteria_konsep ON kriteria_eo.id_kriteria_konsep = kriteria_konsep.id_kriteria_konsep";
+	$query1="SELECT id_kriteria_eo, eo.nama_eo, kriteria_budget.detail_kriteria AS budget, kriteria_reputasi.detail_kriteria AS reputasi, kriteria_fasilitas.detail_kriteria AS fasilitas, kriteria_konsep.detail_kriteria as konsep FROM kriteria_eo INNER JOIN eo ON kriteria_eo.id_eo = eo.id_eo INNER JOIN kriteria_budget ON kriteria_eo.id_kriteria_budget = kriteria_budget.id_kriteria_budget INNER JOIN kriteria_reputasi ON kriteria_eo.id_kriteria_reputasi = kriteria_reputasi.id_kriteria_reputasi INNER JOIN kriteria_fasilitas ON kriteria_eo.id_kriteria_fasilitas = kriteria_fasilitas.id_kriteria_fasilitas INNER JOIN kriteria_konsep ON kriteria_eo.id_kriteria_konsep = kriteria_konsep.id_kriteria_konsep";
 	$simpan1= mysqli_query($koneksi,$query1);
     ?>         
             
@@ -119,14 +120,14 @@ $select = mysqli_fetch_array($tampil);
 			</thead>
 		  <tbody> 
     <?php
-		while($select = mysqli_fetch_assoc($simpan1))
+		while($select1 = mysqli_fetch_assoc($simpan1))
         {
-			$idkriteriaeo  = $select['id_kriteria_eo'];
-            $eo			   = $select['nama_eo'];
-			$budget		   = $select['detail_kriteria1'];
-			$reputasi	   = $select['detail_kriteria2'];
-			$fasilitas	   = $select['detail_kriteria3'];
-			$konsep        = $select['detail_kriteria4'];
+			$idkriteriaeo  = $select1['id_kriteria_eo'];
+            $eo			   = $select1['nama_eo'];
+			$budget		   = $select1['budget'];
+			$reputasi	   = $select1['reputasi'];
+			$fasilitas	   = $select1['fasilitas'];
+			$konsep        = $select1['konsep'];
 		
 	?>
             <tr> 
@@ -139,6 +140,42 @@ $select = mysqli_fetch_array($tampil);
 			<td> 
             <div class="btn-group-xs">
             <a class="btn btn-sm btn-primary" href="editeocriteria.php?id_kriteria_eo=<?php echo $idkriteriaeo ?>"><i class="fa fa-edit"></i></a>
+        <script>
+        function deleteFunction(idkriteriaeo){
+        swal({
+        title: 'Are you sure?',
+        text: "Deleted records can not be recovered!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        showLoaderOnConfirm: true,
+        preConfirm: () => {
+        return fetch(`deleteeocriteria.php?id_kriteria_eo=${idkriteriaeo}`)
+        },
+        allowOutsideClick: () => !swal.isLoading()
+        }).then((status) => {
+        if (status.value.ok){
+        swal({
+        type: 'success',
+        title: 'Deleted!',
+        text: "Your EO criteria record has been deleted",
+        showConfirmButton: false,
+        timer: 1500
+        }).then( () => {
+        location.reload();
+        } )    
+        } else {
+        swal({
+        type: 'error',
+        title: 'Failed!',
+        text: "Your EO criteria record can not be deleted",
+        showConfirmButton: false,
+        timer: 1500
+        })   
+        }       
+        })    
+        }    
+        </script>
             <button onclick="deleteFunction(<?php echo $idkriteriaeo ?>)" class="btn btn-sm btn-primary"><i class="fa fa-trash" ></i></button>
             </div>
             </td>
@@ -165,7 +202,7 @@ $select = mysqli_fetch_array($tampil);
             <div class="modal-body">
                 <!-- <p class="statusMsg"></p> -->
             <div class="form-group">
-            <label for="eo">Event Organizer</label>
+            <label for="eo">Event Organizer (EO)</label>
             <select class="form-control" name="eo" id="eo" required>
             <?php 
             include 'config.php';

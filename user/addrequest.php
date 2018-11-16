@@ -28,12 +28,9 @@ $date = date('m/d/Y h:i:s A');
         $tangkapDuration    = $_POST['duration'];
         $tangkapDesc        = $_POST['eventdesc'];
         $tangkapPackage     = $_POST['package'];
-        $tangkapName        = $_POST['name'];
-        $tangkapPhone       = $_POST['phonenumber'];
-        $tangkapEmail       = $_POST['email'];
         $tangkapStatus      = 'SENT';
         
-		$query = mysqli_query($koneksi , "insert into request_layanan values ('','$iduser', '$ideo', '$date', '$tangkapEventDate', '$tangkapType', '$tangkapLocation', '$tangkapGuest', '$tangkapDuration', '$tangkapDesc', '$tangkapPackage', '$tangkapName', '$tangkapPhone', '$tangkapEmail', '$tangkapStatus')");
+		$query = mysqli_query($koneksi , "insert into request_layanan values ('','$iduser', '$ideo', '$date', '$tangkapEventDate', '$tangkapType', '$tangkapLocation', '$tangkapGuest', '$tangkapDuration', '$tangkapDesc', '$tangkapPackage', '$tangkapStatus')");
         
          header('Location: ../FRONTEND-WEB/view-profile-eo.php?id_eo='.$ideo);
 	}

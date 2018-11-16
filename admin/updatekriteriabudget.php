@@ -9,11 +9,11 @@ if (isset ($_SESSION['id'])!="") {
 		$idbudget = $_GET['id_kriteria_budget'];
     
         $tangkapDetail	     = $_POST['detailbudget'];
-        $tangkapFuzzy	     = $_POST['fuzzy'];
+        $tangkapIndikator	     = $_POST['indikator'];
 	
 	$query = "UPDATE kriteria_budget SET
-	detail_kriteria1='$tangkapDetail',
-    id_fuzzy='$tangkapFuzzy' Where id_kriteria_budget = '$idbudget'";
+	detail_kriteria='$tangkapDetail',
+    id_indikator_penilaian='$tangkapIndikator' Where id_kriteria_budget = '$idbudget'";
 	$tampil = mysqli_query($koneksi,$query);
 	if($tampil)
 	{

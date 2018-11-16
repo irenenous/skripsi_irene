@@ -22,7 +22,7 @@ $select = mysqli_fetch_array($tampil);
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Criteria</title>
+    <title>SPK Result</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="all,follow">
@@ -48,14 +48,7 @@ $select = mysqli_fetch_array($tampil);
     <link rel="stylesheet" href="../temp-dashboard/assets/css/lib/datatable/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.css" />
-    <link rel="stylesheet" type="text/css" href="../temp-dashboard/jquery.imgzoom-0.2.2/css/imgzoom.css" />
     
-      
-<style>
-    
-</style>
-      
-      
   </head>
   <body>
    <div class="page" style="background-color: white;">
@@ -77,74 +70,86 @@ $select = mysqli_fetch_array($tampil);
                     <li><a href="dashboard-admin.php"><i class="icon-home"></i>Home </a></li>
                     <li><a href="#exampledropdown" aria-expanded="false" data-toggle="collapse"><i class="fa fa-user"></i>Accounts </a>
                     <ul id="exampledropdown" class="collapse list-unstyled ">
-                    <li><a href="acc-klien.php"><i class="fa fa-user"></i>Client</a></li>
+                    <li class="active"><a href="acc-klien.php"><i class="fa fa-user"></i>Client</a></li>
                     <li><a href="acc-eo.php"><i class="fa fa-users"></i>EO</a></li>
                     </ul>
                     </li>
-                    <li class="active"> <a href="criteria.php"><i class="menu-icon fa fa-tasks"></i>Criteria </a></li>
+                    <li> <a href="criteria.php"><i class="menu-icon fa fa-tasks"></i>Criteria </a></li>
                     <li> <a href="eo-criteria.php"><i class="menu-icon fa fa-list"></i>EO Criteria </a></li>
-                    <li> <a href="spk-result.php"><i class="menu-icon fa fa-file"></i>SPK Result </a></li>
+                    <li class="active"> <a href="spk-result.php"><i class="menu-icon fa fa-file"></i>SPK Result </a></li>
           </ul>
         </nav>
         <div class="content-inner">
           <!-- Page Header-->
           <header class="page-header">
             <div class="container-fluid">
-              <h2 class="no-margin-bottom">Reputation Criteria (C2)</h2>
+              <h2 class="no-margin-bottom">SPK</h2>
             </div>
           </header>
          <div class="breadcrumb-holder container-fluid">
             <ul class="breadcrumb">
               <li class="breadcrumb-item"><a href="dashboard-admin.php">Home</a></li>
-              <li class="breadcrumb-item"><a href="criteria.php">Criteria</a></li>
-            <li class="breadcrumb-item active">Edit</li>
+              <li class="breadcrumb-item active">SPK Result</li>
             </ul>
           </div>
-        <div class="container-fluid" style="margin-top:20px; margin-bottom:30px;">
-        <div class="row">
-        <div class="col-lg-8">
-  
+      
     <?php
 	include("config.php");
-    if(!empty($_GET['id_kriteria_reputasi'])){
-	$idreputasi = $_GET['id_kriteria_reputasi']; }
-
-    $query1="SELECT * FROM kriteria_reputasi INNER JOIN indikator_penilaian ON kriteria_reputasi.id_indikator_penilaian = indikator_penilaian.id_indikator_penilaian where id_kriteria_reputasi = '".$idreputasi."'";
-	$tampil1 = mysqli_query($koneksi,$query1);
-    $select = mysqli_fetch_array($tampil1);
-        
-    $idreputasi	      = $select['id_kriteria_reputasi'];
-    $detailkriteria   = $select['detail_kriteria']; 
-    $idindikator      = $select['id_indikator_penilaian'];
-    $indikatorpenilaian   = $select['indikator_penilaian'];
+	$query1="SELECT * FROM rekomendasi_eo INNER JOIN user ON rekomendasi_eo.id_user = user.id_user INNER JOIN kategori ON rekomendasi_eo.id_kategori = kategori.id_kategori";
+	$simpan1= mysqli_query($koneksi,$query1);
     ?>
             
-    <form method="POST" action="updatekriteriareputasi.php?id_kriteria_reputasi=<?php echo $idreputasi ?>" class="form-horizontal">            
-    <div class="form-group">
-    <label for="id">ID </label>
-    <input type="text" class="form-control" name="reputasiid" id="reputasiid" value="<?php echo $idreputasi ?>" disabled>   
-    </div>          
-    <div class="form-group">
-    <label for="name">Criteria Detail </label>
-    <input type="text" class="form-control" name="detailreputasi" id="detailreputasi" value="<?php echo $detailkriteria ?>" required> 
-    </div>
-    <div class="form-group">
-    <label for="indikator">Indikator Penilaian </label>
-    <select name="indikator" id="indikator" class="form-control" required>
-    <?php 
-    include 'config.php';
-    $tampil=mysqli_query($koneksi, "SELECT id_indikator_penilaian, indikator_penilaian FROM indikator_penilaian");  
-    while($id_indikator_penilaian=mysqli_fetch_array($tampil)) {
-    echo "<option value='".$id_indikator_penilaian[id_indikator_penilaian]."' ".($id_indikator_penilaian[id_indikator_penilaian] == $idindikator ? "selected" : "")."> ".$id_indikator_penilaian[indikator_penilaian]."</option>";}
-    ?>
-    </select>
-    </div>
-    <div class="form-group" style="margin-top:30px;">
-    <a class="btn btn-danger" href="criteria.php">Cancel</a>
-    <button type="submit" class="btn btn-primary submitBtn" id="simpan" name="simpan">Save Changes</button>
-    </div>          
-    </form></div></div></div>
-    
+        <div class="animated fadeIn">
+        <div class="row">
+        <div class="col-md-12" style="margin-top: 20px; margin-bottom:50px;">
+        <div class="ov-h">
+        <table id="bootstrap-data-table" class="table table-striped table-bordered">
+        <thead class="none">
+        <tr>
+        <th style="width:20px">ID</th>
+        <th style="width:130px">Client</th>
+        <th style="width:150px">Category</th>
+        <th style="width:50px">C1 (W)</th>
+        <th style="width:50px">C2 (W)</th>
+        <th style="width:50px">C3 (W)</th>
+        <th style="width:50px">C4 (W)</th>
+        <th style="width:50px">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+		while($select = mysqli_fetch_assoc($simpan1))
+        {
+			$idrekomen    = $select['id_rekomendasi_eo']; 
+            $namaklien    = $select['nama_user']; 
+            $kategori     = $select['nama_kategori'];
+            $b1    = $select['bobot_1'];
+            $b2    = $select['bobot_2'];
+            $b3    = $select['bobot_3'];
+            $b4    = $select['bobot_4'];
+		
+	   ?>
+        <tr>
+        <td><?php echo $idrekomen ?></td>
+        <td><?php echo $namaklien ?></td>
+        <td><?php echo $kategori ?></td>
+        <td><?php echo $b1 ?></td>
+        <td><?php echo $b2 ?></td>
+        <td><?php echo $b3 ?></td>
+        <td><?php echo $b4 ?></td> 
+        <td>
+        <div class="btn-group-xs">
+        <a class="btn btn-sm btn-primary" href="viewresult.php?id_rekomendasi_eo=<?php echo $idrekomen ?>">View Result</a>
+        </div>
+        </td></tr>
+    <?php }
+    ?>                                                    
+        </tbody>
+        </table>
+        </div>
+        </div>
+        </div>
+        </div>
             
           <!-- Page Footer-->
           <footer class="main-footer">
@@ -188,19 +193,13 @@ $select = mysqli_fetch_array($tampil);
     <script src="../temp-dashboard/assets/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="../temp-dashboard/assets/js/lib/data-table/datatables-init.js"></script>
     <script src="../temp-fiyeo/js/jQuery-Mask-Plugin-master/dist/jquery.mask.js"></script>
-    <script type="text/javascript" src="../temp-dashboard/jquery.imgzoom-0.2.2/scripts/jquery.imgzoom.pack.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.all.js"></script>
       
 <script type="text/javascript">
 $(document).ready(function() {
-$('#bootstrap-data-table-export').DataTable(); 
-});      
+$('#bootstrap-data-table-export').DataTable();  }        
 </script>  
-<script type="text/javascript">
-  $(document).ready(function () {
-    $('#img.thumbnail').imgZoom();
-  });
-</script>
+      
       
   </body>
 </html>

@@ -41,8 +41,8 @@ if (isset ($_SESSION['id'])!="") {
 <style>
 .nice-select .list { max-height: 300px; overflow: scroll; }
 </style>
-		</head>
-		<body>
+</head>
+<body>
 
 <?php
 if (isset ($_SESSION['id'])!="") {
@@ -89,7 +89,7 @@ include("header-fiyeo.php");
 								<option value="">All Category</option>
                     <?php 
                     include 'config.php';
-                    $tampil=mysqli_query($koneksi, "SELECT * FROM kategori_eo INNER JOIN kategori ON kategori_eo.id_kategori = kategori.id_kategori GROUP BY kategori_eo.id_kategori");
+                    $tampil=mysqli_query($koneksi, "SELECT * FROM kategori");
                     while($id_kategori=mysqli_fetch_array($tampil)) {
                     echo "<option value='".$id_kategori[id_kategori]."'> ".$id_kategori[nama_kategori]."</option>";}
                     ?>
@@ -255,234 +255,26 @@ include("header-fiyeo.php");
         </div>
         </section>                                                                  
             
-    <section class="testimonial-area section-gap" id="review" style="padding: 0px 0; margin-bottom: 70px">
+    <section class="testimonial-area section-gap" id="review" style="padding: 0px 0; margin-bottom: 0px">
 				<div class="container">
 					<div class="row d-flex justify-content-center">
 						<div class="menu-content pb-60 col-lg-8">
 							<div class="title text-center">
-								<h1 class="mb-10">Testimonial from our Clients</h1>
-								<p>Who are in extremely love with eco friendly system.</p>
+								<h1 class="mb-10">Our Recommendation</h1>
+								<p>Haven't found any EO which suits your taste yet? Here we have a solution for you! </p>
+							</div>
+                            <div class="submit-left" style="background:none; margin-top:-30px;">
+                <?php if (isset ($_SESSION['id'])!="") { ?>
+                <a href="eo-recommendation.php" class="primary-btn header-btn" style="background:#bfacff; color:white">Get Started</a>
+                <?php }
+                else { ?>
+                <a href="../user/login-fiyeo.php" class="primary-btn header-btn" style="background:#bfacff; color:white">Get Started</a>
+                <?php } ?>	
 							</div>
 						</div>
-					</div>						
-					<div class="row">
-						<div class="active-review-carusel">
-							<div class="single-review">
-								<img src="img/r1.png" alt="">
-								<div class="title d-flex flex-row">
-									<h4>lorem ipusm</h4>
-									<div class="star">
-										<span class="fa fa-star checked"></span>
-										<span class="fa fa-star checked"></span>
-										<span class="fa fa-star checked"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>								
-									</div>
-								</div>
-								<p>
-									Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
-								</p>
-							</div>	
-							<div class="single-review">
-								<img src="img/r2.png" alt="">
-								<div class="title d-flex flex-row">
-									<h4>lorem ipusm</h4>
-									<div class="star">
-										<span class="fa fa-star checked"></span>
-										<span class="fa fa-star checked"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>								
-									</div>
-								</div>
-								<p>
-									Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
-								</p>
-							</div>	
-							<div class="single-review">
-								<img src="img/r1.png" alt="">
-								<div class="title d-flex flex-row">
-									<h4>lorem ipusm</h4>
-									<div class="star">
-										<span class="fa fa-star checked"></span>
-										<span class="fa fa-star checked"></span>
-										<span class="fa fa-star checked"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>								
-									</div>
-								</div>
-								<p>
-									Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
-								</p>
-							</div>	
-							<div class="single-review">
-								<img src="img/r2.png" alt="">
-								<div class="title d-flex flex-row">
-									<h4>lorem ipusm</h4>
-									<div class="star">
-										<span class="fa fa-star checked"></span>
-										<span class="fa fa-star checked"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>								
-									</div>
-								</div>
-								<p>
-									Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
-								</p>
-							</div>								
-						</div>
-					</div>
+					</div>			
 				</div>	
 			</section>        
-            
-			<!-- Start post Area -->
-<!--
-			<section class="post-area section-gap" style="padding: 0px 0; margin-bottom: 50px">
-				<div class="container">
-					<div class="row justify-content-center d-flex">
-						<div class="col-lg-8 post-list">
-                        <div class="row d-flex justify-content-center">
-						<div class="menu-content pb-50 col-lg-10">
-							<div class="title text-center">
-								<h2 class="mb-10">Featured Event Organizer</h2>
-							</div>
-						</div>
-					</div>	
-							<div class="single-post d-flex flex-row">
-								<table>
-                                <tr>
-                                <td rowspan="5"><img src="../temp-fiyeo/img/b1.jpg" style="width:150px; height:150px;" alt=""></td>
-                                <td style="padding-left:20px;"><h4>Creative Art Designer</h4></td>
-                                <td>
-                                <div class="btns">
-                                <a href="view-profile-eo.php" class="genric-btn success medium">View</a>
-                                </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td style="color:#aa80ff; padding-left:20px;">
-                                 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td style="padding-left:20px;">Event & Party Organizer in Jakarta</td>
-                                </tr>
-                                <tr>
-                                <td style="padding-left:20px;"><i class="fa fa-map-o"></i>&nbsp; Jakarta Barat, DKI Jakarta </td>
-                                </tr>
-                                <tr>
-                                <td style="padding-left:20px;"><i class="fa fa-money"></i>&nbsp; Start from IDR 3.000.000 </td>
-                                </tr>
-                                </table>
-							</div>
-				            <div class="single-post d-flex flex-row">
-					       <table>
-                                <tr>
-                                <td rowspan="5"><img src="../temp-fiyeo/img/b1.jpg" style="width:150px; height:150px;" alt=""></td>
-                                <td style="padding-left:20px;"><h4>Creative Art Designer</h4></td>
-                                <td>
-                                <div class="btns">
-                                <a href="#" class="genric-btn success medium">View</a>
-                                </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td style="color:#aa80ff; padding-left:20px;">
-                                 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td style="padding-left:20px;">Event & Party Organizer in Jakarta</td>
-                                </tr>
-                                <tr>
-                                <td style="padding-left:20px;"><i class="fa fa-map-o"></i>&nbsp; Jakarta Barat, DKI Jakarta </td>
-                                </tr>
-                                <tr>
-                                <td style="padding-left:20px;"><i class="fa fa-money"></i>&nbsp; Start from IDR 3.000.000 </td>
-                                </tr>
-                                </table>
-							</div>
-				            <div class="single-post d-flex flex-row">
-						      <table>
-                                <tr>
-                                <td rowspan="5"><img src="../temp-fiyeo/img/b1.jpg" style="width:150px; height:150px;" alt=""></td>
-                                <td style="padding-left:20px;"><h4>Creative Art Designer</h4></td>
-                                <td>
-                                <div class="btns">
-                                <a href="#" class="genric-btn success medium">View</a>
-                                </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td style="color:#aa80ff; padding-left:20px;">
-                                 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td style="padding-left:20px;">Event & Party Organizer in Jakarta</td>
-                                </tr>
-                                <tr>
-                                <td style="padding-left:20px;"><i class="fa fa-map-o"></i>&nbsp; Jakarta Barat, DKI Jakarta </td>
-                                </tr>
-                                <tr>
-                                <td style="padding-left:20px;"><i class="fa fa-money"></i>&nbsp; Start from IDR 3.000.000 </td>
-                                </tr>
-                                </table>
-							</div>
-							
-							<a class="text-uppercase loadmore-btn mx-auto d-block" href="category-fiyeo.php">View More</a>
-                            </div>
-<?php 
-$query1 = "SELECT count(1) FROM eo where id_provinsi = '6'";
-$result1 = mysqli_query($koneksi, $query1);
-$row = mysqli_fetch_array($result1); 
-$eojkt = $row[0];       
-?>
-<?php 
-$query1 = "SELECT count(1) FROM eo where id_provinsi = '3'";
-$result1 = mysqli_query($koneksi, $query1);
-$row = mysqli_fetch_array($result1); 
-$eobanten = $row[0];       
-?>
-<?php 
-$query1 = "SELECT count(1) FROM eo where id_kota = '5'";
-$result1 = mysqli_query($koneksi, $query1);
-$row = mysqli_fetch_array($result1); 
-$eobdg = $row[0];       
-?>
-<?php 
-$query1 = "SELECT count(1) FROM eo where id_kota = '67'";
-$result1 = mysqli_query($koneksi, $query1);
-$row = mysqli_fetch_array($result1); 
-$eoponti = $row[0];       
-?>
-<?php 
-$query1 = "SELECT count(1) FROM eo where id_provinsi = '34'";
-$result1 = mysqli_query($koneksi, $query1);
-$row = mysqli_fetch_array($result1); 
-$eojogja = $row[0];       
-?>
-                            
-						<div class="col-lg-4 sidebar">
-							<div class="single-slidebar">
-								<h4>EO by Location</h4>
-								<ul class="cat-list">
-									<li><a class="justify-content-between d-flex" href=""><p>Jakarta</p><span><?php echo $eojkt ?></span></a></li>
-									<li><a class="justify-content-between d-flex" href=""><p>Banten</p><span><?php echo $eobanten ?></span></a></li>
-									<li><a class="justify-content-between d-flex" href=""><p>Bandung</p><span><?php echo $eobdg ?></span></a></li>
-									<li><a class="justify-content-between d-flex" href=""><p>Pontianak</p><span><?php echo $eoponti ?></span></a></li>
-									<li><a class="justify-content-between d-flex" href=""><p>Yogyakarta</p><span><?php echo $eojogja ?></span></a></li>
-								</ul>
-							</div>
-
-						</div>
-					</div>
-				</div>	
-			</section>
-			 End post Area 
--->
-				
 
 			<!-- Start callto-action Area -->
 			<section class="callto-action-area section-gap" style="padding: 80px 0;" id="join">

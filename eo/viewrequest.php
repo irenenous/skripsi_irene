@@ -25,7 +25,7 @@ $select = mysqli_fetch_array($tampil);
     $updatestat = "UPDATE request_layanan SET status = 'READ' Where id_eo = '$ideo' AND id_request ='$id'";
     $simpan = mysqli_query($koneksi, $updatestat);
     if ($simpan) {
-    $query1="SELECT * FROM request_layanan INNER JOIN paket ON request_layanan.id_paket = paket.id_paket where id_request = '".$id."'";
+    $query1="SELECT * FROM request_layanan INNER JOIN paket ON request_layanan.id_paket = paket.id_paket INNER JOIN user ON request_layanan.id_user = user.id_user where id_request = '".$id."'";
 	$tampil1 = mysqli_query($koneksi,$query1);
     $select = mysqli_fetch_array($tampil1);
         
@@ -40,9 +40,9 @@ $select = mysqli_fetch_array($tampil);
     $namapaket      = $select['nama_paket'];
     $hargapaket    = $select['harga_paket'];
     $tipepaket    = $select['jenis_paket'];
-    $namaklien  = $select['nama'];
-    $nohpklien       = $select['nohp'];
-    $emailklien       = $select['email'];
+    $namaklien      = $select['nama_user'];
+    $nohpklien       = $select['nohp_user'];
+    $emailklien       = $select['email_user'];
     $statusreq      = $select['status'];   }           
         
     ?>

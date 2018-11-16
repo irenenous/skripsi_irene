@@ -8,15 +8,7 @@
 				        <ul class="nav-menu">
 				          <li class="menu-active"><a href="../FRONTEND-WEB/index-fiyeo.php">Home</a></li>
 				          <li class="menu-active"><a href="category-fiyeo.php">Category</a>
-                            </li>
-				          <li class="menu-has-children"><a href="">Pages</a>
-				            <ul>
-								<li><a href="elements.html">elements</a></li>
-								<li><a href="search.html">search</a></li>
-								<li><a href="single.html">single</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-				            </ul>
-				          </li>
+                          </li>
                         <li><a class="ticker-btn" href="../eo/register-eo.php">Register as EO</a></li>
 				          <li><a class="ticker-btn" href="../user/signup-fiyeo.php">Sign Up</a></li>
 				          <li><a class="ticker-btn" href="../user/login-fiyeo.php">Log In</a></li>				          				          

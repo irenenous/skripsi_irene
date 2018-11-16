@@ -45,6 +45,20 @@ $select = mysqli_fetch_array($tampil);
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
      <link rel="stylesheet" href="assets/calendar/fullcalendar.css">
     
+<style>
+#noti-count {
+  background-color:#aa80ff;
+  color:#fff;
+  padding:5px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  width:30px;
+  height:30px;
+  text-align:center;
+}
+</style>      
+      
   </head>
   <body>
    <div class="page" style="">
@@ -88,7 +102,17 @@ $select = mysqli_fetch_array($tampil);
                 <div class="card-close">
                 <a href="inbox-klien.php" class="btn pull-right">See All</a>
                 </div>
-                <div class="card-header d-flex align-items-center"> <h2 class="h3">Latest Message</h2>
+                <div class="card-header d-flex align-items-center"> <h2 class="h3">Latest Message</h2>&nbsp;&nbsp;  
+        <?php 
+        include("config.php");      
+        $query0 = "SELECT COUNT(1) from pesan where id_user = '$iduser' AND status = 'SENT' AND sender = 'EO'";
+        $simpan0 = mysqli_query($koneksi, $query0);
+        $row = mysqli_fetch_array($simpan0); 
+        $totalmsg = $row[0];         
+         if ($totalmsg!=0) {    
+        ?>
+                <span><div id='noti-count'><div><?php echo $totalmsg ?></div></div></span>
+        <?php } ?>
                 </div>
                 <div class="card-body">
                 <div class="list-group">
