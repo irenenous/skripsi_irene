@@ -76,7 +76,6 @@ $select = mysqli_fetch_array($tampil);
                     </li>
                     <li> <a href="criteria.php"><i class="menu-icon fa fa-tasks"></i>Criteria </a></li>
                     <li class="active"> <a href="eo-criteria.php"><i class="menu-icon fa fa-list"></i>EO Criteria </a></li>
-                    <li> <a href="spk-result.php"><i class="menu-icon fa fa-file"></i>SPK Result </a></li>
           </ul>
         </nav>
         <div class="content-inner">
@@ -102,6 +101,7 @@ $select = mysqli_fetch_array($tampil);
     <?php
 	include("config.php");
 	$query1="SELECT id_kriteria_eo, eo.nama_eo, kriteria_budget.detail_kriteria AS budget, kriteria_reputasi.detail_kriteria AS reputasi, kriteria_fasilitas.detail_kriteria AS fasilitas, kriteria_konsep.detail_kriteria as konsep FROM kriteria_eo INNER JOIN eo ON kriteria_eo.id_eo = eo.id_eo INNER JOIN kriteria_budget ON kriteria_eo.id_kriteria_budget = kriteria_budget.id_kriteria_budget INNER JOIN kriteria_reputasi ON kriteria_eo.id_kriteria_reputasi = kriteria_reputasi.id_kriteria_reputasi INNER JOIN kriteria_fasilitas ON kriteria_eo.id_kriteria_fasilitas = kriteria_fasilitas.id_kriteria_fasilitas INNER JOIN kriteria_konsep ON kriteria_eo.id_kriteria_konsep = kriteria_konsep.id_kriteria_konsep";
+     
 	$simpan1= mysqli_query($koneksi,$query1);
     ?>         
             

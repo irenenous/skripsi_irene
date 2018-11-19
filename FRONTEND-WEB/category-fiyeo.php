@@ -89,7 +89,7 @@ include("header-fiyeo.php");
 //        }
 //    }
 //                            
-    $order_criteria = 'id_eo';
+    $order_criteria = 'eoid';
     if (isset($_GET['order_criteria'])) {
         if ($_GET['order_criteria'] == 'name-asc') {
             $order_criteria = 'nama_eo ASC';
@@ -100,30 +100,29 @@ include("header-fiyeo.php");
             $order_criteria = 'min(harga_paket) ASC';
         }
     }
-                                 
-	$query1="SELECT * from eo INNER JOIN provinsi ON eo.id_provinsi = provinsi.id_provinsi INNER JOIN kota ON eo.id_kota = kota.id_kota WHERE status='VERIFIED' ORDER BY ".$order_criteria;           
+    $filter_criteria = '';
+    if (isset($_GET['sortCategory'])) {
+        $filter_criteria = $filter_criteria + 'AND id_kategori='.$_GET['sortCategory'];
+        
+    }
+//    if (isset($_GET['area'])) {
+//        $filter_criteria = $filter_criteria + 'AND somethign='.$_GET['category'];
+//    }
+	$query1="SELECT eo.id_eo AS eoid, eo.nama_eo, eo.foto_eo, eo.ket_eo, eo.id_kota, kota.nama_kota, kota.id_provinsi, provinsi.nama_provinsi, kategori_eo.id_kategori, kategori.nama_kategori from eo INNER JOIN kota ON eo.id_kota = kota.id_kota INNER JOIN provinsi ON kota.id_provinsi = provinsi.id_provinsi INNER JOIN kategori_eo ON eo.id_eo = kategori_eo.id_eo INNER JOIN kategori ON kategori_eo.id_kategori = kategori.id_kategori WHERE status='VERIFIED' GROUP BY eo.id_eo ORDER BY '$filter_criteria' AND ".$order_criteria;           
 	$simpan1= mysqli_query($koneksi,$query1);
+    echo mysqli_error($koneksi);
                            
    while($select = mysqli_fetch_assoc($simpan1)) {
-			$id        = $select['id_eo'];
-            $email     = $select['email_eo'];
-            $password  = $select['password_eo'];
+			$id        = $select['eoid'];
             $photo     = $select['foto_eo'];
             $name 	   = $select['nama_eo'];
 			$desc 	   = $select['ket_eo'];
 			$province  = $select['id_provinsi'];
 			$city	   = $select['id_kota'];
-			$address   = $select['alamat_eo'];
-			$phone	   = $select['nohp_eo'];
-            $fotoid    = $select['foto_ktp'];
-            $fotoid1   = $select['fotodiri_ktp'];
-            $fotoid2   = $select['foto_alamat'];
-            $fotoid3   = $select['foto_siup'];
-			$year	   = $select['tahun_diri'];
-            $link	   = $select['link_web'];
-			$status	   = $select['status'];
             $provname  = $select['nama_provinsi'];
             $cityname  = $select['nama_kota'];
+            $idkategori = $select['id_kategori'];
+            $kategori = $select['nama_kategori']; 
 
     ?>   
                             
@@ -174,6 +173,7 @@ $select = mysqli_fetch_array($simpan2);
                             <label><strong>Select Category</strong></label>
                             <div class="form-select" id="default-select" style="">
                             <select id="sortCategory" name="sortCategory">
+                            <option value='' disabled selected>Choose category</option>
                             <?php 
                             include 'config.php';
                             $tampil=mysqli_query($koneksi, "SELECT * FROM kategori");
@@ -188,7 +188,7 @@ $select = mysqli_fetch_array($simpan2);
                             <label><strong>Select Area</strong></label>
                             <div class="form-select" id="default-select" style="">
                             <select id="area" name='nama_area'>
-                            <option value='' selected>Choose area</option>
+                            <option value='' disabled selected>Choose area</option>
                     <?php 
                     include 'config.php';
                     $tampil=mysqli_query($koneksi, "SELECT * FROM eo INNER JOIN kota ON eo.id_kota = kota.id_kota");
@@ -320,7 +320,7 @@ $(document).ready(function(){
     $('#sortCategory').on('change',function(){
         console.log($(this).val());
         var url = new URL(window.location.href);
-        url.searchParams.set('order_category', $(this).val());
+        url.searchParams.set('sortCategory', $(this).val());
         window.location.href = url.href; 
     });    
 });

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2018 at 05:43 PM
+-- Generation Time: Nov 19, 2018 at 09:46 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -32,9 +32,16 @@ CREATE TABLE `app_reminder` (
   `id_user` int(11) NOT NULL,
   `tgl_reminder` varchar(50) NOT NULL,
   `wkt_reminder` varchar(50) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `ket_reminder` varchar(500) NOT NULL
+  `ket_reminder` varchar(500) NOT NULL,
+  `status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `app_reminder`
+--
+
+INSERT INTO `app_reminder` (`id_reminder`, `id_eo`, `id_user`, `tgl_reminder`, `wkt_reminder`, `ket_reminder`, `status`) VALUES
+(3, 118, 1, '11/28/2018', '6:15 PM', 'aa', 'ONGOING');
 
 -- --------------------------------------------------------
 
@@ -89,7 +96,8 @@ CREATE TABLE `eo` (
 
 INSERT INTO `eo` (`id_eo`, `email_eo`, `password_eo`, `foto_eo`, `nama_eo`, `ket_eo`, `id_provinsi`, `id_kota`, `alamat_eo`, `nohp_eo`, `foto_ktp`, `fotodiri_ktp`, `foto_alamat`, `foto_siup`, `tahun_diri`, `link_web`, `status`) VALUES
 (118, 'groovyeo@gmail.com', '123456', 'image-eo/groovy.png', 'Groovy EO', 'best eo in jkt', 8, 12, 'jl. permata', '0812-5038-1343', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/friendship-quotes-hd-wallpaper_052819784.jpg', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'image-eo/scenery-wallpaper-hd-beach-HD.jpg', 2018, 'www.groovy-eo.com', 'VERIFIED'),
-(119, 'excellenteo@gmail.com', '1234567', 'image-eo/Summer-hd-quote-wallpaper.png', 'Excellent EO', 'Great event organizer company ever!', 11, 67, 'Jl. Sei Raya Dalam', '0896-4321-5679', 'image-eo/scenery-wallpaper-hd-beach-HD.jpg', 'image-eo/Nice-good-morning-quote-hd-high-resolution-images.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 2012, 'www.excellenteo.com', 'VERIFIED');
+(119, 'excellenteo@gmail.com', '1234567', 'image-eo/Summer-hd-quote-wallpaper.png', 'Excellent EO', 'Great event organizer company ever!', 11, 67, 'Jl. Sei Raya Dalam', '0896-4321-5679', 'image-eo/scenery-wallpaper-hd-beach-HD.jpg', 'image-eo/Nice-good-morning-quote-hd-high-resolution-images.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 2012, 'www.excellenteo.com', 'VERIFIED'),
+(120, 'fullcolor@yahoo.com', '123456', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'Full Color Entertainment', 'eo keren', 30, 46, 'Jl. WR Supratman', '0811-3452-7654', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 2012, 'www.fullcolor.com', 'VERIFIED');
 
 -- --------------------------------------------------------
 
@@ -108,11 +116,11 @@ CREATE TABLE `indikator_penilaian` (
 --
 
 INSERT INTO `indikator_penilaian` (`id_indikator_penilaian`, `indikator_penilaian`, `nilai`) VALUES
-(1, 'Sangat Kurang', 0.2),
-(2, 'Kurang', 0.4),
+(1, 'Sangat Rendah', 0.2),
+(2, 'Rendah', 0.4),
 (3, 'Cukup', 0.6),
-(4, 'Baik', 0.8),
-(5, 'Sangat Baik', 1);
+(4, 'Tinggi', 0.8),
+(5, 'Sangat Tinggi', 1);
 
 -- --------------------------------------------------------
 
@@ -157,7 +165,14 @@ INSERT INTO `kategori_eo` (`id_eo`, `id_kategori`) VALUES
 (118, 1),
 (118, 2),
 (118, 4),
-(119, 4);
+(119, 4),
+(120, 1),
+(120, 2),
+(120, 3),
+(120, 4),
+(120, 5),
+(120, 6),
+(120, 7);
 
 -- --------------------------------------------------------
 
@@ -316,11 +331,11 @@ CREATE TABLE `kriteria_budget` (
 --
 
 INSERT INTO `kriteria_budget` (`id_kriteria_budget`, `id_kriteria`, `detail_kriteria`, `id_indikator_penilaian`) VALUES
-(1, 1, '> 30.000.000', 1),
-(2, 1, '> 20.000.000 - 30.000.000', 2),
+(1, 1, '< 5.000.000', 1),
+(2, 1, '5.000.000 - 10.000.000', 2),
 (3, 1, '> 10.000.000 - 20.000.000', 3),
-(4, 1, '5.000.000 - 10.000.000', 4),
-(5, 1, '< 5.000.000', 5);
+(4, 1, '> 20.000.000 - 30.000.000', 4),
+(5, 1, '> 30.000.000', 5);
 
 -- --------------------------------------------------------
 
@@ -342,8 +357,9 @@ CREATE TABLE `kriteria_eo` (
 --
 
 INSERT INTO `kriteria_eo` (`id_kriteria_eo`, `id_eo`, `id_kriteria_budget`, `id_kriteria_reputasi`, `id_kriteria_fasilitas`, `id_kriteria_konsep`) VALUES
-(2, 118, 5, 3, 3, 3),
-(4, 119, 4, 1, 2, 2);
+(2, 118, 1, 4, 4, 2),
+(4, 119, 4, 1, 2, 4),
+(5, 120, 3, 4, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -545,29 +561,6 @@ INSERT INTO `provinsi` (`id_provinsi`, `nama_provinsi`) VALUES
 (32, 'Sumatera Selatan'),
 (33, 'Sumatera Utara'),
 (34, 'Yogyakarta');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `rekomendasi_eo`
---
-
-CREATE TABLE `rekomendasi_eo` (
-  `id_rekomendasi_eo` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `id_kategori` int(11) NOT NULL,
-  `bobot_1` float NOT NULL,
-  `bobot_2` float NOT NULL,
-  `bobot_3` float NOT NULL,
-  `bobot_4` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `rekomendasi_eo`
---
-
-INSERT INTO `rekomendasi_eo` (`id_rekomendasi_eo`, `id_user`, `id_kategori`, `bobot_1`, `bobot_2`, `bobot_3`, `bobot_4`) VALUES
-(3, 1, 1, 0.5, 0.3, 0.1, 0.1);
 
 -- --------------------------------------------------------
 
@@ -782,14 +775,6 @@ ALTER TABLE `provinsi`
   ADD PRIMARY KEY (`id_provinsi`);
 
 --
--- Indexes for table `rekomendasi_eo`
---
-ALTER TABLE `rekomendasi_eo`
-  ADD PRIMARY KEY (`id_rekomendasi_eo`),
-  ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_kategori` (`id_kategori`);
-
---
 -- Indexes for table `request_layanan`
 --
 ALTER TABLE `request_layanan`
@@ -820,7 +805,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `app_reminder`
 --
 ALTER TABLE `app_reminder`
-  MODIFY `id_reminder` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_reminder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `bookmark`
 --
@@ -830,7 +815,7 @@ ALTER TABLE `bookmark`
 -- AUTO_INCREMENT for table `eo`
 --
 ALTER TABLE `eo`
-  MODIFY `id_eo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+  MODIFY `id_eo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 --
 -- AUTO_INCREMENT for table `indikator_penilaian`
 --
@@ -860,7 +845,7 @@ ALTER TABLE `kriteria_budget`
 -- AUTO_INCREMENT for table `kriteria_eo`
 --
 ALTER TABLE `kriteria_eo`
-  MODIFY `id_kriteria_eo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_kriteria_eo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `kriteria_fasilitas`
 --
@@ -896,11 +881,6 @@ ALTER TABLE `portfolio`
 --
 ALTER TABLE `provinsi`
   MODIFY `id_provinsi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
---
--- AUTO_INCREMENT for table `rekomendasi_eo`
---
-ALTER TABLE `rekomendasi_eo`
-  MODIFY `id_rekomendasi_eo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `request_layanan`
 --

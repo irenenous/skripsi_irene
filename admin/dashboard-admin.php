@@ -86,7 +86,6 @@ $totaleo = $row[0];
                     </li>
                     <li> <a href="criteria.php"><i class="menu-icon fa fa-tasks"></i>Criteria </a></li>
                     <li> <a href="eo-criteria.php"><i class="menu-icon fa fa-list"></i>EO Criteria </a></li>
-                    <li> <a href="spk-result.php"><i class="menu-icon fa fa-file"></i>SPK Result </a></li>
           </ul>
         </nav>
         <div class="content-inner">

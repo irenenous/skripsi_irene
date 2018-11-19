@@ -13,7 +13,7 @@
             <div class="navbar-holder d-flex align-items-center justify-content-between">
               <!-- Navbar Header-->
               <div class="navbar-header">
-                <!-- Navbar Brand --><a href="../FRONTEND-WEB/index-fiyeo.php"> 
+                <!-- Navbar Brand --><a href="#"> 
 				<img src="../temp-dashboard/img/fiyeo2.png" alt="" title="" />
 				</a>
                 <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>

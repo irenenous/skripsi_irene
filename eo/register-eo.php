@@ -135,7 +135,7 @@ session_start();
 						
 						<label for="category"><b style="color:black">Company Category</b></label>
                         <div class="d-flex">
-                        <div id="div-of-category" class="col-lg-6" style="padding-left:0px;">
+                        <div id="div-of-category" class="col-lg-10" style="padding-left:0px;">
                         <div class="form-select" id="default-select">
 						<select id="category" required multiple='multiple' name='nama_kategori[]'>
                         <option value='belum milih' selected>- Choose Category -</option>

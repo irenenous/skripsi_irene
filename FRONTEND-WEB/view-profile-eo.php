@@ -164,7 +164,7 @@ $totalpaket = $row[0];
 							<img src="../eo/<?php echo $fotoeo ?>" alt="" class="rounded-circle" style="width:150px; height:150px;">
                             <div style="margin-top: 20px;">
 							<h3 class="text-white link-nav"><?php echo $namaeo ?> &nbsp;<img src="../temp-fiyeo/img/tick-inside-circle.png"></h3>
-                            <p style="color: white; font-size:120%; margin-top:10px;">Event Organizer</p>
+                            <p style="color: white; font-size:120%; margin-top:10px;">Event Organizer <i>since <strong><?php echo $tahun ?></strong></i></p>
                             </div>
                             <div style="margin-top:40px;">
                             <?php if (isset ($_SESSION['id'])!="") {
