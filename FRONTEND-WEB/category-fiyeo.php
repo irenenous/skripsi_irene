@@ -34,7 +34,7 @@ include 'config.php';
 			<link rel="stylesheet" href="../temp-fiyeo/css/owl.carousel.css">
 			<link rel="stylesheet" href="../temp-fiyeo/css/main.css">
         
-        <style>
+<style>
 .nice-select .list { max-height: 300px; overflow: scroll; }
 </style>
 		</head>
@@ -89,7 +89,7 @@ include("header-fiyeo.php");
 //        }
 //    }
 //                            
-    $order_criteria = 'eoid';
+   $order_criteria = 'eoid';
     if (isset($_GET['order_criteria'])) {
         if ($_GET['order_criteria'] == 'name-asc') {
             $order_criteria = 'nama_eo ASC';
@@ -97,18 +97,16 @@ include("header-fiyeo.php");
             $order_criteria = 'nama_eo DESC';
         }
         else if ($_GET['order_criteria'] == 'price-asc') {
-            $order_criteria = 'min(harga_paket) ASC';
+            $order_criteria = 'min_harga_paket ASC';
+        }
+        else if ($_GET['order_criteria'] == 'price-desc') {
+            $order_criteria = 'min_harga_paket DESC';
         }
     }
-    $filter_criteria = '';
-    if (isset($_GET['sortCategory'])) {
-        $filter_criteria = $filter_criteria + 'AND id_kategori='.$_GET['sortCategory'];
-        
-    }
-//    if (isset($_GET['area'])) {
-//        $filter_criteria = $filter_criteria + 'AND somethign='.$_GET['category'];
-//    }
-	$query1="SELECT eo.id_eo AS eoid, eo.nama_eo, eo.foto_eo, eo.ket_eo, eo.id_kota, kota.nama_kota, kota.id_provinsi, provinsi.nama_provinsi, kategori_eo.id_kategori, kategori.nama_kategori from eo INNER JOIN kota ON eo.id_kota = kota.id_kota INNER JOIN provinsi ON kota.id_provinsi = provinsi.id_provinsi INNER JOIN kategori_eo ON eo.id_eo = kategori_eo.id_eo INNER JOIN kategori ON kategori_eo.id_kategori = kategori.id_kategori WHERE status='VERIFIED' GROUP BY eo.id_eo ORDER BY '$filter_criteria' AND ".$order_criteria;           
+    $filter_category = isset($_GET['category']) ? $_GET['category'] : 'NULL';
+    $filter_area = isset($_GET['area']) ? $_GET['area'] : 'NULL';
+                            
+	$query1="SELECT eo.id_eo AS eoid, eo.nama_eo, eo.foto_eo, eo.ket_eo, eo.id_kota, kota.nama_kota, kota.id_provinsi, provinsi.nama_provinsi, kategori_eo.id_kategori, kategori.nama_kategori, MIN(paket.harga_paket) AS min_harga_paket from eo INNER JOIN kota ON eo.id_kota = kota.id_kota INNER JOIN provinsi ON kota.id_provinsi = provinsi.id_provinsi INNER JOIN kategori_eo ON eo.id_eo = kategori_eo.id_eo INNER JOIN kategori ON kategori_eo.id_kategori = kategori.id_kategori INNER JOIN paket ON paket.id_eo = eo.id_eo WHERE status='VERIFIED' AND ($filter_category IS NULL OR kategori_eo.id_kategori = $filter_category) AND ($filter_area IS NULL OR eo.id_kota = $filter_area) GROUP BY eo.id_eo ORDER BY $order_criteria";           
 	$simpan1= mysqli_query($koneksi,$query1);
     echo mysqli_error($koneksi);
                            
@@ -162,8 +160,9 @@ $select = mysqli_fetch_array($simpan2);
 						<div class="col-lg-4 sidebar">
                             <div class="single-widget search-widget" style="border:2px dotted #aa80ff;">
 								<form class="example" action="#" style="margin:auto;max-width:300px">
-								  <input type="text" placeholder="Search" name="search2">
-								  <button type="submit"><i class="fa fa-search"></i></button>
+								  <input type="text" placeholder="Search" id="search" name="search">
+								  <button type="submit" disabled><i class="fa fa-search"></i></button>
+                                <div id="display" class="showdis"></div>
 								</form>								
 							</div>
 							<div class="single-slidebar" style="background-color:#fff; border:2px dotted #aa80ff;">
@@ -172,7 +171,7 @@ $select = mysqli_fetch_array($simpan2);
 				            <div class="form-group">
                             <label><strong>Select Category</strong></label>
                             <div class="form-select" id="default-select" style="">
-                            <select id="sortCategory" name="sortCategory">
+                            <select id="filterCategory" name="category">
                             <option value='' disabled selected>Choose category</option>
                             <?php 
                             include 'config.php';
@@ -187,7 +186,7 @@ $select = mysqli_fetch_array($simpan2);
 				            <div class="form-group">
                             <label><strong>Select Area</strong></label>
                             <div class="form-select" id="default-select" style="">
-                            <select id="area" name='nama_area'>
+                            <select id="filterArea" name='area'>
                             <option value='' disabled selected>Choose area</option>
                     <?php 
                     include 'config.php';
@@ -317,14 +316,87 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
-    $('#sortCategory').on('change',function(){
+    $('#filterCategory').on('change',function(){
         console.log($(this).val());
         var url = new URL(window.location.href);
-        url.searchParams.set('sortCategory', $(this).val());
+        url.searchParams.set('category', $(this).val());
+        window.location.href = url.href; 
+    });
+	$('#filterArea').on('change',function(){
+        console.log($(this).val());
+        var url = new URL(window.location.href);
+        url.searchParams.set('area', $(this).val());
         window.location.href = url.href; 
     });    
 });
-</script>   
+
+</script> 
+<script>
+ 
+$(document).ready(function() {
+ 
+   //On pressing a key on "Search box" in "search.php" file. This function will be called.
+ 
+   $("#search").keyup(function() {
+ 
+       //Assigning search box value to javascript variable named as "name".
+ 
+       var name = $('#search').val();
+ 
+       //Validating, if "name" is empty.
+ 
+       if (name == "") {
+ 
+           //Assigning empty value to "display" div in "search.php" file.
+ 
+           $("#display").html("");
+ 
+       }
+ 
+       //If name is not empty.
+ 
+       else {
+ 
+           //AJAX is called.
+ 
+           $.ajax({
+ 
+               //AJAX type is "Post".
+ 
+               type: "POST",
+ 
+               //Data will be sent to "ajax.php".
+ 
+               url: "search.php",
+ 
+               //Data, that will be sent to "ajax.php".
+ 
+               data: {
+ 
+                   //Assigning value of "name" into "search" variable.
+ 
+                   search: name
+ 
+               },
+ 
+               //If result found, this funtion will be called.
+ 
+               success: function(html) {
+ 
+                   //Assigning result to "display" div in "search.php" file.
+ 
+                   $("#display").html(html).show();
+ 
+               }
+ 
+           });
+ 
+       }
+ 
+   });
+ 
+});  
+</script>           
             
     </body>
 	</html>

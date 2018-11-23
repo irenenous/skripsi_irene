@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2018 at 09:46 PM
+-- Generation Time: Nov 23, 2018 at 04:22 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -30,10 +30,10 @@ CREATE TABLE `app_reminder` (
   `id_reminder` int(11) NOT NULL,
   `id_eo` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `tgl_reminder` varchar(50) NOT NULL,
-  `wkt_reminder` varchar(50) NOT NULL,
-  `ket_reminder` varchar(500) NOT NULL,
-  `status` varchar(10) NOT NULL
+  `tgl_reminder` varchar(20) NOT NULL,
+  `wkt_reminder` varchar(20) NOT NULL,
+  `ket_reminder` text NOT NULL,
+  `status` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -53,7 +53,7 @@ CREATE TABLE `bookmark` (
   `id_bookmark` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `id_eo` int(11) NOT NULL,
-  `status` varchar(50) NOT NULL
+  `status` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -76,18 +76,18 @@ CREATE TABLE `eo` (
   `password_eo` varchar(20) NOT NULL,
   `foto_eo` text NOT NULL,
   `nama_eo` varchar(100) NOT NULL,
-  `ket_eo` varchar(1000) NOT NULL,
+  `ket_eo` text NOT NULL,
   `id_provinsi` int(11) NOT NULL,
   `id_kota` int(11) NOT NULL,
-  `alamat_eo` varchar(500) NOT NULL,
-  `nohp_eo` varchar(15) NOT NULL,
+  `alamat_eo` text NOT NULL,
+  `nohp_eo` char(15) NOT NULL,
   `foto_ktp` text NOT NULL,
   `fotodiri_ktp` text NOT NULL,
   `foto_alamat` text NOT NULL,
   `foto_siup` text NOT NULL,
-  `tahun_diri` int(5) NOT NULL,
+  `tahun_diri` char(5) NOT NULL,
   `link_web` varchar(100) NOT NULL,
-  `status` varchar(20) NOT NULL
+  `status` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -95,9 +95,9 @@ CREATE TABLE `eo` (
 --
 
 INSERT INTO `eo` (`id_eo`, `email_eo`, `password_eo`, `foto_eo`, `nama_eo`, `ket_eo`, `id_provinsi`, `id_kota`, `alamat_eo`, `nohp_eo`, `foto_ktp`, `fotodiri_ktp`, `foto_alamat`, `foto_siup`, `tahun_diri`, `link_web`, `status`) VALUES
-(118, 'groovyeo@gmail.com', '123456', 'image-eo/groovy.png', 'Groovy EO', 'best eo in jkt', 8, 12, 'jl. permata', '0812-5038-1343', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/friendship-quotes-hd-wallpaper_052819784.jpg', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'image-eo/scenery-wallpaper-hd-beach-HD.jpg', 2018, 'www.groovy-eo.com', 'VERIFIED'),
-(119, 'excellenteo@gmail.com', '1234567', 'image-eo/Summer-hd-quote-wallpaper.png', 'Excellent EO', 'Great event organizer company ever!', 11, 67, 'Jl. Sei Raya Dalam', '0896-4321-5679', 'image-eo/scenery-wallpaper-hd-beach-HD.jpg', 'image-eo/Nice-good-morning-quote-hd-high-resolution-images.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 2012, 'www.excellenteo.com', 'VERIFIED'),
-(120, 'fullcolor@yahoo.com', '123456', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'Full Color Entertainment', 'eo keren', 30, 46, 'Jl. WR Supratman', '0811-3452-7654', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 2012, 'www.fullcolor.com', 'VERIFIED');
+(118, 'groovyeo@gmail.com', '123456', 'image-eo/groovy.png', 'Groovy EO', 'best eo in jkt', 8, 12, 'jl. permata', '0812-5038-1343', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/friendship-quotes-hd-wallpaper_052819784.jpg', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'image-eo/scenery-wallpaper-hd-beach-HD.jpg', '2018', 'www.groovy-eo.com', 'VERIFIED'),
+(119, 'excellenteo@gmail.com', '1234567', 'image-eo/Summer-hd-quote-wallpaper.png', 'Excellent EO', 'Great event organizer company ever!', 11, 67, 'Jl. Sei Raya Dalam', '0896-4321-5679', 'image-eo/scenery-wallpaper-hd-beach-HD.jpg', 'image-eo/Nice-good-morning-quote-hd-high-resolution-images.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', '2012', 'www.excellenteo.com', 'VERIFIED'),
+(120, 'fullcolor@yahoo.com', '123456', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'Full Color Entertainment', 'eo keren', 30, 46, 'Jl. WR Supratman', '0811-3452-7654', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', '2012', 'www.fullcolor.com', 'VERIFIED');
 
 -- --------------------------------------------------------
 
@@ -300,7 +300,7 @@ INSERT INTO `kota` (`id_kota`, `nama_kota`, `id_provinsi`) VALUES
 CREATE TABLE `kriteria` (
   `id_kriteria` int(11) NOT NULL,
   `nama_kriteria` varchar(20) NOT NULL,
-  `jenis_kriteria` varchar(20) NOT NULL
+  `jenis_kriteria` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -442,7 +442,7 @@ CREATE TABLE `paket` (
   `nama_paket` varchar(50) NOT NULL,
   `jenis_paket` varchar(50) NOT NULL,
   `harga_paket` bigint(20) NOT NULL,
-  `ket_paket` varchar(1000) NOT NULL
+  `ket_paket` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -453,7 +453,8 @@ INSERT INTO `paket` (`id_paket`, `id_eo`, `nama_paket`, `jenis_paket`, `harga_pa
 (28, 118, 'Fun Surprise', 'Birthday', 2000000, 'sasasa'),
 (29, 118, 'Emerald', 'Wedding Party', 3000000, 'lalala'),
 (30, 118, 'Gold', 'Birthday Party', 500000, 'yeay'),
-(33, 119, 'Cool', 'Wedding Party', 5500000, 'hehe');
+(33, 119, 'Cool', 'Wedding Party', 5500000, 'hehe'),
+(34, 120, 'Star Deal', 'Couple Anniversary', 4500000, 'include makanan');
 
 -- --------------------------------------------------------
 
@@ -467,9 +468,9 @@ CREATE TABLE `pesan` (
   `id_eo` int(11) NOT NULL,
   `tgl_pesan` varchar(50) NOT NULL,
   `subjek` varchar(100) NOT NULL,
-  `pesan` varchar(1000) NOT NULL,
-  `status` varchar(20) NOT NULL,
-  `sender` varchar(100) NOT NULL
+  `pesan` text NOT NULL,
+  `status` char(10) NOT NULL,
+  `sender` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -489,7 +490,8 @@ INSERT INTO `pesan` (`id_pesan`, `id_user`, `id_eo`, `tgl_pesan`, `subjek`, `pes
 (18, 1, 118, '11/14/2018 07:00:17 PM', 'hai', 'bisa dibantu?', 'READ', 'EO'),
 (19, 9, 118, '11/14/2018 08:36:44 PM', 'lala', '?', 'READ', 'EO'),
 (20, 9, 118, '11/14/2018 08:51:37 PM', 'lala', 'saya mau nanya pricelistnya', 'READ', 'KLIEN'),
-(21, 9, 118, '11/14/2018 08:52:20 PM', 'lala', 'oke', 'READ', 'EO');
+(21, 9, 118, '11/14/2018 08:52:20 PM', 'lala', 'oke', 'READ', 'EO'),
+(22, 1, 119, '11/20/2018 04:08:47 PM', 'lokasi', 'sisjka', 'READ', 'KLIEN');
 
 -- --------------------------------------------------------
 
@@ -501,7 +503,7 @@ CREATE TABLE `portfolio` (
   `id_portfolio` int(11) NOT NULL,
   `id_eo` int(11) NOT NULL,
   `foto` text NOT NULL,
-  `ket_foto` varchar(1000) NOT NULL
+  `ket_foto` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -575,12 +577,12 @@ CREATE TABLE `request_layanan` (
   `tgl_request` varchar(50) NOT NULL,
   `tgl_acara` varchar(50) NOT NULL,
   `tipe_acara` varchar(100) NOT NULL,
-  `lokasi_acara` varchar(200) NOT NULL,
-  `jml_peserta` int(11) NOT NULL,
-  `durasi_acara` varchar(100) NOT NULL,
-  `ket_acara` varchar(1000) NOT NULL,
+  `lokasi_acara` text NOT NULL,
+  `jml_peserta` int(10) NOT NULL,
+  `durasi_acara` varchar(50) NOT NULL,
+  `ket_acara` text NOT NULL,
   `id_paket` int(11) NOT NULL,
-  `status` varchar(20) NOT NULL
+  `status` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -600,8 +602,8 @@ CREATE TABLE `review` (
   `id_user` int(11) NOT NULL,
   `id_eo` int(11) NOT NULL,
   `tgl_review` varchar(20) NOT NULL,
-  `rating` int(11) NOT NULL,
-  `keterangan` varchar(1000) NOT NULL
+  `rating` tinyint(5) NOT NULL,
+  `keterangan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -620,14 +622,14 @@ INSERT INTO `review` (`id_user`, `id_eo`, `tgl_review`, `rating`, `keterangan`) 
 --
 
 CREATE TABLE `user` (
-  `id_user` int(10) NOT NULL,
+  `id_user` int(11) NOT NULL,
   `nama_user` varchar(100) NOT NULL,
-  `nohp_user` varchar(50) NOT NULL,
-  `email_user` varchar(100) NOT NULL,
-  `password_user` varchar(100) NOT NULL,
+  `nohp_user` char(15) NOT NULL,
+  `email_user` varchar(50) NOT NULL,
+  `password_user` varchar(20) NOT NULL,
   `foto_user` text NOT NULL,
-  `role` varchar(20) NOT NULL,
-  `status` varchar(50) NOT NULL
+  `role` char(10) NOT NULL,
+  `status` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -766,7 +768,8 @@ ALTER TABLE `pesan`
 -- Indexes for table `portfolio`
 --
 ALTER TABLE `portfolio`
-  ADD PRIMARY KEY (`id_portfolio`);
+  ADD PRIMARY KEY (`id_portfolio`),
+  ADD KEY `id_eo` (`id_eo`);
 
 --
 -- Indexes for table `provinsi`
@@ -865,12 +868,12 @@ ALTER TABLE `kriteria_reputasi`
 -- AUTO_INCREMENT for table `paket`
 --
 ALTER TABLE `paket`
-  MODIFY `id_paket` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_paket` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT for table `pesan`
 --
 ALTER TABLE `pesan`
-  MODIFY `id_pesan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_pesan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `portfolio`
 --
@@ -890,7 +893,7 @@ ALTER TABLE `request_layanan`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- Constraints for dumped tables
 --
