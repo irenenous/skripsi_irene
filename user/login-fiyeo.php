@@ -63,6 +63,9 @@ include '../FRONTEND-WEB/header-fiyeo.php'
 			<!-- End banner Area -->
             
                         <div class="container" style="padding: 60px;">
+                            <div id="message" class="col-lg-6 offset-lg-3">
+                            <div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>Invalid authentication!</div>
+                            </div>
 							<form class="form-area" id="login-form" action="login.php" method="POST">
 								<div class= "col-lg-6 offset-lg-3">	
 									<div class="form-group">
@@ -103,9 +106,9 @@ include '../FRONTEND-WEB/header-fiyeo.php'
 								<h6>F I Y E O</h6>
 								<ul class="footer-nav">
                                     <li><a href="../FRONTEND-WEB/about-us.php">About Us</a></li>
-									<li><a href="#">Privacy Policy</a></li>
+									<li><a href="../FRONTEND-WEB/privacy-policy.php">Privacy Policy</a></li>
 									<li><a href="#">Terms & Conditions</a></li>
-									<li><a href="#">Help</a></li>
+									
 									
 								</ul>
 							</div>
@@ -165,10 +168,12 @@ include '../FRONTEND-WEB/header-fiyeo.php'
     } else {
         x.type = "password";
     } }
-</script>     
-
-        
-        
+</script>
+<script>
+$(document).ready(function(){
+$("#message").hide();    
+});
+</script>    
         
 </body>
 </html>

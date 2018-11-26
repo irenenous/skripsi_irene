@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.min.css" />
-
 <?php
 session_start();
     if (isset($_POST['login'])) {
@@ -52,5 +50,3 @@ session_start();
     }
         
 ?>
-
- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.all.min.js"></script>

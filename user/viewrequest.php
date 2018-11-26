@@ -38,9 +38,6 @@ include("config.php");
     $namapaket      = $select['nama_paket'];
     $hargapaket    = $select['harga_paket'];
     $tipepaket    = $select['jenis_paket'];
-    $namaklien  = $select['nama'];
-    $nohpklien       = $select['nohp'];
-    $emailklien       = $select['email'];
     $statusreq      = $select['status'];
     $namaeo =   $select['nama_eo'];
     $emaileo =  $select['email_eo'];
@@ -143,17 +140,17 @@ include("config.php");
     <tr>
     <td align="right"><b>Name</b></td>
     <td align="left">&nbsp; :</td>
-    <td><?php echo $namaklien ?></td>
+    <td><?php echo $namauser ?></td>
     </tr>
     <tr>
     <td align="right"><b>Phone Number</b></td>
     <td align="left">&nbsp; :</td>
-    <td><?php echo $nohpklien ?></td>
+    <td><?php echo $nohpuser ?></td>
     </tr>
     <tr>
     <td align="right"><b>E-mail</b></td>
     <td align="left">&nbsp; :</td>
-    <td><?php echo $emailklien ?></td>
+    <td><?php echo $emailuser ?></td>
     </tr>
     </table>    
     </div>

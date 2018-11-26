@@ -92,7 +92,7 @@ $select = mysqli_fetch_array($tampil);
             
     <?php
 	include("config.php");
-	$query1="SELECT * FROM request_layanan INNER JOIN user ON request_layanan.id_user = user.id_user INNER JOIN paket ON request_layanan.id_paket = paket.id_paket where request_layanan.id_eo = '$ideo'";
+	$query1="SELECT * FROM request_layanan INNER JOIN user ON request_layanan.id_user = user.id_user INNER JOIN paket ON request_layanan.id_paket = paket.id_paket where request_layanan.id_eo = '$ideo' AND request_layanan.status = 'SENT' OR request_layanan.status = 'READ'";
 	$simpan1= mysqli_query($koneksi,$query1);
     ?> 
 

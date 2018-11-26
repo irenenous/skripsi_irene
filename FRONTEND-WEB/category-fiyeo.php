@@ -36,6 +36,23 @@ include 'config.php';
         
 <style>
 .nice-select .list { max-height: 300px; overflow: scroll; }
+.pagination {
+ 
+}
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ddd;
+}
+.pagination a.active {
+    background-color: red;
+    color: white;
+}
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
 </style>
 		</head>
 		<body>
@@ -69,7 +86,7 @@ include("header-fiyeo.php");
 			<!-- End banner Area -->	
 			
 			<!-- Start post Area -->
-			<section class="post-area section-gap" style="padding-top:50px;">
+			<section class="post-area section-gap" style="padding-top:70px;">
 				<div class="container">
 					<div class="row justify-content-center d-flex">
 						<div class="col-lg-8 post-list">
@@ -154,9 +171,12 @@ $select = mysqli_fetch_array($simpan2);
 							</div>
                             
     <?php }
-	?>
-
+	?>                 
+                        <div class="pull-right">
+                        <div id="page-selection" class="pagination"></div>
+                        </div>
 						</div>
+                        
 						<div class="col-lg-4 sidebar">
                             <div class="single-widget search-widget" style="border:2px dotted #aa80ff;">
 								<form class="example" action="#" style="margin:auto;max-width:300px">
@@ -252,9 +272,9 @@ $select = mysqli_fetch_array($simpan2);
 								<h6>F I Y E O</h6>
 								<ul class="footer-nav">
                                     <li><a href="about-us.php">About Us</a></li>
-									<li><a href="#">Privacy Policy</a></li>
+									<li><a href="privacy-policy.php">Privacy Policy</a></li>
 									<li><a href="#">Terms & Conditions</a></li>
-									<li><a href="#">Help</a></li>
+									
 									
 								</ul>
 							</div>
@@ -302,7 +322,8 @@ $select = mysqli_fetch_array($simpan2);
 			<script src="../temp-fiyeo/js/jquery.nice-select.min.js"></script>			
 			<script src="../temp-fiyeo/js/parallax.min.js"></script>		
 			<script src="../temp-fiyeo/js/mail-script.js"></script>	
-			<script src="../temp-fiyeo/js/main.js"></script>	
+			<script src="../temp-fiyeo/js/main.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootpag/1.0.7/jquery.bootpag.js"></script>
 		
 <script type="text/javascript">
 $(document).ready(function(){
@@ -331,6 +352,17 @@ $(document).ready(function(){
 });
 
 </script> 
+<script>
+$('#page-selection').bootpag({
+    total: 5
+}).on("page", function(event, num){
+    $("#content").html("Page " + num); // or some ajax content loading...
+ 
+    // ... after content load -> change total to 10
+    $(this).bootpag({total: 10, maxVisible: 10});
+ 
+});
+</script>
 <script>
  
 $(document).ready(function() {

@@ -6,20 +6,19 @@ if (isset ($_SESSION['id'])!="") {
 }
 
 
-error_reporting(E_ALL ^ E_NOTICE);
 $id = $_GET['id_request'];
 
 
-$delete = "delete from request_layanan where id_request = '$id' AND id_eo = '$ideo' ";
+$query = "UPDATE request_layanan SET status='HIDDEN' Where id_request = '$id' AND id_eo = '$ideo' ";
 
-$tampil = mysqli_query($koneksi,$delete);
+$tampil = mysqli_query($koneksi,$query);
 	if($tampil)
 	{
 		header("location:request-eo.php");
 	}
 	else
 	{
-		echo "Failed";
+		echo mysqli_error($koneksi);
 	}
 	
 
