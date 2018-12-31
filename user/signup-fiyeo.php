@@ -174,26 +174,7 @@
 			<script src="../temp-fiyeo/js/main.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.all.min.js"></script>
             
-            
-<!--
-<script>
-    function validateForm(){
-swal({
-  title: "Are you sure?",
-  text: "Your will not be able to recover this imaginary file!",
-  type: "warning",
-  showCancelButton: true,
-  confirmButtonClass: "btn-danger",
-  confirmButtonText: "Yes, delete it!",
-  closeOnConfirm: false
-},
-function(){
-  swal("Deleted!", "Your imaginary file has been deleted.", "success");
-});
-      
-    } 
-</script>
--->
+
 <script type="text/javascript">
     $('#password, #confirmpass').on('keyup', function () {
         if ($('#password').val() == $('#confirmpass').val()) {
@@ -224,9 +205,7 @@ function(){
     swal({
     type: 'success',
     title: 'Registration successful!',
-    text: 'Go activate your account by clicking the link we have sent to you by email. Thankyou for joining us',
-    showConfirmButton: false,
-    timer: 2000
+    text: 'Go activate your account by clicking the link we have sent to you by email. Thankyou for joining us!'
     }).then( () => {
     location.replace("login-fiyeo.php");
     });      
@@ -235,9 +214,7 @@ function(){
     swal({
     type: 'error',
     title: 'Registration failed!',
-    text: 'Please fill in the sign up form properly',
-    showConfirmButton: false,
-    timer: 1500
+    text: 'Please fill in the sign up form properly'
     });  
     }
     });

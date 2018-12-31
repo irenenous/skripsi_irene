@@ -40,6 +40,17 @@ if (isset ($_SESSION['id'])!="") {
 <style>
 .nice-select .list { max-height: 300px; overflow: scroll; }
 
+#noti-count {
+  background-color:#aa80ff;
+  color:#fff;
+  padding:10px;
+  margin-left:-5px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  width:45px;
+  height:45px;
+  text-align:center; }
 
 </style>
 </head>
@@ -121,7 +132,7 @@ $lowprice = $select['min(harga_paket)'];
                     ?>
         
         <div class="table-row" style="text-align:center">
-        <div class="serial" style="width:100px;"><?php echo addOrdinalNumberSuffix($key+1) ?></div>
+        <div class="serial" style="width:100px;"><div id='noti-count'><div><?php echo addOrdinalNumberSuffix($key+1) ?></div></div></div>
         <div class="country" style="width:300px;"><img class="media-object img-circle" src="../eo/<?php echo $eophoto ?>" style="width:50px; height:50px; border-radius: 50%;"><?php echo $eoname ?></div>
         <div class="visit" style="width:160px">
         <?php if ($totalrating !="") {    

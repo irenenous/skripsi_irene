@@ -38,7 +38,7 @@ function calculate_saw($user_matrix, $criteria_matrix, $cost_matrix) {
     // multiply with user matrix
     $result = array();
     for ($i = 0; $i < count($user_matrix); $i++){
-        for($j=0; $j < count($process_criteria_matrix[0]); $j++){
+        for($j=0; $j < count($user_matrix[$i]); $j++){
             $result[$i][$j] = 0;
             for($k=0; $k < count($process_criteria_matrix); $k++){
                 $result[$i][$j] += $user_matrix[$i][$k] * $process_criteria_matrix[$k][$j];

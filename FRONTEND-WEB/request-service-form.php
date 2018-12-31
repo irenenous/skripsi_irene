@@ -34,6 +34,7 @@ include 'config.php';
 			<link rel="stylesheet" href="../temp-fiyeo/css/owl.carousel.css">
 			<link rel="stylesheet" href="../temp-fiyeo/css/main.css">
             <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.css" />
            
 <style>
 .durationpicker-container {
@@ -241,6 +242,7 @@ if(!empty($_GET['id_eo'])){
 			<script src="../temp-fiyeo/js/mail-script.js"></script>	
 			<script src="../temp-fiyeo/js/main.js"></script>
             <script src="../temp-fiyeo/js/jQuery-Mask-Plugin-master/dist/jquery.mask.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.all.js"></script>
           
 <script>
 $(function() {
@@ -272,6 +274,39 @@ $("#duration").durationPicker({
 $(document).ready(function(){
   $('#phonenumber').mask('0000-0000-0000');
 });
+</script>
+<script>
+    function reqFunction(){
+    var frm = $('#RequestForm');
+    frm.submit(function (ev) {
+    $.ajax({       
+    type: "POST",
+    enctype: 'multipart/form-data',
+    url: frm.attr('action'),
+    processData: false,
+    contentType: false,
+    cache: false,
+    timeout: 600000,
+    data: new FormData(frm[0]),
+    success: function (data) {
+    swal({
+    type: 'success',
+    title: 'Request submitted!'
+    });   
+    },
+    error: function () {
+    swal({
+    type: 'error',
+    title: 'Request can not be submitted!',
+    text: 'Please fill in the request service form properly'
+    });  
+    }
+    });
+    ev.preventDefault();
+    ev.cancelBubble();
+    });   
+    } 
+    $('#RequestForm').submit(reqFunction());
 </script>
             
 		</body>

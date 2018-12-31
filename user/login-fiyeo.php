@@ -63,10 +63,7 @@ include '../FRONTEND-WEB/header-fiyeo.php'
 			<!-- End banner Area -->
             
                         <div class="container" style="padding: 60px;">
-                            <div id="message" class="col-lg-6 offset-lg-3">
-                            <div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>Invalid authentication!</div>
-                            </div>
-							<form class="form-area" id="login-form" action="login.php" method="POST">
+							<form class="form-area" id="login-form" action="login.php" method="POST" onsubmit="return do_login();">
 								<div class= "col-lg-6 offset-lg-3">	
 									<div class="form-group">
                                         <div class="input-group">
@@ -88,7 +85,7 @@ include '../FRONTEND-WEB/header-fiyeo.php'
                                     </div>
                                     <div class="form-group">
                                         <div class="row justify-content-center">
-                                            <button type="submit" class="primary-btn mt-3 text-white" style="border-radius: 15px;border-color:white; wi" name="login">Log In</button>
+                                            <button type="submit" class="primary-btn mt-3 text-white" style="border-radius: 15px;border-color:white; wi" name="login" id="login">Log In</button>
                                         </div>
                                     </div>
 										<div class="mt-20 alert-msg" style="text-align: center;"></div>
@@ -170,6 +167,49 @@ include '../FRONTEND-WEB/header-fiyeo.php'
     } }
 </script>
 <script>
+function do_login()
+{
+ var email=$("#email").val();
+ var pass=$("#password").val();
+ if(email!="" && pass!="")
+ {
+  $.ajax
+  ({
+  type:'post',
+  url:'login.php',
+  data:{
+   login:"login",
+   email:email,
+   password:pass
+  },
+success:function(response) {
+  if(response=="success-eo")
+  {
+    window.location.href="../eo/dashboard-eo.php";
+  } 
+ else if(response=="success-user")
+  {
+    window.location.href="../FRONTEND-WEB/index-fiyeo.php";
+  }
+ else if(response=="success-admin")
+  {
+    window.location.href="../admin/dashboard-admin.php";
+  }
+ else {
+  swal({
+    type: 'error',
+    title: 'Wrong email or password!',
+    text: 'Please enter the right email and password'
+    });  
+  } 
+}
+  });
+ }
+return false;
+}   
+    
+    
+    
 $(document).ready(function(){
 $("#message").hide();    
 });

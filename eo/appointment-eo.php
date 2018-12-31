@@ -29,7 +29,6 @@ $select = mysqli_fetch_array($tampil);
     <meta name="robots" content="all,follow">
     <!-- Bootstrap CSS-->
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="../temp-dashboard/vendor/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome CSS-->
     <link rel="stylesheet" href="../temp-dashboard/vendor/font-awesome/css/font-awesome.min.css">
@@ -45,6 +44,7 @@ $select = mysqli_fetch_array($tampil);
     <!-- Favicon-->
     <link rel="shortcut icon" href="../temp-dashboard/img/favicon.ico">
     <link rel="stylesheet" href="../temp-dashboard/assets/css/lib/datatable/dataTables.bootstrap.min.css">
+    
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -141,7 +141,7 @@ $select = mysqli_fetch_array($tampil);
             <td><b><?php echo $stat ?></b></td>
 			<td> 
                 <div class="btn-group-xs">
-                <a class="btn btn-sm btn-primary" href="editpaket.php?id_reminder=<?php echo $id ?>"><i class="fa fa-edit"></i></a>
+                <a class="btn btn-sm btn-primary" href="editreminder.php?id_reminder=<?php echo $id ?>"><i class="fa fa-edit"></i></a>
                 <script>
                     function deleteFunction(id){
                         swal({
@@ -209,7 +209,7 @@ $select = mysqli_fetch_array($tampil);
               <div class="form-group">
                 <label>Time</label>
                  <div class="input-group">
-                    <input type="text" class="form-control timepicker" id="timepickers" name="timepickers" required>
+                    <input type="text" class="form-control timepicker" id="timepickers" name="timepicker" required>
                     <div class="input-group-append"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></div>
                   </div>
               </div>
@@ -278,8 +278,8 @@ $select = mysqli_fetch_array($tampil);
     <!-- JavaScript files-->
      
 
-     <script src="../../skripsitemplate/AdminLTE-2.4.5/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../temp-dashboard/vendor/jquery/jquery.min.js"></script>
+    <script src="../../skripsitemplate/AdminLTE-2.4.5/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="../temp-dashboard/vendor/popper.js/umd/popper.min.js"> </script>
     <script src="../temp-dashboard/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="../temp-dashboard/vendor/jquery.cookie/jquery.cookie.js"> </script>

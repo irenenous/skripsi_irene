@@ -32,7 +32,15 @@ $date = date('m/d/Y h:i:s A');
         
 		$query = mysqli_query($koneksi , "insert into request_layanan values ('','$iduser', '$ideo', '$date', '$tangkapEventDate', '$tangkapType', '$tangkapLocation', '$tangkapGuest', '$tangkapDuration', '$tangkapDesc', '$tangkapPackage', '$tangkapStatus')");
         
-         header('Location: ../FRONTEND-WEB/view-profile-eo.php?id_eo='.$ideo);
+        if (!$query) {
+            echo mysqli_error($koneksi);
+            http_response_code(400);
+        } 
+        else {    
+        echo "OK";
+//        header('Location: ../FRONTEND-WEB/view-profile-eo.php?id_eo='.$ideo);
+        }
+  
 	}
 
 

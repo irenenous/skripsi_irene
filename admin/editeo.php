@@ -132,6 +132,7 @@ $select = mysqli_fetch_array($tampil);
     $namaeo    = $select['nama_eo']; 
     $fotoeo    = $select['foto_eo'];
     $emaileo   = $select['email_eo'];
+    $passeo    = $select['password_eo'];
     $nohpeo    = $select['nohp_eo'];
     $keteo     = $select['ket_eo'];
     $idprov    = $select['id_provinsi'];
@@ -158,7 +159,7 @@ $select2 = mysqli_fetch_array($tampil2);
     <form method="POST" action="updateeo.php?id_eo=<?php echo $ideo ?>" class="form-horizontal">            
     <div class="form-group">
     <label for="id">ID </label>
-    <input type="text" class="form-control" name="eoid" id="eoid" value="<?php echo $ideo ?>" disabled>   
+    <input type="text" class="form-control" name="eoid" id="eoid" value="<?php echo $ideo ?>" readonly>   
     </div>          
     <div class="form-group">
     <div style="margin-left:4px;">
@@ -175,11 +176,11 @@ $select2 = mysqli_fetch_array($tampil2);
     </div>
     <div class="form-group">
     <label for="name">Name </label>
-    <input type="text" class="form-control" name="eoname" id="eoname" value="<?php echo $namaeo ?>" disabled>   
+    <input type="text" class="form-control" name="eoname" id="eoname" value="<?php echo $namaeo ?>" readonly>   
     </div>
     <div class="form-group">
     <label for="desc">Description </label>
-    <textarea class="single-textarea form-control" name="eodesc" id="eodesc" style="height:150px;" disabled><?php echo $keteo ?></textarea>
+    <textarea class="single-textarea form-control" name="eodesc" id="eodesc" style="height:150px;" readonly><?php echo $keteo ?></textarea>
     </div>
     <div class="form-group">
     <label for="category">Company Category</label>
@@ -188,23 +189,23 @@ $select2 = mysqli_fetch_array($tampil2);
     $tampil2 = mysqli_query($koneksi, $query2);
     while ($row = mysqli_fetch_array($tampil2)) {
     ?>    
-    <select name="nama_kategori[]" id="kategori" class="form-control mb-3" disabled="" required>
+    <select name="nama_kategori[]" id="kategori" class="form-control mb-3" readonly required>
     <option value="<?php echo $row['id_kategori'] ?>" selected><?php echo $row['nama_kategori'] ?></option>
     </select>    
     <?php }
     ?>
     </div>
     <div class="form-group">
-    <div class="row">
+    <div class="row" style="margin-bottom:-16px;">
     <div class="col-md-6">
     <label for="province">Province </label>
-    <select name="eoprov" id="eoprov" class="form-control mb-3" disabled>
+    <select name="eoprov" id="eoprov" class="form-control mb-3" readonly>
     <option selected><?php echo $provname ?></option>
     </select>   
     </div>
     <div class="col-md-6">
     <label for="city">City </label>
-    <select name="eocity" id="eocity" class="form-control mb-3" disabled>
+    <select name="eocity" id="eocity" class="form-control mb-3" readonly>
     <option selected><?php echo $cityname ?></option>
     </select>   
     </div>
@@ -212,11 +213,12 @@ $select2 = mysqli_fetch_array($tampil2);
     </div>
     <div class="form-group">
     <label for="email">E-mail </label>
-    <input type="email" class="form-control" name="eoemail" id="eoemail" value="<?php echo $emaileo ?>" disabled>   
+    <input type="email" class="form-control" name="eoemail" id="eoemail" value="<?php echo $emaileo ?>" readonly>   
     </div>
+    <input type="hidden" class="form-control" name="eopass" id="eopass" value="<?php echo $passeo ?>" readonly>   
     <div class="form-group">
     <label for="phone">Phone </label>
-    <input type="text" class="form-control" name="eophone" id="eophone" value="<?php echo $nohpeo ?>" disabled>   
+    <input type="text" class="form-control" name="eophone" id="eophone" value="<?php echo $nohpeo ?>" readonly>   
     </div>
     <div class="form-group">
     <div class="row d-flex">
@@ -252,11 +254,11 @@ $select2 = mysqli_fetch_array($tampil2);
     </div>
     <div class="form-group">
     <label for="year">Year of Establishment </label>
-    <input type="text" class="form-control" name="eoyear" id="eoyear" value="<?php echo $tahuneo ?>" disabled>   
+    <input type="text" class="form-control" name="eoyear" id="eoyear" value="<?php echo $tahuneo ?>" readonly>   
     </div>
     <div class="form-group">
     <label for="link">Website Link </label>
-    <input type="text" class="form-control" name="eolink" id="eolink" value="<?php echo $linkeo ?>" disabled>   
+    <input type="text" class="form-control" name="eolink" id="eolink" value="<?php echo $linkeo ?>" readonly>   
     </div>
     <div class="form-group">
     <label for="status">Status </label>

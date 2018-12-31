@@ -20,7 +20,7 @@ if (isset ($_SESSION['id'])!="") {
         $tangkapKonsep     = $_POST['konsep'];
         
         // tambahin variabel
-    
+        if ($tangkapBudget + $tangkapReputasi + $tangkapFasilitas + $tangkapKonsep = 1) {
 		$query = mysqli_query($koneksi , "SELECT eo.id_eo, eo.nama_eo, eo.foto_eo, provinsi.nama_provinsi, kota.nama_kota, ib.nilai AS budget, ir.nilai AS reputasi, ifa.nilai AS fasilitas, ik.nilai as konsep FROM kriteria_eo INNER JOIN eo ON kriteria_eo.id_eo = eo.id_eo INNER JOIN kriteria_budget ON kriteria_eo.id_kriteria_budget = kriteria_budget.id_kriteria_budget INNER JOIN kriteria_reputasi ON kriteria_eo.id_kriteria_reputasi = kriteria_reputasi.id_kriteria_reputasi INNER JOIN kriteria_fasilitas ON kriteria_eo.id_kriteria_fasilitas = kriteria_fasilitas.id_kriteria_fasilitas INNER JOIN kriteria_konsep ON kriteria_eo.id_kriteria_konsep = kriteria_konsep.id_kriteria_konsep INNER JOIN indikator_penilaian AS ib ON ib.id_indikator_penilaian = kriteria_budget.id_indikator_penilaian INNER JOIN indikator_penilaian AS ifa ON ifa.id_indikator_penilaian = kriteria_fasilitas.id_indikator_penilaian INNER JOIN indikator_penilaian AS ik ON ik.id_indikator_penilaian = kriteria_konsep.id_indikator_penilaian INNER JOIN indikator_penilaian AS ir ON ir.id_indikator_penilaian = kriteria_reputasi.id_indikator_penilaian INNER JOIN kategori_eo ON eo.id_eo = kategori_eo.id_eo INNER JOIN kota ON eo.id_kota = kota.id_kota INNER JOIN provinsi ON kota.id_provinsi = provinsi.id_provinsi WHERE kategori_eo.id_kategori = '$tangkapKategori'");
         $map_index_to_id = array();
         $criteria_matrix = array();
@@ -52,11 +52,16 @@ if (isset ($_SESSION['id'])!="") {
         foreach ($saw_rank as $key => $value) {
             $map_index_to_id[$key]['saw_rank'] = $value;    
         }
+            
        usort($map_index_to_id, "cmp");
         $_SESSION['data'] = $map_index_to_id;
        header('Location: ../FRONTEND-WEB/showrecommend.php');
 
 	}
-
+        else {
+           echo 'error';
+           http_response_code(400);  
+        }
+    }
 
 ?>

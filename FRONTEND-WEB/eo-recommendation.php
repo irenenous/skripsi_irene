@@ -36,6 +36,7 @@ if (isset ($_SESSION['id'])!="") {
 			<link rel="stylesheet" href="../temp-fiyeo/css/../temp-fiyeo/animate.min.css">
 			<link rel="stylesheet" href="../temp-fiyeo/css/owl.carousel.css">
 			<link rel="stylesheet" href="../temp-fiyeo/css/main.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.min.css" />
         
 <style>
 .nice-select .list { max-height: 300px; overflow: scroll; }
@@ -93,7 +94,7 @@ include("header-fiyeo.php");
 							</div>
 							<div class="col-md-8 mt-sm-30" style="border: 1px solid #D3D3D3; padding: 20px;">
 				            <div class="col-md-12 form-box" style="margin-top:20px;">
-						      <form action="../user/addrecommend.php" method="POST" class="form-area" role="form" id="recommend-form">
+						      <form action="../user/addrecommend.php" method="POST" class="form-area" role="form" id="recommend-form" onsubmit="recommendFunction()">
                                 <div class="form-group">
                                 <div class="d-flex">
                                 <div class="col-lg-3 align-self-center">
@@ -334,6 +335,7 @@ include("header-fiyeo.php");
 			<script src="../temp-fiyeo/js/parallax.min.js"></script>		
 			<script src="../temp-fiyeo/js/mail-script.js"></script>	
 			<script src="../temp-fiyeo/js/main.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.all.min.js"></script>
     
        <script>
             $('#recommend-form').calx();
@@ -351,7 +353,35 @@ include("header-fiyeo.php");
                     $(this).attr('data-shown', 0).html('Show Formula');
                 }
             });
-        </script>    
+        </script>   
+    <script>
+    function recommendFunction(){
+    var frm = $('#recommend-form');
+    frm.submit(function (ev) {
+    $.ajax({       
+    type: "POST",
+    enctype: 'multipart/form-data',
+    url: frm.attr('action'),
+    processData: false,
+    contentType: false,
+    cache: false,
+    timeout: 600000,
+    data: new FormData(frm[0]),
+    error: function () {
+    swal({
+    type: 'error',
+    title: 'failed!',
+    text: 'Please fill in the sign up form properly',
+    showConfirmButton: false,
+    timer: 1500
+    });  
+    }
+    });
+    ev.preventDefault();
+    ev.cancelBubble();
+    });   
+    } 
+    </script>
     
 </body>
 </html>

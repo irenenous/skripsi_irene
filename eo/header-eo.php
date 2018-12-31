@@ -20,7 +20,7 @@
               </div>
               <!-- Navbar Menu -->
               <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                <li class="nav-item"><a id="preview" href="logout-preview.php?id_eo=<?php echo $ideo?>" target="_blank" class="nav-link"><i class="fa fa-eye"></i><span class="d-none d-sm-inline"> Preview My Profile</span></a></li>
+                <li class="nav-item"><a id="preview" href="logout-preview.php?id_eo=<?php echo $ideo?>" class="nav-link"><i class="fa fa-eye"></i><span class="d-none d-sm-inline"> Preview My Profile</span></a></li>
                 <!-- Logout    -->
                 <li class="nav-item"><a href="../FRONTEND-WEB/logout.php" class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i class="fa fa-sign-out"></i></a></li>
               </ul>

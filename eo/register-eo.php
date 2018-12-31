@@ -238,7 +238,7 @@ session_start();
                             <label class="checkbox-inline"><input type="checkbox" required> I have read and accepted the <a href="#"><b>Terms of Use</b></a> &amp; <a href="#"><b>Privacy Policy</b></a></label>
                             </div>
                             </div>
-                            <h4>Please make sure all the informations have been filled properly. By clicking the submit button below means you've requested to join and your business profile will be processed by us in 3 days.
+                            <h4>Please make sure all the informations have been filled properly. By clicking the submit button below means you've requested to join and your business profile will be processed by us first before using your account in this website.
                             </h4>
                             <div class="f1-buttons" style="margin-top: 40px;">
                             <button type="button" class="genric-btn success-border circle arrow btn-previous">Previous<span class="lnr lnr-arrow-left"></span></button>
@@ -322,7 +322,7 @@ session_start();
                     function registerFunction(){
                         var frm = $('#register-form');
                         frm.submit(function (ev) {
-                            $.ajax({                                     type: "POST",
+                            $.ajax({                               type: "POST",
                                 enctype: 'multipart/form-data',
                                 url: frm.attr('action'),
                                 processData: false,
@@ -334,9 +334,7 @@ session_start();
                                     swal({
                                       type: 'success',
                                       title: 'Registration successful!',
-                                      text: 'Your business profile will be processed by us in 1-2 days. Go activate your account by clicking the link we have sent you by email. Thankyou for joining us',
-                                      showConfirmButton: false,
-                                      timer: 2000
+                                      text: 'Your business profile will be processed by us in 1 - 2 days. Go activate your account by clicking the link we have sent you by email. Thankyou for joining us!'
                                     }).then( () => {
                                     location.replace("../user/login-fiyeo.php");
                                     });      
@@ -346,9 +344,7 @@ session_start();
                                     swal({
                                       type: 'error',
                                       title: 'Registration failed!',
-                                      text: 'Please fill in the registration form properly',
-                                      showConfirmButton: false,
-                                      timer: 1500
+                                      text: 'Please fill in the registration form properly'
                                     });  
                                 }
                             });

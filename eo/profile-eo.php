@@ -23,6 +23,10 @@ $select = mysqli_fetch_array($tampil);
         $provname  = $select['nama_provinsi'];
         $idcity = $select['id_kota'];
         $cityname  = $select['nama_kota'];
+        $fotoid1 = $select['foto_ktp'];
+        $fotoid2 = $select['fotodiri_ktp'];
+        $fotoid3 = $select['foto_alamat'];
+        $fotoid4 = $select['foto_siup'];
         
 ?>
 
@@ -59,7 +63,7 @@ $select2 = mysqli_fetch_array($tampil2);
     <link rel="stylesheet" href="../temp-dashboard/css/message.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="../temp-dashboard/img/favicon.ico">
-    
+    <link rel="stylesheet" type="text/css" href="../temp-dashboard/jquery.imgzoom-0.2.2/css/imgzoom.css" />  
     
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -229,6 +233,38 @@ $select2 = mysqli_fetch_array($tampil2);
 				</div>
 				</div>
                 <div class="form-group">
+                <div class="row d-flex" style="margin-left:2px">
+                <div class="col-lg-3">
+                <label for="image">Photo/Scan of ID Card</label>
+                <div class="d-flex">
+                <a href="<?php echo $fotoid1 ?>" target="_blank"><img class="thumbnail" src="<?php echo $fotoid1 ?>" style= "width:200px; height:200px;" id="eophotoid1" name="eophotoid1" /></a> 
+                </div>
+                </div>
+                <div class="col-lg-5">
+                <label for="image">Photo with ID Card</label>
+                <div class="d-flex">
+                <a href="<?php echo $fotoid2 ?>" target="_blank"><img class="thumbnail" src="<?php echo $fotoid2 ?>" style= "width:200px; height:200px;" id="eophotoid2" name="eophotoid2" /></a> 
+                </div>
+                </div>
+                </div>
+                </div>
+                <div class="form-group">  
+                <div class="row d-flex" style="margin-left:2px;">
+                <div class="col-lg-3">
+                <label for="image">Photo of SIUP/TDP</label>
+                <div class="d-flex">
+                <a href="<?php echo $fotoid4 ?>" target="_blank"><img class="thumbnail" src="<?php echo $fotoid4 ?>" style= "width:200px; height:200px;" id="eophotoid4" name="eophotoid4" /></a> 
+                </div>
+                </div>
+                <div class="col-lg-5">
+                <label for="image">Photo of bills that includes address</label>
+                <div class="d-flex">
+                <a href="<?php echo $fotoid3 ?>" target="_blank"><img class="thumbnail" src="<?php echo $fotoid3 ?>" style= "width:200px; height:200px;" id="eophotoid3" name="eophotoid3" /></a> 
+                </div>
+                </div>
+                </div>
+                </div>
+                <div class="form-group">
 				<label class="control-label col-sm-3">Year Of Establishment</label>
 				<div class="col-sm-9">
 				<select name="year" id="year" class="form-control mb-3" disabled="" required>
@@ -309,6 +345,7 @@ $select2 = mysqli_fetch_array($tampil2);
     <script src="../temp-fiyeo/js/jQuery-Mask-Plugin-master/dist/jquery.mask.js"></script>
     <!-- Main File-->
     <script src="../temp-dashboard/js/front.js"></script>
+    <script type="text/javascript" src="../temp-dashboard/jquery.imgzoom-0.2.2/scripts/jquery.imgzoom.pack.js"></script>
 
 <script type="text/javascript">
     $('#password, #confirmpass').on('keyup', function () {
@@ -407,6 +444,10 @@ $("#foto").change(function() {
     $('#phone').mask('0000-0000-0000', {reverse: true});
 	});
 </script>
-     
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#img.thumbnail').imgZoom();
+  });
+</script>  
   </body>
 </html>

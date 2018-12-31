@@ -144,7 +144,7 @@ $select = mysqli_fetch_array($tampil);
     <textarea class="form-control" name="ketpaket" id="ketpaket" placeholder="Describe all the services included in the package" required><?php echo $description; ?></textarea>
     </div>
     <div class="form-group" style="margin-top:30px;">
-    <button onclick="window.history.go(-1)" class="btn btn-danger"> Cancel</button>
+    <a href="paket-eo.php" class="btn btn-danger">Cancel</a>
     <button type="submit" class="btn btn-primary submitBtn" id="simpan" name="simpan">Save Changes</button>
     </div>          
     </form></div></div></div>

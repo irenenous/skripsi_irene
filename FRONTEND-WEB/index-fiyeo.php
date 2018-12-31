@@ -40,6 +40,9 @@ if (isset ($_SESSION['id'])!="") {
         
 <style>
 .nice-select .list { max-height: 300px; overflow: scroll; }
+.showdis {
+    color: white;        
+}
 </style>
 </head>
 <body>
@@ -68,7 +71,8 @@ include("header-fiyeo.php");
 							<form action="search.html" class="serach-form-area">
 								<div class="row justify-content-center form-wrap">
 									<div class="col-lg-4 form-cols">
-										<input type="text" class="form-control" name="search" placeholder="what are you looking for?">
+										<input type="text" class="form-control" name="search" id="search" placeholder="what are you looking for?">
+                                        <div id="display" class="showdis" style="color: white"></div>
 									</div>
 									<div class="col-lg-3 form-cols">
 										<div class="default-select" id="default-selects">
@@ -83,7 +87,7 @@ include("header-fiyeo.php");
 								</select>
 								</div>
 								</div>
-								<div class="col-lg-3 form-cols">
+								<div class="col-lg-5 form-cols">
 								<div class="default-select" id="default-selects2">
 								<select name="kategori" id="kategori">
 								<option value="">All Category</option>
@@ -95,12 +99,7 @@ include("header-fiyeo.php");
                     ?>
 								</select>
 								</div>				
-								</div>
-									<div class="col-lg-2 form-cols">
-									    <button type="button" class="btn btn-info">
-									      <span class="lnr lnr-magnifier"></span> Search
-									    </button>
-									</div>					
+								</div>				
 								</div>
 							</form>	
 							<p class="text-white"> <span>Search by tags:</span> Event, Organizer, Services, Event Organizer, Website, Information System</p>
@@ -166,7 +165,7 @@ include("header-fiyeo.php");
 					<div class="row">
 						<div class="col-lg-2 col-md-4 col-sm-6">
 							<div class="single-fcat">
-								<a href="category.html">
+								<a href="category-fiyeo.php?id_kategori=1">
 									<img src="../temp-fiyeo/img/irene/wedding-rings.png" alt="">
 								</a>
 								<p>Wedding</p>
@@ -351,7 +350,25 @@ include("header-fiyeo.php");
 			<script src="../temp-fiyeo/js/parallax.min.js"></script>		
 			<script src="../temp-fiyeo/js/mail-script.js"></script>	
 			<script src="../temp-fiyeo/js/main.js"></script>	
-       
+
+<script>
+$(document).ready(function() {
+   $("#search").keyup(function() {
+       var name = $('#search').val();
+       if (name == "") {
+           $("#display").html(""); }
+       else {
+           $.ajax({
+               type: "POST",
+               url: "search.php",
+               data: { 
+               search: name },
+               success: function(html) {
+                   $("#display").html(html).show(); }
+            }); }
+        });
+});  
+</script>           
             
     </body>
 	</html>

@@ -107,11 +107,11 @@ $select = mysqli_fetch_array($tampil);
         <thead class="none">
         <tr>
         <th style="width:20px">ID</th>
-        <th class="avatar" style="width:50px">Picture</th>
-        <th style="width:150px">Name</th>
-        <th style="width:120px">Email</th>
+        <th class="avatar" style="width:70px">Picture</th>
+        <th style="width:170px">Name</th>
+        <th style="width:150px">Email</th>
         <th style="width:100px">Phone</th>
-        <th style="width:50px">Status</th>
+        <th style="width:80px">Status</th>
         <th style="width:50px">Action</th>
         </tr>
         </thead>
@@ -133,11 +133,10 @@ $select = mysqli_fetch_array($tampil);
         <td><?php echo $namaeo ?></td>
         <td><?php echo $emaileo ?></td>
         <td><?php echo $nohpeo ?></td>
-        <td><?php echo $statuseo ?></td>  
+        <td><b><?php echo $statuseo ?></b></td>  
         <td>
         <div class="btn-group-xs">
         <a class="btn btn-sm btn-primary" href="editeo.php?id_eo=<?php echo $ideo ?>"><i class="fa fa-edit"></i></a>
-        <button onclick="#" class="btn btn-sm btn-primary"><i class="fa fa-trash"></i></button> 
         </div>
         </td></tr>
     <?php }

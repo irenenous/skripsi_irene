@@ -15,7 +15,8 @@ session_start();
             $_SESSION['id'] = $keluar['id_eo'];
             $_SESSION['is_eo'] = true;
             
-             header('location:../eo/dashboard-eo.php');
+            echo "success-eo"; 
+//            header('location:../eo/dashboard-eo.php');
         }
         else if($row == 0) {
         
@@ -26,7 +27,9 @@ session_start();
             $keluar2 = mysqli_fetch_assoc($result2);
             $_SESSION['id'] = $keluar2['id_user'];
             $_SESSION['is_eo'] = false;
-            header('location:../FRONTEND-WEB/index-fiyeo.php');
+            
+            echo "success-user";
+//            header('location:../FRONTEND-WEB/index-fiyeo.php');
          }
         else if ($row == 0) {
         $sql3 = "SELECT * FROM user where email_user='$email' and password_user='$password' and role='ADMIN' and status='ACTIVE'";
@@ -35,12 +38,12 @@ session_start();
         if ($row3> 0) {
             $keluar3 = mysqli_fetch_assoc($result3);
             $_SESSION['id'] = $keluar3['id_user'];
-            header('location:../admin/dashboard-admin.php'); }  
+           
+            echo "success-admin";
+//            header('location:../admin/dashboard-admin.php'); 
+        }  
         else {
-           echo '<script type="text/javascript">';
-            echo 'setTimeout(function () { swal("Wrong Email or Password!","Please input the right email and password","error");';
-            echo '}, 1000);</script>';
-            echo "<script>window.history.back()</script>";
+           echo "fail";
         }
         } }
    

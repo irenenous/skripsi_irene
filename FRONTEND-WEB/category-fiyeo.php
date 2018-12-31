@@ -90,7 +90,7 @@ include("header-fiyeo.php");
 				<div class="container">
 					<div class="row justify-content-center d-flex">
 						<div class="col-lg-8 post-list">
-                            
+                        <div id="content">    
     <?php
 	include("config.php");
                             
@@ -106,8 +106,8 @@ include("header-fiyeo.php");
 //        }
 //    }
 //                            
-   $order_criteria = 'eoid';
-    if (isset($_GET['order_criteria'])) {
+$order_criteria = 'eoid';
+    if (isset($_GET['order_criteria']) && $_GET['order_criteria'] != '' && $_GET['order_criteria'] != null) {
         if ($_GET['order_criteria'] == 'name-asc') {
             $order_criteria = 'nama_eo ASC';
         } else if ($_GET['order_criteria'] == 'name-desc') {
@@ -120,10 +120,15 @@ include("header-fiyeo.php");
             $order_criteria = 'min_harga_paket DESC';
         }
     }
-    $filter_category = isset($_GET['category']) ? $_GET['category'] : 'NULL';
-    $filter_area = isset($_GET['area']) ? $_GET['area'] : 'NULL';
-                            
-	$query1="SELECT eo.id_eo AS eoid, eo.nama_eo, eo.foto_eo, eo.ket_eo, eo.id_kota, kota.nama_kota, kota.id_provinsi, provinsi.nama_provinsi, kategori_eo.id_kategori, kategori.nama_kategori, MIN(paket.harga_paket) AS min_harga_paket from eo INNER JOIN kota ON eo.id_kota = kota.id_kota INNER JOIN provinsi ON kota.id_provinsi = provinsi.id_provinsi INNER JOIN kategori_eo ON eo.id_eo = kategori_eo.id_eo INNER JOIN kategori ON kategori_eo.id_kategori = kategori.id_kategori INNER JOIN paket ON paket.id_eo = eo.id_eo WHERE status='VERIFIED' AND ($filter_category IS NULL OR kategori_eo.id_kategori = $filter_category) AND ($filter_area IS NULL OR eo.id_kota = $filter_area) GROUP BY eo.id_eo ORDER BY $order_criteria";           
+    $offset = 0;
+    if (isset($_GET['page']) && $_GET['page'] != '' && $_GET['page'] != null && is_numeric($_GET['page'])) {
+        $offset = (($_GET['page'] -1) * 2);   //bagi 3 kalo mau nampilin 3      
+    }
+    $filter_category = isset($_GET['category'])  && $_GET['category'] != '' && $_GET['category'] != null ? $_GET['category'] : 'NULL';
+
+    $filter_area = isset($_GET['area'])  && $_GET['area'] != '' && $_GET['area'] != null ? $_GET['area'] : 'NULL';
+                             
+	$query1="SELECT eo.id_eo AS eoid, eo.nama_eo, eo.foto_eo, eo.ket_eo, eo.id_kota, kota.nama_kota, kota.id_provinsi, provinsi.nama_provinsi, kategori_eo.id_kategori, kategori.nama_kategori, MIN(paket.harga_paket) AS min_harga_paket from eo INNER JOIN kota ON eo.id_kota = kota.id_kota INNER JOIN provinsi ON kota.id_provinsi = provinsi.id_provinsi INNER JOIN kategori_eo ON eo.id_eo = kategori_eo.id_eo INNER JOIN kategori ON kategori_eo.id_kategori = kategori.id_kategori INNER JOIN paket ON paket.id_eo = eo.id_eo WHERE status='VERIFIED' AND ($filter_category IS NULL OR kategori_eo.id_kategori = $filter_category) AND ($filter_area IS NULL OR eo.id_kota = $filter_area) GROUP BY eo.id_eo ORDER BY $order_criteria LIMIT 2 OFFSET $offset"; //limit 3 kalo mau nampilin 3
 	$simpan1= mysqli_query($koneksi,$query1);
     echo mysqli_error($koneksi);
                            
@@ -172,6 +177,7 @@ $select = mysqli_fetch_array($simpan2);
                             
     <?php }
 	?>                 
+                            </div>
                         <div class="pull-right">
                         <div id="page-selection" class="pagination"></div>
                         </div>
@@ -197,6 +203,9 @@ $select = mysqli_fetch_array($simpan2);
                             include 'config.php';
                             $tampil=mysqli_query($koneksi, "SELECT * FROM kategori");
                      while($id_kategori=mysqli_fetch_array($tampil)) {
+                         if (isset($_GET['category']) && $_GET['category'] != '' && $_GET['category'] != null && $_GET['category'] == $id_kategori[] {
+                             
+                         }
                             echo "<option value='".$id_kategori[id_kategori]."'> ".$id_kategori[nama_kategori]."</option>";}
                             ?>
                             </select>
@@ -353,13 +362,37 @@ $(document).ready(function(){
 
 </script> 
 <script>
+    <?php
+        
+    $query2="SELECT * from eo INNER JOIN kota ON eo.id_kota = kota.id_kota INNER JOIN provinsi ON kota.id_provinsi = provinsi.id_provinsi INNER JOIN kategori_eo ON eo.id_eo = kategori_eo.id_eo INNER JOIN kategori ON kategori_eo.id_kategori = kategori.id_kategori INNER JOIN paket ON paket.id_eo = eo.id_eo WHERE status='VERIFIED' AND ($filter_category IS NULL OR kategori_eo.id_kategori = $filter_category) AND ($filter_area IS NULL OR eo.id_kota = $filter_area) GROUP BY eo.id_eo";
+    $simpan2= mysqli_query($koneksi,$query2);
+    echo mysqli_error($koneksi);
+    $total = mysqli_num_rows($simpan2);
+    $total = ceil($total / 2);  //bagi 3 kalo mau nampilin 3
+    ?>
+                                    
 $('#page-selection').bootpag({
-    total: 5
+    total: <?php echo $total; ?>
 }).on("page", function(event, num){
-    $("#content").html("Page " + num); // or some ajax content loading...
+    //ajax
+    console.log("asdf");
+    $.ajax({
+      type: 'get',
+      url: 'list-eo.php',
+      data: {
+       category: $('#filterCategory').val(),
+       area: $('#filterArea').val(),
+       page: num
+      },
+      success: function (response) {
+       
+        $("#content").html(response);
+      },
+      error: function(response) {
+          console.log(response);
+      }
+      }); // or some ajax content loading...
  
-    // ... after content load -> change total to 10
-    $(this).bootpag({total: 10, maxVisible: 10});
  
 });
 </script>

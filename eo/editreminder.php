@@ -22,7 +22,7 @@ $select = mysqli_fetch_array($tampil);
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Portfolio</title>
+    <title>Appointments</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="all,follow">
@@ -43,29 +43,11 @@ $select = mysqli_fetch_array($tampil);
     <link rel="shortcut icon" href="img/favicon.ico">
     <link rel="stylesheet" href="../temp-dashboard/assets/css/lib/datatable/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-    <link rel="stylesheet" href="../temp-dashboard/assets/sweetalert-master/src/sweetalert.css" />
-    <link rel="stylesheet" type="text/css" href="../temp-dashboard/jquery.imgzoom-0.2.2/css/imgzoom.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.css" />
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-<style>
-.upload-btn-wrapper {
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-}
-
-
-.upload-btn-wrapper input[type=file] {
-  font-size: 100px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-}    
-</style>
-    
-</head>
+  </head>
  <body>
     <div class="page" style="background-color: white;">
        
@@ -88,9 +70,9 @@ $select = mysqli_fetch_array($tampil);
                     <li> <a href="profile-eo.php"> <i class="fa fa-user"></i>Profile </a></li>
                     <li> <a href="inbox-eo.php"> <i class="icon-mail"></i>Inbox </a></li>
                     <li> <a href="request-eo.php"> <i class="fa fa-tasks"></i>Requests </a></li>
-                    <li class="active"> <a href="portfolio-eo.php"> <i class="icon-picture"></i>Portfolio </a></li>
+                    <li> <a href="portfolio-eo.php"> <i class="icon-picture"></i>Portfolio </a></li>
                     <li> <a href="paket-eo.php"> <i class="fa fa-money"></i>Packages </a></li>
-                    <li> <a href="appointment-eo.php"> <i class="fa fa-calendar"></i>Appointments </a></li>
+                    <li class="active"> <a href="appointment-eo.php"> <i class="fa fa-calendar"></i>Appointments </a></li>
                     
           </ul>
         </nav>
@@ -98,7 +80,7 @@ $select = mysqli_fetch_array($tampil);
           <!-- Page Header-->
           <header class="page-header">
             <div class="container-fluid">
-            <h2 class="no-margin-bottom">Edit Portfolio
+            <h2 class="no-margin-bottom">Edit Reminder
             </h2>
             </div>
           </header>
@@ -106,7 +88,7 @@ $select = mysqli_fetch_array($tampil);
           <div class="breadcrumb-holder container-fluid">
             <ul class="breadcrumb">
               <li class="breadcrumb-item"><a href="dashboard-eo.php">Home</a></li>
-                <li class="breadcrumb-item"><a href="portfolio-eo.php">Portfolio</a></li>
+                <li class="breadcrumb-item"><a href="appointment-eo.php">Appointments</a></li>
             <li class="breadcrumb-item active">Edit</li>
             </ul>
           </div>
@@ -118,45 +100,70 @@ $select = mysqli_fetch_array($tampil);
                     
     <?php
 	include("config.php");
-    if(!empty($_GET['id_portfolio'])){
-	$idport = $_GET['id_portfolio']; }
+    if(!empty($_GET['id_reminder'])){
+	$id = $_GET['id_reminder']; }
 
-    $query="SELECT * FROM portfolio where id_portfolio = '$idport'";
+    $query="SELECT id_reminder, nama_user, email_user, nohp_user, tgl_reminder, wkt_reminder, ket_reminder, app_reminder.status FROM app_reminder INNER JOIN user ON app_reminder.id_user = user.id_user where id_reminder = '".$id."'";
 	$tampil = mysqli_query($koneksi,$query);
     $select = mysqli_fetch_array($tampil);
         
-    $idport			= $select['id_portfolio'];
-    $photo			= $select['foto'];
-    $description	= $select['ket_foto'];
-   
-    if(!$idport ||!$photo ||!$description)
-	{
-		echo "some data still empty";
-	}   
+    $id			    = $select['id_reminder'];
+    $namaklien	    = $select['nama_user'];
+    $emailklien	    = $select['email_user'];
+    $tglreminder	= $select['tgl_reminder'];
+    $wktreminder    = $select['wkt_reminder']; 
+    $ketreminder	= $select['ket_reminder'];
+    $statreminder   = $select['status'];
+    
         
     ?>
         
-    <form method="POST" action="updateportfolio.php?id_portfolio=<?php echo $idport ?>" class="form-horizontal">            
+    <form method="POST" action="updatereminder.php?id_reminder=<?php echo $id ?>" class="form-horizontal">            
                 
     <div class="form-group">
-    <div style="margin-left:4px;">
-    <label for="image">Photo</label>
-    <div class="d-flex">
-        <a href="<?php echo $photo ?>" target="_blank"><img class="thumbnail" src="<?php echo $photo ?>" style= "width:150px; height:150px;"> </a>
-        <div class="align-self-center" style="margin-left: 20px;">
-        <div class="upload-btn-wrapper">
-        <button class="btn" disabled>Upload</button>
-        </div>
-        </div>
-        </div>
-    </div>
+    <label for="id">ID </label>
+    <input type="text" class="form-control" name="reminderid" id="reminderid" value="<?php echo $id ?>" disabled>   
     </div>
     <div class="form-group">
-    <label for="fileDesc">Description</label>
-    <textarea class="form-control" name="fileDesc" id="fileDesc" placeholder="Give some description about the event" required><?php echo $description ?></textarea>
+    <label for="date">Date</label>
+    <input type="text" class="form-control" name="reminderdate" id="reminderdate" value="<?php echo $tglreminder ?>" disabled/> 
+    </div>
+    <div class="form-group">
+    <label for="time">Time</label>
+    <input type="text" class="form-control" name="remindertime" id="remindertime" value="<?php echo $wktreminder ?>" disabled/> 
+    </div>
+    <div class="form-group">
+    <label for="client">Client</label>
+    <input type="text" class="form-control" name="client" id="client" value="<?php echo $namaklien ?>" disabled/> 
+    </div>
+    <div class="form-group">
+    <label for="client">E-mail</label>
+    <input type="text" class="form-control" name="clientemail" id="clientemail" value="<?php echo $emailklien ?>" disabled/> 
+    </div>
+    <div class="form-group">
+    <label for="note">Notes</label>
+    <textarea class="form-control" name="reminderket" id="reminderket" style="height:100px" disabled><?php echo $ketreminder ?></textarea>
+    </div>
+    <div class="form-group">
+    <label for="status">Status </label> 
+    <?php if ($statreminder == 'ONGOING') { ?> 
+    <div style="margin-left:5px; margin-top:5px;">
+    <div class="i-checks">
+    <input id="reminderstatus" name="reminderstatus" type="radio" value="<?php echo $statreminder ?>" checked="" class="radio-template">
+    <label for="stat"><?php echo $statreminder ?></label>
+    </div>
+    <div class="i-checks">
+    <input id="reminderstatus" name="reminderstatus" type="radio" value="COMPLETED" class="radio-template">
+    <label for="stat">COMPLETED</label>
+    </div>
+    </div>
+    <?php } 
+    else if ($statreminder == 'COMPLETED') { ?> 
+    <input type="text" class="form-control" name="reminderstatus" id="reminderstatus" value="<?php echo $statreminder ?>" disabled/> 
+    <?php } ?> 
     </div>
     <div class="form-group" style="margin-top:30px;">
-    <a href="portfolio-eo.php" class="btn btn-danger">Cancel</a>
+    <a href="appointment-eo.php" class="btn btn-danger">Cancel</a>
     <button type="submit" class="btn btn-primary submitBtn" id="simpan" name="simpan">Save Changes</button>
     </div>          
     </form></div></div></div>
@@ -207,8 +214,7 @@ $select = mysqli_fetch_array($tampil);
     <script src="../temp-dashboard/assets/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="../temp-dashboard/assets/js/lib/data-table/datatables-init.js"></script>
     <script src="../temp-fiyeo/js/jQuery-Mask-Plugin-master/dist/jquery.mask.js"></script>
-    <script src="../temp-dashboard/assets/sweetalert-master/src/sweetalert.js"></script>
-    <script type="text/javascript" src="../temp-dashboard/jquery.imgzoom-0.2.2/scripts/jquery.imgzoom.pack.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.all.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
           $('#bootstrap-data-table-export').DataTable();
@@ -223,11 +229,7 @@ $select = mysqli_fetch_array($tampil);
 		$('#datatable').DataTable().ajax.reload();
 	}
     </script>
-<script type="text/javascript">
-  $(document).ready(function () {
-    $('#img.thumbnail').imgZoom();
-  });
-</script>
+     
      
   </body>
 </html>

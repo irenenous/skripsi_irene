@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2018 at 04:22 PM
+-- Generation Time: Dec 31, 2018 at 04:58 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -35,13 +35,6 @@ CREATE TABLE `app_reminder` (
   `ket_reminder` text NOT NULL,
   `status` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `app_reminder`
---
-
-INSERT INTO `app_reminder` (`id_reminder`, `id_eo`, `id_user`, `tgl_reminder`, `wkt_reminder`, `ket_reminder`, `status`) VALUES
-(3, 118, 1, '11/28/2018', '6:15 PM', 'aa', 'ONGOING');
 
 -- --------------------------------------------------------
 
@@ -95,9 +88,10 @@ CREATE TABLE `eo` (
 --
 
 INSERT INTO `eo` (`id_eo`, `email_eo`, `password_eo`, `foto_eo`, `nama_eo`, `ket_eo`, `id_provinsi`, `id_kota`, `alamat_eo`, `nohp_eo`, `foto_ktp`, `fotodiri_ktp`, `foto_alamat`, `foto_siup`, `tahun_diri`, `link_web`, `status`) VALUES
-(118, 'groovyeo@gmail.com', '123456', 'image-eo/groovy.png', 'Groovy EO', 'best eo in jkt', 8, 12, 'jl. permata', '0812-5038-1343', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/friendship-quotes-hd-wallpaper_052819784.jpg', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'image-eo/scenery-wallpaper-hd-beach-HD.jpg', '2018', 'www.groovy-eo.com', 'VERIFIED'),
-(119, 'excellenteo@gmail.com', '1234567', 'image-eo/Summer-hd-quote-wallpaper.png', 'Excellent EO', 'Great event organizer company ever!', 11, 67, 'Jl. Sei Raya Dalam', '0896-4321-5679', 'image-eo/scenery-wallpaper-hd-beach-HD.jpg', 'image-eo/Nice-good-morning-quote-hd-high-resolution-images.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', '2012', 'www.excellenteo.com', 'VERIFIED'),
-(120, 'fullcolor@yahoo.com', '123456', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'Full Color Entertainment', 'eo keren', 30, 46, 'Jl. WR Supratman', '0811-3452-7654', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', '2012', 'www.fullcolor.com', 'VERIFIED');
+(118, 'groovyeo@gmail.com', '123456', 'image-eo/groovy.png', 'Groovy EO', 'best eo in jkt', 8, 12, 'jl. permata bunda', '0812-5038-1343', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/friendship-quotes-hd-wallpaper_052819784.jpg', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'image-eo/scenery-wallpaper-hd-beach-HD.jpg', '2018', 'www.groovy-eo.com', 'VERIFIED'),
+(119, 'irene.andriani99@gmail.com', '1234567', 'image-eo/Summer-hd-quote-wallpaper.png', 'Excellent EO', 'Great event organizer company ever!', 11, 67, 'Jl. Sei Raya Dalam', '0896-4321-5679', 'image-eo/scenery-wallpaper-hd-beach-HD.jpg', 'image-eo/Nice-good-morning-quote-hd-high-resolution-images.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', '2012', 'www.excellenteo.com', 'VERIFIED'),
+(120, 'fullcolor@yahoo.com', '123456', 'image-eo/hamtaro-most-inspirational-quotes-resolution_519728.jpg', 'Full Color Entertainment', 'eo keren', 30, 46, 'Jl. WR Supratman', '0811-3452-7654', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', 'image-eo/desktop-backgrounds-quotes-tumblr-hd.jpg', '2012', 'www.fullcolor.com', 'VERIFIED'),
+(121, 'aiverria@yahoo.com', '123456', 'image-eo/20150521_175610.jpg', 'Aiverria Organizer', 'hihi', 11, 67, 'jl. ponti', '9239-1319-3913', 'image-eo/Summer-hd-quote-wallpaper.png', 'image-eo/Summer-hd-quote-wallpaper.png', 'image-eo/Summer-hd-quote-wallpaper.png', 'image-eo/Summer-hd-quote-wallpaper.png', '2006', 'www.aiverria-organizer.com', 'VERIFIED');
 
 -- --------------------------------------------------------
 
@@ -172,7 +166,9 @@ INSERT INTO `kategori_eo` (`id_eo`, `id_kategori`) VALUES
 (120, 4),
 (120, 5),
 (120, 6),
-(120, 7);
+(120, 7),
+(121, 3),
+(121, 1);
 
 -- --------------------------------------------------------
 
@@ -590,7 +586,8 @@ CREATE TABLE `request_layanan` (
 --
 
 INSERT INTO `request_layanan` (`id_request`, `id_user`, `id_eo`, `tgl_request`, `tgl_acara`, `tipe_acara`, `lokasi_acara`, `jml_peserta`, `durasi_acara`, `ket_acara`, `id_paket`, `status`) VALUES
-(25, 1, 118, '11/15/2018 04:55:35 PM', '11/23/2018', 'Sweet 17th Birthday Party', 'gatau', 100, '5 hours,0 minutes,0 seconds', 'lalala', 28, 'READ');
+(25, 1, 118, '11/15/2018 04:55:35 PM', '11/23/2018', 'Sweet 17th Birthday Party', 'gatau', 100, '5 hours,0 minutes,0 seconds', 'lalala', 28, 'HIDDEN'),
+(26, 1, 120, '11/26/2018 11:59:41 AM', '12/12/2018', '2nd Anniversary Party', 'jakarta ', 1, '2 hours,0 minutes,0 seconds', 'sasa', 34, 'READ');
 
 -- --------------------------------------------------------
 
@@ -637,7 +634,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nama_user`, `nohp_user`, `email_user`, `password_user`, `foto_user`, `role`, `status`) VALUES
-(1, 'Irene A', '0812-5038-1341', 'irenenous@yahoo.com', '12345', 'image-user/151014-102414.png', 'KLIEN', 'ACTIVE'),
+(1, 'Irene Andriani', '0812-5038-1341', 'irenenous@yahoo.com', '12345', 'image-user/151014-102414.png', 'KLIEN', 'ACTIVE'),
 (2, 'Ivennia', '081250381346', 'aivennia@yahoo.com', '123456', 'image-user/admin.png', 'ADMIN', 'ACTIVE'),
 (9, 'Albert', '0822-3456-7890', 'albert@yahoo.com', '123456', 'image-user/you-cant-cross-the-sea-quotes-qhd-wallpaper-2560x2560.jpg', 'KLIEN', 'ACTIVE'),
 (10, 'Bella', '0812-5678-3421', 'bella@yahoo.com', '123456', 'image-user/user-image.jpg', 'KLIEN', 'PENDING');
@@ -808,7 +805,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `app_reminder`
 --
 ALTER TABLE `app_reminder`
-  MODIFY `id_reminder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_reminder` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `bookmark`
 --
@@ -818,7 +815,7 @@ ALTER TABLE `bookmark`
 -- AUTO_INCREMENT for table `eo`
 --
 ALTER TABLE `eo`
-  MODIFY `id_eo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `id_eo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 --
 -- AUTO_INCREMENT for table `indikator_penilaian`
 --
@@ -888,7 +885,7 @@ ALTER TABLE `provinsi`
 -- AUTO_INCREMENT for table `request_layanan`
 --
 ALTER TABLE `request_layanan`
-  MODIFY `id_request` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_request` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `user`
 --

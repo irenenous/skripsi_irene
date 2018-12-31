@@ -140,7 +140,7 @@ $select = mysqli_fetch_array($tampil);
     <form method="POST" action="updateklien.php?id_user=<?php echo $idklien ?>" class="form-horizontal">            
     <div class="form-group">
     <label for="id">ID </label>
-    <input type="text" class="form-control" name="clientid" id="clientid" value="<?php echo $idklien ?>" disabled>   
+    <input type="text" class="form-control" name="clientid" id="clientid" value="<?php echo $idklien ?>" readonly>   
     </div>          
     <div class="form-group">
     <div style="margin-left:4px;">
@@ -157,15 +157,15 @@ $select = mysqli_fetch_array($tampil);
     </div>
     <div class="form-group">
     <label for="name">Name </label>
-    <input type="text" class="form-control" name="clientname" id="clientname" value="<?php echo $namaklien ?>" disabled>   
+    <input type="text" class="form-control" name="clientname" id="clientname" value="<?php echo $namaklien ?>" readonly>   
     </div>
     <div class="form-group">
     <label for="email">E-mail </label>
-    <input type="email" class="form-control" name="clientemail" id="clientemail" value="<?php echo $emailklien ?>" disabled>   
+    <input type="email" class="form-control" name="clientemail" id="clientemail" value="<?php echo $emailklien ?>" readonly>   
     </div>
     <div class="form-group">
     <label for="phone">Phone </label>
-    <input type="text" class="form-control" name="clientphone" id="clientphone" value="<?php echo $nohpklien ?>" disabled>   
+    <input type="text" class="form-control" name="clientphone" id="clientphone" value="<?php echo $nohpklien ?>" readonly>   
     </div>
     <div class="form-group">
     <label for="status">Status </label>  
